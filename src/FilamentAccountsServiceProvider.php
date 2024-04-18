@@ -54,7 +54,7 @@ class FilamentAccountsServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         $this->publishes([
-            __DIR__ . '/../../publish/Account.php' => app_path('Models/Account.php'),
+            __DIR__ . '/../publish/Account.php' => app_path('Models/Account.php'),
         ], 'filament-accounts-model');
 
 

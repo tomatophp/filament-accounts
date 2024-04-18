@@ -23,13 +23,20 @@ use function Laravel\Prompts\confirm;
 
 class AccountResource extends Resource
 {
-    protected static ?string $model = Account::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     protected static bool $softDelete = true;
 
     protected static ?int $navigationSort = 1;
+
+    /**
+     * @return string|null
+     */
+    public static function getModel(): string
+    {
+        return config('filament-accounts.model');
+    }
 
     public static function getNavigationGroup(): ?string
     {
