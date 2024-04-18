@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 use TomatoPHP\FilamentAccounts\Events\SendOTP;
 use TomatoPHP\FilamentAlerts\Services\SendNotification;
+use TomatoPHP\FilamentPlugins\Facades\FilamentPlugins;
 use TomatoPHP\FilamentTypes\Facades\FilamentTypes;
 
 
@@ -99,5 +100,6 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             'status',
             'type',
         ], 'contacts');
+
     }
 }

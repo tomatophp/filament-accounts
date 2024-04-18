@@ -7,6 +7,7 @@ use Filament\Panel;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountRequestResource;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource;
 use TomatoPHP\FilamentAccounts\Filament\Resources\ContactResource;
+use TomatoPHP\FilamentPlugins\Facades\FilamentPlugins;
 
 class FilamentAccountsPlugin implements Plugin
 {
@@ -27,7 +28,7 @@ class FilamentAccountsPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        //
+
     }
 
     public static function make(): static
