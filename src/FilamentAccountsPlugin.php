@@ -1,6 +1,6 @@
 <?php
 
-namespace TomatoPHP\FilamentAccounts\Providers;
+namespace TomatoPHP\FilamentAccounts;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;

@@ -56,15 +56,6 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             __DIR__ . '/../../publish/Account.php' => app_path('Models/Account.php'),
         ], 'filament-accounts-model');
 
-        FilamentTypes::register([
-            'types',
-            'groups'
-        ], 'accounts');
-
-        FilamentTypes::register([
-            'status',
-            'type',
-        ], 'contacts');
 
         if (config('filament-accounts.features.send_otp')) {
             Event::listen([
@@ -98,6 +89,15 @@ class FilamentAccountsServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        //you boot methods here
+
+        FilamentTypes::register([
+            'types',
+            'groups'
+        ], 'accounts');
+
+        FilamentTypes::register([
+            'status',
+            'type',
+        ], 'contacts');
     }
 }

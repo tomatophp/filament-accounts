@@ -90,7 +90,7 @@ class AccountRequestResource extends Resource
     public static function getRelations(): array
     {
         return [
-            AccountRequestMetaManager::make()
+            RelationManagers\AccountRequestMetaManager::make()
         ];
     }
 
