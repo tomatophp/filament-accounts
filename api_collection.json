@@ -1,0 +1,853 @@
+{
+	"info": {
+		"_postman_id": "cb67472c-b175-4b8a-a0df-17d7a9d67ef2",
+		"name": "Filament Accounts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7914600"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "26111995",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/login",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Fady Mondy",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+201207860084",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "26111995",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "26111995",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/register",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								},
+								{
+									"key": "otp_code",
+									"value": "162261",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/otp",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"otp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "OTP-Resend",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/resend",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"resend"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/reset",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								},
+								{
+									"key": "otp_code",
+									"value": "165969",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456789",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "123456789",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/password",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check OTP",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								},
+								{
+									"key": "otp_code",
+									"value": "162261",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/otp-check",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"otp-check"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profile",
+			"item": [
+				{
+					"name": "Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/logout",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Fady Mondy",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/profile",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "password",
+									"value": "26111995",
+									"type": "text"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "26111995",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/profile/password",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Close Account",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/destroy",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"destroy"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Requests",
+			"item": [
+				{
+					"name": "Requests List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/requests",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Request By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/requests/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"requests",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"account_approve\",\n    \"payload\":{\n        \"name\" : \"Fady\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/profile/requests",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"requests"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"payload\": {\n        \"name\" : {\n            \"ar\": \"فليب\",\n            \"en\": \"Philip\"\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/profile/requests/3",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"requests",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Request",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/requests/1",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"requests",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Locations List",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/locations",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"locations"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Elmarwa",
+									"disabled": true
+								},
+								{
+									"key": "main",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Location By ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/locations/8",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"locations",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "street",
+									"value": "4 Elmarwa St",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/profile/locations",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Location",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "street",
+									"value": "14 Elhoda St",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/profile/locations/8",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"locations",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Location",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/profile/locations/8",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"locations",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact",
+			"item": [
+				{
+					"name": "Send Contact Us",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "type",
+									"value": "contact",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "Fady Mondy",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "info@3x1.io",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "+201207860084",
+									"type": "text"
+								},
+								{
+									"key": "subject",
+									"value": "Hi",
+									"type": "text"
+								},
+								{
+									"key": "message",
+									"value": "Welcome back here!",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE}}/profile/contact",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"profile",
+								"contact"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "3|a7mpblexHTWRXADo249BV6Kd1kJSHVZa8OuJKyEI9ffc46c9",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE",
+			"value": "https://filament.test/api",
+			"type": "string"
+		}
+	]
+}

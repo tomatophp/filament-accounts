@@ -1,0 +1,27 @@
+<?php
+
+namespace {{ namespacePath }};
+
+use io3x1\LaravelAuthBuilder\Services\BuildAuth;
+
+class {{ controllerName }} extends BuildAuth
+{
+    public function __construct()
+    {
+        $this->validation = [
+            "create" => [
+                "name" => "required|max:191|string",
+                "{{ loginBy }}" => "{{ loginByValidationCreate }}",
+            ],
+            "update" => [
+                "name" => "sometimes|max:191|string",
+                "{{ loginBy }}" => "{{ loginByValidationUpdate }}",
+            ]
+        ];
+        $this->loginBy = "{{ loginBy }}";
+        $this->loginType = "{{ loginType }}";
+        $this->model = "{{ model }}";
+        $this->guard = "{{ guard }}";
+        $this->otp = {{ otp }};
+    }
+}
