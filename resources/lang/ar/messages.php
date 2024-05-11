@@ -27,6 +27,18 @@ return [
             "delete" => "حذف",
             "force_delete" => "حذف نهائي",
             "restore" => "استعادة",
+        ],
+        "notifications" => [
+            "use_notification_template" => "استخدام قالب الإشعارات",
+            "template_id" => "القالب",
+            "image" => "الصورة",
+            "title" => "العنوان",
+            "body" => "النص",
+            "action" => "العملية",
+            "url" => "الرابط",
+            "icon" => "الأيقونة",
+            "type" => "النوع",
+            "providers" => "ارسال عن طريق"
         ]
     ],
     "requests" => [

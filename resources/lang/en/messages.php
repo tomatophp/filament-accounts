@@ -16,7 +16,6 @@ return [
             "loginBy" => "Login By",
             "is_active" => "Is Active?",
             "is_login" => "Can Login?"
-
         ],
         "filters" => [
             "type" => "Type"
@@ -28,6 +27,18 @@ return [
             "delete" => "Delete",
             "force_delete" => "Force Delete",
             "restore" => "Restore",
+        ],
+        "notifications" => [
+            "use_notification_template" => "Use Notification Template",
+            "template_id" => "Template",
+            "image" => "Image",
+            "title" => "Title",
+            "body" => "Body",
+            "action" => "Action",
+            "url" => "URL",
+            "icon" => "Icon",
+            "type" => "Type",
+            "providers" => "Send By"
         ]
     ],
     "requests" => [
