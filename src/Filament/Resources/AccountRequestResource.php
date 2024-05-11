@@ -29,20 +29,33 @@ class AccountRequestResource extends Resource
         return trans('filament-accounts::messages.group');
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return trans('filament-accounts::messages.requests.label');
+    }
+
+    public static function getPluralLabel(): ?string
+    {
+        return trans('filament-accounts::messages.requests.label');
+    }
+
     public static function form(Form $form): Form
     {
         $payload = [];
         return $form
             ->schema([
                 Forms\Components\Select::make('type')
+                    ->label(trans('filament-accounts::messages.requests.columns.type'))
                     ->searchable()
                     ->options(Type::where('for', 'contacts')->where('type', 'type')->get()->pluck('name', 'key')->toArray()),
                 Forms\Components\Select::make('status')
+                    ->label(trans('filament-accounts::messages.requests.columns.status'))
                     ->searchable()
                     ->options(Type::where('for', 'contacts')->where('type', 'status')->get()->pluck('name', 'key')->toArray())
                     ->default('pending'),
 
-                Forms\Components\Toggle::make('is_approved'),
+                Forms\Components\Toggle::make('is_approved')
+                    ->label(trans('filament-accounts::messages.requests.columns.is_approved')),
             ]);
     }
 
@@ -51,18 +64,22 @@ class AccountRequestResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('account.name')
-                    ->numeric()
+                    ->label(trans('filament-accounts::messages.requests.columns.account'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
+                    ->label(trans('filament-accounts::messages.requests.columns.user'))
                     ->sortable(),
                 TypeColumn::make('type')
+                    ->label(trans('filament-accounts::messages.requests.columns.type'))
                     ->searchable(),
                 TypeColumn::make('status')
+                    ->label(trans('filament-accounts::messages.requests.columns.status'))
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_approved')
+                    ->label(trans('filament-accounts::messages.requests.columns.is_approved'))
                     ->boolean(),
                 Tables\Columns\TextColumn::make('is_approved_at')
+                    ->label(trans('filament-accounts::messages.requests.columns.is_approved_at'))
                     ->dateTime()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')

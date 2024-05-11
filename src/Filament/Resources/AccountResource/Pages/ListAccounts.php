@@ -17,6 +17,9 @@ class ListAccounts extends ManageRecords
         return [
             Actions\CreateAction::make()
                 ->using(function (array $data) {
+                    if(isset($data['password'])){
+                        $data['password'] = bcrypt($data['password']);
+                    }
                     if($data['loginBy'] === 'email'){
                         $data['username'] = $data['email'];
                     }
@@ -24,7 +27,7 @@ class ListAccounts extends ManageRecords
                         $data['username'] = $data['phone'];
                     }
 
-                    return Account::query()->create($data);
+                    return config('filament-accounts.model')::query()->create($data);
                 }),
         ];
     }

@@ -28,26 +28,39 @@ class ContactResource extends Resource
         return trans('filament-accounts::messages.group');
     }
 
+    public static function getNavigationLabel(): string
+    {
+        return trans('filament-accounts::messages.contacts.label');
+    }
+
+    public static function getPluralLabel(): ?string
+    {
+        return trans('filament-accounts::messages.contacts.label');
+    }
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('status')
+                    ->label(trans('filament-accounts::messages.contacts.columns.status'))
                     ->columnSpan(2)
                     ->searchable()
                     ->options(Type::where('for', 'contacts')->where('type', 'status')->pluck('name', 'key')->toArray())
                     ->default('pending'),
                 Forms\Components\TextInput::make('subject')
+                    ->label(trans('filament-accounts::messages.contacts.columns.subject'))
                     ->disabled()
                     ->columnSpan(2)
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Textarea::make('message')
+                    ->label(trans('filament-accounts::messages.contacts.columns.message'))
                     ->disabled()
                     ->columnSpan(2)
                     ->required()
                     ->columnSpanFull(),
-                Forms\Components\Toggle::make('active'),
+                Forms\Components\Toggle::make('active')
+                    ->label(trans('filament-accounts::messages.contacts.columns.active')),
             ]);
     }
 
@@ -56,18 +69,25 @@ class ContactResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('type')
+                    ->label(trans('filament-accounts::messages.contacts.columns.type'))
                     ->searchable(),
                 TypeColumn::make('status')
+                    ->label(trans('filament-accounts::messages.contacts.columns.status'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label(trans('filament-accounts::messages.contacts.columns.name'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label(trans('filament-accounts::messages.contacts.columns.email'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
+                    ->label(trans('filament-accounts::messages.contacts.columns.phone'))
                     ->searchable(),
                 Tables\Columns\TextColumn::make('subject')
+                    ->label(trans('filament-accounts::messages.contacts.columns.subject'))
                     ->searchable(),
                 Tables\Columns\IconColumn::make('active')
+                    ->label(trans('filament-accounts::messages.contacts.columns.active'))
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

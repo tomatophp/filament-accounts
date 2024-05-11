@@ -44,6 +44,7 @@
         "tomatophp/filament-types": "^1.0",
         "tomatophp/filament-locations": "^1.0",
         "tomatophp/filament-alerts": "^1.0",
-        "guava/filament-icon-picker": "^2.2"
+        "tomatophp/filament-icons": "^1.0",
+        "tomatophp/filament-helpers": "^1.0"
     }
 }
