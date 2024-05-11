@@ -41,6 +41,21 @@ return [
             "providers" => "ارسال عن طريق"
         ]
     ],
+    "meta" => [
+        "label" => "المعلومات",
+        "single" => "معلومة",
+        "create" => "إضافة معلومة",
+        "columns" => [
+            "account" => "الحساب",
+            "key" => "المفتاح",
+            "value" => "القيمة"
+        ],
+    ],
+    "locations" => [
+        "label" => "المواقع",
+        "single" => "موقع",
+        "create" => "إضافة موقع",
+    ],
     "requests" => [
         "label" => "طلبات الحساب",
         "single" => "طلب للحساب",

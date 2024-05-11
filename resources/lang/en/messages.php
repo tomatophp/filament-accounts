@@ -41,6 +41,21 @@ return [
             "providers" => "Send By"
         ]
     ],
+    "meta" => [
+        "label" => "Metas",
+        "single" => "Meta",
+        "create" => "Create Meta",
+        "columns" => [
+            "account" => "Account",
+            "key" => "Key",
+            "value" => "Value"
+        ],
+    ],
+    "locations" => [
+        "label" => "Locations",
+        "single" => "Location",
+        "create" => "Create Location",
+    ],
     "requests" => [
         "label" => "Account Requests",
         "single" => "Account Request",
