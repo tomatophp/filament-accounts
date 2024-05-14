@@ -127,10 +127,15 @@ class Account extends Authenticatable implements HasMedia
      * @param string|null $value
      * @return Model|string|null
      */
-    public function meta(string $key, string|null $value=null): Model|string|null
+    public function meta(string $key, string|null|array $value=null): Model|string|null|array
     {
         if($value!==null){
-            return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => $value]);
+            if($value === 'null'){
+                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => null]);
+            }
+            else {
+                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => $value]);
+            }
         }
         else {
             return $this->accountsMetas()->where('key', $key)->first()?->value;
