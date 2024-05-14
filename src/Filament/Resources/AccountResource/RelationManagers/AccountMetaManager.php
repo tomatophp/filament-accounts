@@ -65,11 +65,10 @@ class AccountMetaManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('key')
                     ->label(trans('filament-accounts::messages.meta.columns.key'))
-                    ->label('key')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('value')
                     ->label(trans('filament-accounts::messages.meta.columns.value'))
-                    ->label('value'),
+                    ->view('filament-accounts::table-columns.value')
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
