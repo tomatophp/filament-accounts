@@ -79,9 +79,9 @@ class AccountResource extends Resource
 
     public static function getPages(): array
     {
-        return [
-            'index' => Pages\ListAccounts::route('/'),
-            'edit' => Pages\EditAccount::route('/{record}/edit'),
+        return config('filament-accounts.accounts.pages')? config('filament-accounts.accounts.pages')::routes() :[
+            'index' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\ListAccounts::route('/'),
+            'edit' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\EditAccount::route('/{record}/edit')
         ];
     }
 

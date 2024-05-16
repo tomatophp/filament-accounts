@@ -57,7 +57,6 @@ class AccountsForm extends FormBuilder
                 ->maxLength(255),
             Forms\Components\TextInput::make('password_confirmation')
                 ->label(trans('filament-accounts::messages.accounts.coulmns.password_confirmation'))
-                ->confirmed()
                 ->hidden(fn(Forms\Get $get) => !$get('is_login'))
                 ->password()
                 ->maxLength(255),
