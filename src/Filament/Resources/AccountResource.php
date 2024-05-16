@@ -7,6 +7,7 @@ use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Forms\AccountsForm;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Releations\AccountReleations;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Tables\AccountsTable;
 use TomatoPHP\FilamentAccounts\Models\Account;
 use Filament\Forms;
@@ -72,9 +73,7 @@ class AccountResource extends Resource
 
     public static function getRelations(): array
     {
-        $loadRelations = FilamentAccounts::loadRelations();
-
-        return array_merge(config('filament-accounts.relations')??[], $loadRelations);
+        return config('filament-accounts.relations')::get()??AccountReleations::get();
     }
 
     public static function getPages(): array

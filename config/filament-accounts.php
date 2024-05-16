@@ -57,11 +57,7 @@ return [
      *
      * you can set selected relations to show in account resource
      */
-    "relations" => [
-        TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountMetaManager::make(),
-        TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountLocationsManager::make(),
-        TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountRequestsManager::make(),
-    ],
+    "relations" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Releations\AccountReleations::class,
 
     /**
      * Accounts Resource Builder
