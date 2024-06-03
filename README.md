@@ -1,4 +1,4 @@
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-accounts/blob/master/arts/3x1io-tomato-accounts.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/3x1io-tomato-accounts.jpg)
 
 # Filament Accounts Builder
 
@@ -11,14 +11,14 @@ full accounts manager with API/Notifications/Contacts to manage your contacts an
 
 ## Screenshots
 
-![Accounts List](https://github.com/tomatophp/filament-accounts/blob/master/arts/accounts-list.png)
-![Change Password](https://github.com/tomatophp/filament-accounts/blob/master/arts/change-password.png)
-![Send Notifications](https://github.com/tomatophp/filament-accounts/blob/master/arts/send-notifications.png)
-![Edit Account](https://github.com/tomatophp/filament-accounts/blob/master/arts/edit-account.png)
-![Accounts Locations](https://github.com/tomatophp/filament-accounts/blob/master/arts/account-locations.png)
-![Accounts Requests](https://github.com/tomatophp/filament-accounts/blob/master/arts/account-requests.png)
-![Edit Request](https://github.com/tomatophp/filament-accounts/blob/master/arts/edit-request.png)
-![Contacts](https://github.com/tomatophp/filament-accounts/blob/master/arts/contacts.png)
+![Accounts List](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/accounts-list.png)
+![Change Password](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/change-password.png)
+![Send Notifications](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/send-notifications.png)
+![Edit Account](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/edit-account.png)
+![Accounts Locations](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/account-locations.png)
+![Accounts Requests](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/account-requests.png)
+![Edit Request](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/edit-request.png)
+![Contacts](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/contacts.png)
 
 
 
@@ -438,7 +438,7 @@ class ProfileController extends Controller
 
 ## APIs
 
-we have added a lot of APIs to the package, so you can use them to manage your accounts. please check this file [API Collection](https://github.com/tomatophp/filament-accounts/blob/master/api_collection.json)
+we have added a lot of APIs to the package, so you can use them to manage your accounts. please check this file [API Collection](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/api_collection.json)
 
 ## Support
 
