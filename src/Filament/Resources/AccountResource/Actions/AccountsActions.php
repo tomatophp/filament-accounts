@@ -6,6 +6,7 @@ use Filament\Notifications\Notification;
 use Filament\Tables;
 use Filament\Actions;
 use Filament\Forms;
+use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
 use TomatoPHP\FilamentAlerts\Models\NotificationsTemplate;
 use TomatoPHP\FilamentAlerts\Services\SendNotification;
@@ -17,6 +18,13 @@ class AccountsActions extends ActionsBuilder
     public function actions(): array
     {
         $actions = [];
+        if(class_exists(\STS\FilamentImpersonate\Tables\Actions\Impersonate::class) && config('filament-accounts.features.impersonate.active')){
+            $actions[] = \STS\FilamentImpersonate\Tables\Actions\Impersonate::make('impersonate')
+                ->guard('accounts')
+                ->color('info')
+                ->tooltip(trans('filament-accounts::messages.accounts.actions.impersonate'))
+                ->redirectTo( config('filament-accounts.features.impersonate.redirect'));
+        }
         $actions[] = Tables\Actions\Action::make('password')
             ->label(trans('filament-accounts::messages.accounts.actions.password'))
             ->icon('heroicon-s-lock-closed')
@@ -213,6 +221,7 @@ class AccountsActions extends ActionsBuilder
         $actions[] = Tables\Actions\RestoreAction::make()
             ->iconButton()
             ->tooltip(trans('filament-accounts::messages.accounts.actions.restore'));
+
 
         return array_merge(
             FilamentAccounts::loadActions(),

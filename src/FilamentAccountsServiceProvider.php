@@ -4,7 +4,9 @@ namespace TomatoPHP\FilamentAccounts;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Livewire\Livewire;
 use TomatoPHP\FilamentAccounts\Events\SendOTP;
+use TomatoPHP\FilamentAccounts\Livewire\SanctumTokens;
 use TomatoPHP\FilamentAlerts\Services\SendNotification;
 use TomatoPHP\FilamentPlugins\Facades\FilamentPlugins;
 use TomatoPHP\FilamentTypes\Facades\FilamentTypes;
@@ -57,6 +59,18 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/Account.php' => app_path('Models/Account.php'),
         ], 'filament-accounts-model');
 
+        $this->publishes([
+            __DIR__ . '/../publish/migrations/create_teams_table.php' => database_path('migrations/'.  date('Y_m_d_His', ((int)time())+1) . '_create_teams_table.php'),
+            __DIR__ . '/../publish/migrations/create_team_invitations_table.php' => database_path('migrations/'.  date('Y_m_d_His', ((int)time())+2) . '_create_team_invitations_table.php'),
+            __DIR__ . '/../publish/migrations/create_team_user_table.php' => database_path('migrations/'.  date('Y_m_d_His', ((int)time())+3) . '_create_team_user_table.php'),
+        ], 'filament-accounts-teams-migrations');
+
+        $this->publishes([
+            __DIR__ . '/../publish/Team.php' => app_path('Models/Team.php'),
+            __DIR__ . '/../publish/TeamInvitation.php' => app_path('Models/TeamInvitation.php'),
+            __DIR__ . '/../publish/Membership.php' => app_path('Models/Membership.php'),
+        ], 'filament-accounts-teams');
+
 
         if (config('filament-accounts.features.send_otp')) {
             Event::listen([
@@ -85,6 +99,8 @@ class FilamentAccountsServiceProvider extends ServiceProvider
         $this->app->bind('filament-accounts-auth', function () {
             return new \TomatoPHP\FilamentAccounts\Services\BuildAuth();
         });
+
+        Livewire::component('sanctum-tokens', SanctumTokens::class);
 
     }
 

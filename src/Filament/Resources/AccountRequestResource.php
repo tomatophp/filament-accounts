@@ -4,6 +4,7 @@ namespace TomatoPHP\FilamentAccounts\Filament\Resources;
 
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountRequestResource\Pages;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountRequestResource\RelationManagers;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\EditAccount;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountRequestMetaManager;
 use TomatoPHP\FilamentAccounts\Models\AccountRequest;
 use Filament\Forms;
@@ -63,7 +64,11 @@ class AccountRequestResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('account.name')
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('account.avatar')
+                    ->collection('avatar')
+                    ->circular()
+                    ->tooltip(fn($record) => $record->account->name)
+                    ->url(fn($record) => EditAccount::getUrl(['record' => $record->account->id]))
                     ->label(trans('filament-accounts::messages.requests.columns.account'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')

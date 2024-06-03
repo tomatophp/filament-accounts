@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -39,7 +40,7 @@ use TomatoPHP\FilamentLocations\Models\Location;
  * @property Model meta($key, $value)
  * @property Location[] $locations
  */
-class Account extends Authenticatable implements HasMedia
+class Account extends Authenticatable implements HasMedia, HasAvatar
 {
     use InteractsWithMedia;
     use HasApiTokens, HasFactory, Notifiable;
@@ -87,6 +88,23 @@ class Account extends Authenticatable implements HasMedia
         'gender'
     ];
 
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'otp_code',
+        'otp_activated_at',
+        'host',
+        'agent',
+    ];
+
+    /**
+     * @return string|null
+     */
+    public function getFilamentAvatarUrl(): ?string
+    {
+        return  $this->getFirstMediaUrl('avatar')?? null;
+    }
+
     /**
      * @return Model|string|null
      */
@@ -115,18 +133,30 @@ class Account extends Authenticatable implements HasMedia
 
     /**
      * @param string $key
-     * @param string|null $value
-     * @return Model|string|null
+     * @param string|array|object|null $value
+     * @return Model|string|array|null
      */
-    public function meta(string $key, string|null $value=null): Model|string|null
+    public function meta(string $key, string|array|object|null $value=null): Model|string|null|array
     {
         if($value!==null){
-            return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => $value]);
+            if($value === 'null'){
+                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => null]);
+            }
+            else {
+                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => $value]);
+            }
         }
         else {
-            return $this->accountsMetas()->where('key', $key)->first()?->value;
+            $meta = $this->accountsMetas()->where('key', $key)->first();
+            if($meta){
+                return $meta->value;
+            }
+            else {
+                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => null]);
+            }
         }
     }
+
 
 
     /**

@@ -12,6 +12,10 @@ class AccountsForm extends FormBuilder
     public function form(Form $form): Form
     {
         return $form->schema([
+            Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
+                ->collection('avatar')
+                ->columnSpan(2)
+                ->label(trans('filament-accounts::messages.accounts.coulmns.avatar')),
             Forms\Components\TextInput::make('name')
                 ->label(trans('filament-accounts::messages.accounts.coulmns.name'))
                 ->columnSpan(2)

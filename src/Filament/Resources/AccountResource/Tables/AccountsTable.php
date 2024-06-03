@@ -5,6 +5,7 @@ namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Tables;
 use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Forms;
+use TomatoPHP\FilamentAccounts\Components\AccountColumn;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters;
 use TomatoPHP\FilamentHelpers\Contracts\TableBuilder;
@@ -16,28 +17,37 @@ class AccountsTable extends TableBuilder
     {
         return $table
             ->columns([
+                AccountColumn::make('id')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.id'))
+                ,
                 TypeColumn::make('type')
                     ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
+                    ->toggleable()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label(trans('filament-accounts::messages.accounts.coulmns.name'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label(trans('filament-accounts::messages.accounts.coulmns.email'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone')
                     ->label(trans('filament-accounts::messages.accounts.coulmns.phone'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_login')
                     ->label(trans('filament-accounts::messages.accounts.coulmns.is_login'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->boolean(),
                 Tables\Columns\IconColumn::make('is_active')
                     ->label(trans('filament-accounts::messages.accounts.coulmns.is_active'))
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->sortable()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('deleted_at')

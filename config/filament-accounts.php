@@ -13,7 +13,11 @@ return [
         "requests" => true,
         "notifications" => true,
         "apis" => true,
-        "send_otp" => true
+        "send_otp" => true,
+        "impersonate" => [
+            'active'=> false,
+            'redirect' => '/app',
+        ],
     ],
 
     /*
@@ -72,5 +76,13 @@ return [
         "actions" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions::class,
         "filters" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters::class,
         "pages" =>  \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\AccountPagesList::class,
+    ],
+
+    "teams" => [
+        "allowed" => false,
+        "model" => \TomatoPHP\FilamentAccounts\Models\Team::class,
+        "invitation" => \TomatoPHP\FilamentAccounts\Models\TeamInvitation::class,
+        "membership" => \TomatoPHP\FilamentAccounts\Models\Membership::class,
+        "resource" => \TomatoPHP\FilamentAccounts\Filament\Resources\TeamResource::class,
     ]
 ];

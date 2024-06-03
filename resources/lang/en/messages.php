@@ -6,6 +6,8 @@ return [
         "label" => "Accounts",
         "single" => "Account",
         "coulmns" => [
+            "id" => "Profile",
+            "avatar" => "Avatar",
             "name" => "Name",
             "email" => "Email",
             "phone" => "Phone",
@@ -21,6 +23,7 @@ return [
             "type" => "Type"
         ],
         "actions" => [
+            "impersonate" => "Login As",
             "password" => "Change Password",
             "notifications" => "Send Notifications",
             "edit" => "Edit",
