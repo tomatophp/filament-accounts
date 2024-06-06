@@ -6,7 +6,7 @@
         <div class="">
             <div class="mt-4 text-sm text-gray-600">
                 <div class="text-sm text-gray-600 dark:text-gray-400">
-                    {{ __('filament-edit-profile::default.browser_sessions_content') }}
+                    {{ trans('filament-accounts::messages.profile.browser.sessions_content') }}
                 </div>
                 @if (count($data) > 0)
                     <div class="mt-5 space-y-6">
@@ -36,9 +36,9 @@
                                             {{ $session->ip_address }},
 
                                             @if ($session->is_current_device)
-                                                <span class="font-semibold text-primary-500">{{ __('filament-edit-profile::default.browser_sessions_device') }}</span>
+                                                <span class="font-semibold text-primary-500">{{ trans('filament-accounts::messages.profile.browser.sessions_device') }}</span>
                                             @else
-                                                {{ __('filament-edit-profile::default.browser_sessions_last_active') }} {{ $session->last_active }}
+                                                {{ trans('filament-accounts::messages.profile.browser.sessions_last_active') }} {{ $session->last_active }}
                                             @endif
                                         </div>
                                     </div>

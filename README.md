@@ -65,125 +65,94 @@ now you need to add a new guard to your auth.php config like this
 <?php
 
 return [
-
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Defaults
-    |--------------------------------------------------------------------------
-    |
-    | This option controls the default authentication "guard" and password
-    | reset options for your application. You may change these defaults
-    | as required, but they're a perfect start for most applications.
-    |
+ /*
+    * Features of Tomato CRM
+    *
+    * accounts: Enable/Disable Accounts Feature
     */
-
-    'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Guards
-    |--------------------------------------------------------------------------
-    |
-    | Next, you may define every authentication guard for your application.
-    | Of course, a great default configuration has been defined for you
-    | here which uses session storage and the Eloquent user provider.
-    |
-    | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
-    | mechanisms used by this application to persist your user's data.
-    |
-    | Supported: "session"
-    |
-    */
-
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
-        'accounts' => [
-            'driver' => 'session',
-            'provider' => 'accounts',
-        ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | User Providers
-    |--------------------------------------------------------------------------
-    |
-    | All authentication drivers have a user provider. This defines how the
-    | users are actually retrieved out of your database or other storage
-    | mechanisms used by this application to persist your user's data.
-    |
-    | If you have multiple user tables or models you may configure multiple
-    | sources which represent each model / table. These sources may then
-    | be assigned to any extra authentication guards you have defined.
-    |
-    | Supported: "database", "eloquent"
-    |
-    */
-
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\User::class,
-        ],
-        'accounts' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Account::class,
+    "features" => [
+        "accounts" => true,
+        "locations" => true,
+        "contacts" => true,
+        "requests" => true,
+        "notifications" => true,
+        "apis" => true,
+        "send_otp" => true,
+        "impersonate" => [
+            'active'=> false,
+            'redirect' => '/app',
         ],
     ],
 
     /*
-    |--------------------------------------------------------------------------
-    | Resetting Passwords
-    |--------------------------------------------------------------------------
-    |
-    | You may specify multiple password reset configurations if you have more
-    | than one user table or model in the application and you want to have
-    | separate password reset settings based on the specific user types.
-    |
-    | The expiry time is the number of minutes that each reset token will be
-    | considered valid. This security feature keeps tokens short-lived so
-    | they have less time to be guessed. You may change this as needed.
-    |
-    | The throttle setting is the number of seconds a user must wait before
-    | generating more password reset tokens. This prevents the user from
-    | quickly generating a very large amount of password reset tokens.
-    |
-    */
-
-    'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => 'password_reset_tokens',
-            'expire' => 60,
-            'throttle' => 60,
-        ],
-    ],
+     * Accounts Configurations
+     *
+     * resource: User Resource Class
+     */
+    "resource" => null,
 
     /*
-    |--------------------------------------------------------------------------
-    | Password Confirmation Timeout
-    |--------------------------------------------------------------------------
-    |
-    | Here you may define the amount of seconds before a password confirmation
-    | times out and the user is prompted to re-enter their password via the
-    | confirmation screen. By default, the timeout lasts for three hours.
-    |
-    */
+     * Accounts Configurations
+     *
+     * login_by: Login By Phone or Email
+     */
+    "login_by" => "email",
 
-    'password_timeout' => 10800,
+    /*
+     * Accounts Configurations
+     *
+     * required_otp: Enable/Disable OTP Verification
+     */
+    "required_otp" => true,
+
+    /*
+     * Accounts Configurations
+     *
+     * model: User Model Class
+     */
+    "model" => \TomatoPHP\FilamentAccounts\Models\Account::class,
+
+    /*
+     * Accounts Configurations
+     *
+     * guard: Auth Guard
+     */
+    "guard" => "accounts",
+
+
+    /**
+     * Accounts Relations Managers
+     *
+     * you can set selected relations to show in account resource
+     */
+    "relations" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Releations\AccountReleations::class,
+
+    /**
+     * Accounts Resource Builder
+     *
+     * you can change the form, table, actions and filters of account resource by using filament-helpers class commands
+     *
+     * link: https://github.com/tomatophp/filament-helpers
+     */
+    "accounts" => [
+        "form" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Forms\AccountsForm::class,
+        "table" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Tables\AccountsTable::class,
+        "actions" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions::class,
+        "filters" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters::class,
+        "pages" =>  \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\AccountPagesList::class,
+    ],
+
+    "teams" => [
+        "allowed" => false,
+        "model" => \TomatoPHP\FilamentAccounts\Models\Team::class,
+        "invitation" => \TomatoPHP\FilamentAccounts\Models\TeamInvitation::class,
+        "membership" => \TomatoPHP\FilamentAccounts\Models\Membership::class,
+        "resource" => \TomatoPHP\FilamentAccounts\Filament\Resources\TeamResource::class,
+    ]
 
 ];
 
 ```
-
-
 
 ## Usage
 
@@ -191,7 +160,95 @@ this plugin makes it easy to make a starting point for your app if this app has 
 
 but here is the problem, every app has a different way of managing customers, so we built a Facade service to control the way you want to manage your customers
 
-### How to use
+### Use Accounts as SaaS Panel
+
+![Register](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/register.png)
+![OTP](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/otp.png)
+![Panel Home](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/panel-home.png)
+![Panel Menu](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/panel-menu.png)
+![Edit Profile](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/edit-profile.png)
+![Manage Sessions](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/manage-sessions.png)
+![Team Settings](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/team-settings.png)
+![Invite Team](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/invite-team.png)
+![API Tokens](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/api-tokens.png)
+
+install jetstream without install it.
+
+```bash
+composer require laravel/jetstream
+```
+
+on your new panel just use this plugin
+
+```php
+->plugin(
+    FilamentAccountsSaaSPlugin::make()
+        ->databaseNotifications()
+        ->checkAccountStatusInLogin()
+        ->APITokenManager()
+        ->editTeam()
+        ->deleteTeam()
+        ->teamInvitation()
+        ->showTeamMembers()
+        ->editProfile()
+        ->editPassword()
+        ->browserSesstionManager()
+        ->deleteAccount()
+        ->editProfileMenu()
+        ->registration()
+        ->useOTPActivation(),
+)
+```
+
+you can change settings by remove just methods from plugin.
+
+### Use Account Column
+
+![Account Column](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/account-column.png)
+
+you can use the account column in any table by using this code
+
+```php
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            AccountColumn::make('account.id'),
+        ]);
+}
+```
+
+just pass the account id to the column
+
+## Use Filament Impersonate
+
+you can use the impersonate to impersonate the user by install it first
+
+```bash
+composer require stechstudio/filament-impersonate
+```
+
+now on your `filament-users.php` config allow shield
+
+```php
+"features" => [
+    ...
+    "impersonate" => [
+        'active'=> true,
+        'redirect' => '/app',
+    ],
+],
+```
+
+now clear your config
+
+```bash
+php artisan config:cache
+```
+
+for more information check the [Filament Impersonate](https://github.com/stechstudio/filament-impersonate)
+
+### How to use builder
 
 just install the package and you will get everything working, it supports some features ready to use:
 

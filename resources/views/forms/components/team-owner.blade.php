@@ -1,11 +1,11 @@
 @php
-    $account = config('filament-accounts.model')::find($getState());
-    $tenent = \Filament\Facades\Filament::getTenant()?->id;
-    $panel = \Filament\Facades\Filament::getCurrentPanel()->getId() ?? null;
+    $account = config('filament-accounts.model')::find($team->owner->id);
 @endphp
+<!-- Team Owner Information -->
+<div class="col-span-6">
+    <x-label value="{{ trans('filament-accounts::messages.teams.edit.owner') }}" />
 
-@if($account)
-    <a  href="{{ $tenent ? route('filament.'.$panel.'.resources.accounts.edit', ['tenant' => $tenent, 'record' => $account->id]) : route('filament.'.$panel.'.resources.accounts.edit', ['record' => $account->id]) }}" class="flex justify-start gap-2 py-4">
+    <div class="flex justify-start gap-2 py-4">
         <div class="flex flex-col items-center justify-center">
             <x-filament::avatar
                 :src="$account->getFilamentAvatarUrl()?: 'https://ui-avatars.com/api/?name='.$account->name.'&color=FFFFFF&background=020617'"
@@ -20,5 +20,5 @@
                 {{ $account->loginBy === 'email' ? $account->email : $account->phone }}
             </div>
         </div>
-    </a>
-@endif
+    </div>
+</div>

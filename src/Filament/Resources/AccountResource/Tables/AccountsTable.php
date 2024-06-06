@@ -18,8 +18,7 @@ class AccountsTable extends TableBuilder
         return $table
             ->columns([
                 AccountColumn::make('id')
-                    ->label(trans('filament-accounts::messages.accounts.coulmns.id'))
-                ,
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.id')),
                 TypeColumn::make('type')
                     ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
                     ->toggleable()

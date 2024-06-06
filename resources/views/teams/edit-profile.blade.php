@@ -8,46 +8,24 @@
         />
     </x-filament-panels::form>
 
-    <x-filament-panels::form wire:submit="updatePassword">
-        {{ $this->editPasswordForm }}
+    @if(filament()->getPlugin('filament-saas-accounts')->editPassword)
+        <x-filament-panels::form wire:submit="updatePassword">
+            {{ $this->editPasswordForm }}
 
-        <x-filament-panels::form.actions
-            alignment="right"
-            :actions="$this->getUpdatePasswordFormActions()"
-        />
-    </x-filament-panels::form>
-
-{{--    @if(config('filament-edit-profile.show_custom_fields'))--}}
-{{--        <x-filament-panels::form wire:submit="updateCustomFields">--}}
-{{--            {{ $this->customFieldsForm }}--}}
-
-{{--            <x-filament-panels::form.actions--}}
-{{--                alignment="right"--}}
-{{--                :actions="$this->getUpdateCustomFieldsFormActions()"--}}
-{{--            />--}}
-{{--        </x-filament-panels::form>--}}
-{{--    @endif--}}
-
-    @if($this->shouldShowSanctumTokens())
-        <x-filament::section aside>
-            <x-slot name="heading">
-                {{ __('filament-edit-profile::default.token_section_title') }}
-            </x-slot>
-            <x-slot name="description">
-                {{ __('filament-edit-profile::default.token_section_description') }}
-            </x-slot>
-
-            @livewire('sanctum-tokens')
-        </x-filament::section>
+            <x-filament-panels::form.actions
+                alignment="right"
+                :actions="$this->getUpdatePasswordFormActions()"
+            />
+        </x-filament-panels::form>
     @endif
 
-    @if($this->shouldShowBrowserSessionsForm())
+    @if(filament()->getPlugin('filament-saas-accounts')->browserSesstionManager)
         <x-filament-panels::form>
             {{ $this->browserSessionsForm }}
         </x-filament-panels::form>
     @endif
 
-    @if($this->shouldShowDeleteAccountForm())
+    @if(filament()->getPlugin('filament-saas-accounts')->deleteAccount)
         <x-filament-panels::form>
             {{ $this->deleteAccountForm }}
         </x-filament-panels::form>

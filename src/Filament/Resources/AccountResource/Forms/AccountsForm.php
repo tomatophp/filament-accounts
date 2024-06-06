@@ -50,18 +50,19 @@ class AccountsForm extends FormBuilder
                 ->label(trans('filament-accounts::messages.accounts.coulmns.address'))
                 ->columnSpanFull(),
             Forms\Components\Toggle::make('is_login')->default(false)
+                ->hidden(fn(Forms\Get $get) => $get('id') !== null)
                 ->columnSpan(2)
                 ->label(trans('filament-accounts::messages.accounts.coulmns.is_login'))
                 ->live(),
             Forms\Components\TextInput::make('password')
                 ->label(trans('filament-accounts::messages.accounts.coulmns.password'))
                 ->confirmed()
-                ->hidden(fn(Forms\Get $get) => !$get('is_login'))
+                ->hidden(fn(Forms\Get $get) => !$get('is_login') || $get('id') !== null)
                 ->password()
                 ->maxLength(255),
             Forms\Components\TextInput::make('password_confirmation')
                 ->label(trans('filament-accounts::messages.accounts.coulmns.password_confirmation'))
-                ->hidden(fn(Forms\Get $get) => !$get('is_login'))
+                ->hidden(fn(Forms\Get $get) => !$get('is_login') || $get('id') !== null)
                 ->password()
                 ->maxLength(255),
             Forms\Components\Toggle::make('is_active')

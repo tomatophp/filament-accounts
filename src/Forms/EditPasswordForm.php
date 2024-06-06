@@ -11,18 +11,17 @@ class EditPasswordForm
     public static function get(): array
     {
         return [
-            Forms\Components\Section::make(trans('filament-accounts::messages.update_password'))
-                ->aside()
-                ->description(trans('filament-accounts::messages.ensure_your_password'))
+            Forms\Components\Section::make(trans('filament-accounts::messages.profile.password.title'))
+                ->description(trans('filament-accounts::messages.profile.password.description'))
                 ->schema([
                     Forms\Components\TextInput::make('Current password')
-                        ->label(trans('filament-accounts::messages.current_password'))
+                        ->label(trans('filament-accounts::messages.profile.password.current_password'))
                         ->password()
                         ->required()
                         ->currentPassword()
                         ->revealable(),
                     Forms\Components\TextInput::make('password')
-                        ->label(trans('filament-accounts::messages.new_password'))
+                        ->label(trans('filament-accounts::messages.profile.password.new_password'))
                         ->password()
                         ->required()
                         ->rule(Password::default())
@@ -32,7 +31,7 @@ class EditPasswordForm
                         ->same('passwordConfirmation')
                         ->revealable(),
                     Forms\Components\TextInput::make('passwordConfirmation')
-                        ->label(trans('filament-accounts::messages.confirm_password'))
+                        ->label(trans('filament-accounts::messages.profile.password.confirm_password'))
                         ->password()
                         ->required()
                         ->dehydrated(false)

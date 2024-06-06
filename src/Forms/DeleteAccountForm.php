@@ -14,9 +14,8 @@ class DeleteAccountForm
     public static function get(): array
     {
         return [
-            Section::make(trans('filament-accounts::messages.delete_account'))
-                ->description(trans('filament-accounts::messages.delete_account_description'))
-                ->aside()
+            Section::make(trans('filament-accounts::messages.profile.delete.delete_account'))
+                ->description(trans('filament-accounts::messages.profile.delete.delete_account_description'))
                 ->schema([
                     Forms\Components\ViewField::make('deleteAccount')
                         ->label(__('Delete Account'))
@@ -24,33 +23,33 @@ class DeleteAccountForm
                         ->view('filament-accounts::forms.components.delete-account-description'),
                     Actions::make([
                         Actions\Action::make('deleteAccount')
-                            ->label(trans('filament-accounts::messages.delete_account'))
+                            ->label(trans('filament-accounts::messages.profile.delete.delete_account'))
                             ->icon('heroicon-m-trash')
                             ->color('danger')
                             ->requiresConfirmation()
-                            ->modalHeading(trans('filament-accounts::messages.delete_account'))
-                            ->modalDescription(trans('filament-accounts::messages.are_you_sure'))
-                            ->modalSubmitActionLabel(trans('filament-accounts::messages.yes_delete_it'))
+                            ->modalHeading(trans('filament-accounts::messages.profile.delete.delete_account'))
+                            ->modalDescription(trans('filament-accounts::messages.profile.delete.are_you_sure'))
+                            ->modalSubmitActionLabel(trans('filament-accounts::messages.profile.delete.yes_delete_it'))
                             ->form([
                                 Forms\Components\TextInput::make('password')
                                     ->password()
                                     ->revealable()
-                                    ->label(trans('filament-accounts::messages.password'))
+                                    ->label(trans('filament-accounts::messages.profile.delete.password'))
                                     ->required(),
                             ])
                             ->action(function (array $data) {
 
-                                if (! Hash::check($data['password'], Auth::user()->password)) {
-                                    self::sendErrorDeleteAccount(trans('filament-accounts::messages.incorrect_password'));
+                                if (! Hash::check($data['password'], auth('accounts')->password)) {
+                                    self::sendErrorDeleteAccount(trans('filament-accounts::messages.profile.delete.incorrect_password'));
 
                                     return;
                                 }
 
-                                auth()->user()?->update([
-                                    'active' => false,
+                                auth('accounts')->user()?->update([
+                                    'is_active' => false,
                                 ]);
 
-                                auth()->user()?->delete();
+                                auth('accounts')->user()?->delete();
                             }),
                     ]),
                 ]),

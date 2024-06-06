@@ -17,31 +17,35 @@ class BrowserSessionsForm
     public static function get(): array
     {
         return [
-            Section::make(trans('filament-accounts::messages.browser_section_title'))
-                ->description(trans('filament-accounts::messages.browser_section_description'))
-                ->aside()
+            Section::make(trans('filament-accounts::messages.profile.browser.browser_section_title'))
+                ->description(trans('filament-accounts::messages.profile.browser.browser_section_description'))
                 ->schema([
                     Forms\Components\ViewField::make('browserSessions')
-                        ->label(__(trans('filament-accounts::messages.browser_section_title')))
+                        ->label(__(trans('filament-accounts::messages.profile.browser.browser_section_title')))
                         ->hiddenLabel()
                         ->view('filament-accounts::forms.components.browser-sessions')
                         ->viewData(['data' => self::getSessions()]),
                     Actions::make([
                         Actions\Action::make('deleteBrowserSessions')
-                            ->label(trans('filament-accounts::messages.browser_sessions_log_out'))
+                            ->label(trans('filament-accounts::messages.profile.browser.browser_sessions_log_out'))
                             ->requiresConfirmation()
-                            ->modalHeading(trans('filament-accounts::messages.browser_sessions_log_out'))
-                            ->modalDescription(trans('filament-accounts::messages.browser_sessions_confirm_pass'))
-                            ->modalSubmitActionLabel(trans('filament-accounts::messages.browser_sessions_log_out'))
+                            ->modalHeading(trans('filament-accounts::messages.profile.browser.browser_sessions_log_out'))
+                            ->modalDescription(trans('filament-accounts::messages.profile.browser.browser_sessions_confirm_pass'))
+                            ->modalSubmitActionLabel(trans('filament-accounts::messages.profile.browser.browser_sessions_log_out'))
                             ->form([
                                 Forms\Components\TextInput::make('password')
                                     ->password()
                                     ->revealable()
-                                    ->label(trans('filament-accounts::messages.password'))
+                                    ->label(trans('filament-accounts::messages.profile.browser.password'))
                                     ->required(),
                             ])
                             ->action(function (array $data) {
                                 self::logoutOtherBrowserSessions($data['password']);
+
+                                Notification::make()
+                                    ->title('Success')
+                                    ->success()
+                                    ->send();
                             })
                             ->modalWidth('2xl'),
                     ]),
@@ -93,7 +97,7 @@ class BrowserSessionsForm
         if (! Hash::check($password, Auth::user()->password)) {
             Notification::make()
                 ->danger()
-                ->title(trans('filament-accounts::messages.incorrect_password'))
+                ->title(trans('filament-accounts::messages.profile.browser.incorrect_password'))
                 ->send();
 
             return;

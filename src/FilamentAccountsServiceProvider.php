@@ -4,9 +4,14 @@ namespace TomatoPHP\FilamentAccounts;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Jetstream\Jetstream;
 use Livewire\Livewire;
 use TomatoPHP\FilamentAccounts\Events\SendOTP;
+use TomatoPHP\FilamentAccounts\Livewire\Otp;
 use TomatoPHP\FilamentAccounts\Livewire\SanctumTokens;
+use TomatoPHP\FilamentAccounts\Models\Membership;
+use TomatoPHP\FilamentAccounts\Models\Team;
+use TomatoPHP\FilamentAccounts\Models\TeamInvitation;
 use TomatoPHP\FilamentAlerts\Services\SendNotification;
 use TomatoPHP\FilamentPlugins\Facades\FilamentPlugins;
 use TomatoPHP\FilamentTypes\Facades\FilamentTypes;
@@ -53,6 +58,7 @@ class FilamentAccountsServiceProvider extends ServiceProvider
         ], 'filament-accounts-lang');
 
         //Register Routes
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
         $this->publishes([
@@ -101,6 +107,8 @@ class FilamentAccountsServiceProvider extends ServiceProvider
         });
 
         Livewire::component('sanctum-tokens', SanctumTokens::class);
+        Livewire::component('otp', Otp::class);
+
 
     }
 
@@ -117,5 +125,38 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             'type',
         ], 'contacts');
 
+        $this->configurePermissions();
+    }
+
+    /**
+     * Configure the permissions that are available within the application.
+     */
+    protected function configurePermissions(): void
+    {
+        Jetstream::useUserModel(config('filament-accounts.model'));
+        Jetstream::useTeamModel(Team::class);
+        Jetstream::useMembershipModel(Membership::class);
+        Jetstream::useTeamInvitationModel(TeamInvitation::class);
+
+        Jetstream::defaultApiTokenPermissions(['read']);
+
+        Jetstream::role('admin', __('Administrator'), [
+            'create',
+            'read',
+            'update',
+            'delete',
+        ])->description(__('Administrator users can perform any action.'));
+
+        Jetstream::role('user', __('User'), [
+            'read',
+            'update',
+        ])->description(__('User users can read and update data.'));
+
+        Jetstream::permissions([
+            'create',
+            'read',
+            'update',
+            'delete',
+        ]);
     }
 }
