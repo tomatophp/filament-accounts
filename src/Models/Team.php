@@ -82,4 +82,9 @@ class Team extends JetstreamTeam implements HasMedia, HasAvatar
     {
         return $this->belongsTo(Account::class, 'account_id');
     }
+
+    public function accounts(): BelongsToMany
+    {
+        return $this->belongsToMany(Account::class, 'team_user', 'team_id', 'account_id');
+    }
 }
