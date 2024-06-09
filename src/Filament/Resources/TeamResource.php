@@ -2,6 +2,7 @@
 
 namespace TomatoPHP\FilamentAccounts\Filament\Resources;
 
+use TomatoPHP\FilamentAccounts\Components\AccountColumn;
 use TomatoPHP\FilamentAccounts\Filament\Resources\TeamResource\Pages;
 use TomatoPHP\FilamentAccounts\Filament\Resources\TeamResource\RelationManagers;
 use TomatoPHP\FilamentAccounts\Models\Team;
@@ -49,7 +50,8 @@ class TeamResource extends Resource
                 Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
                     ->label(trans('filament-accounts::messages.team.columns.avatar'))
                     ->collection('avatar')
-                    ->image(),
+                    ->image()
+                    ->columnSpan(2),
                 Forms\Components\Select::make('account_id')
                     ->label(trans('filament-accounts::messages.team.columns.owner'))
                     ->relationship('owner', 'name')
@@ -67,17 +69,27 @@ class TeamResource extends Resource
 
     public static function table(Table $table): Table
     {
+        $columns = [];
+
+        if(filament('filament-accounts')->useAvatar()){
+            $columns[]= AccountColumn::make('owner.id')
+                ->label(trans('filament-accounts::messages.team.columns.owner'))
+                ->sortable();
+        }
+        else {
+            $columns[]= Tables\Columns\TextColumn::make('owner.name')
+                ->label(trans('filament-accounts::messages.team.columns.owner'))
+                ->sortable();
+        }
         return $table
-            ->columns([
+            ->columns(array_merge([
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
+                    ->circular()
                     ->collection('avatar')
                     ->label(trans('filament-accounts::messages.team.columns.avatar')),
-                Tables\Columns\TextColumn::make('owner.name')
-                    ->label(trans('filament-accounts::messages.team.columns.owner'))
-                    ->sortable(),
                 Tables\Columns\TextColumn::make('name')
-                    ->label(trans('filament-accounts::messages.team.columns.name'))
-                    ->searchable(),
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\IconColumn::make('personal_team')
                     ->label(trans('filament-accounts::messages.team.columns.personal_team'))
                     ->searchable(),
@@ -89,14 +101,18 @@ class TeamResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ], $columns))
             ->filters([
-                //
+               Tables\Filters\SelectFilter::make('owner')
+                    ->label(trans('filament-accounts::messages.team.columns.owner'))
+                    ->searchable()
+                    ->relationship('owner', 'name')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
+            ->defaultSort('id', 'desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -115,8 +131,6 @@ class TeamResource extends Resource
     {
         return [
             'index' => Pages\ListTeams::route('/'),
-            'create' => Pages\CreateTeam::route('/create'),
-            'edit' => Pages\EditTeam::route('/{record}/edit'),
         ];
     }
 }

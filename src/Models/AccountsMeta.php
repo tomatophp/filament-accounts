@@ -2,6 +2,8 @@
 
 namespace TomatoPHP\FilamentAccounts\Models;
 
+use GeneaLabs\LaravelModelCaching\CachedModel;
+use GeneaLabs\LaravelModelCaching\Traits\Cachable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,8 +17,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $updated_at
  * @property Account $account
  */
-class AccountsMeta extends Model
+class AccountsMeta extends CachedModel
 {
+    use Cachable;
+
+    protected $cachePrefix = "tomato_accounts_meta_";
+    
     /**
      * @var array
      */

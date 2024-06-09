@@ -37,7 +37,16 @@ php artisan filament-accounts:install
 if you are not using this package as a plugin please register the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 
 ```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make())
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useAccountMeta()
+    ->showAddressField()
+    ->showTypeField()
+    ->useRequests()
+    ->useContactUs()
+    ->useLoginBy()
+    ->useAvatar()
+    ->useAPIs()
+)
 ```
 
 
@@ -72,14 +81,19 @@ return [
     */
     "features" => [
         "accounts" => true,
+        "meta" => true,
         "locations" => true,
         "contacts" => true,
         "requests" => true,
         "notifications" => true,
+        "loginBy" => true,
+        "avatar" => true,
+        "types" => true,
+        "teams" => true,
         "apis" => true,
         "send_otp" => true,
         "impersonate" => [
-            'active'=> false,
+            'active'=> true,
             'redirect' => '/app',
         ],
     ],
@@ -160,6 +174,24 @@ this plugin makes it easy to make a starting point for your app if this app has 
 
 but here is the problem, every app has a different way of managing customers, so we built a Facade service to control the way you want to manage your customers
 
+## Auto Account Meta Caching
+
+on your `.env` add this
+
+```.env
+CACHE_STORE=array
+MODEL_CACHE_STORE=array
+```
+
+supported cache stores are
+
+```php
++ Redis
++ MemCached
++ APC
++ Array
+```
+
 ### Use Accounts as SaaS Panel
 
 ![Register](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/register.png)
@@ -184,7 +216,41 @@ than publish the migrations
 php artisan vendor:publish --tag=filament-accounts-teams-migrations
 ```
 
-on your new panel just use this plugin
+now you need to migrate your database
+
+```bash
+php artisan migrate
+```
+
+now publish your Accounts model 
+
+```bash
+php artisan vendor:publish --tag="filament-accounts-model"
+```
+
+inside your published model use this implementation
+
+```php
+class Account extends Authenticatable implements HasMedia, FilamentUser, HasAvatar, HasTenants, HasDefaultTenant
+{
+    ...
+    use InteractsWithTenant;
+}
+```
+
+on your main panel you must use teams
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+        ...
+        ->canLogin()
+        ->canBlocked()
+        ->useTeams()
+)
+```
+
+
+now on your new panel just use this plugin
 
 ```php
 ->plugin(
@@ -207,6 +273,39 @@ on your new panel just use this plugin
 ```
 
 you can change settings by remove just methods from plugin.
+
+### Use Notifications
+
+to make `->useOTPActivation()` work you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) and allow `->useNotifications()` on the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ...
+    ->useNotifications()
+)
+```
+
+### Use Account Locations
+
+you can use account locations by install [Filament Locations](https://github.com/tomatophp/filament-locations) and allow `->useLocations()` on the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ...
+    ->useLocations()
+)
+```
+
+## Use Filament Types
+
+you can use the types to manage your accounts types by install [Filament Types](https://github.com/tomatophp/filament-types) and allow `->useTypes()` on the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ...
+    ->useTypes()
+)
+```
 
 ### Use Account Column
 
@@ -234,16 +333,14 @@ you can use the impersonate to impersonate the user by install it first
 composer require stechstudio/filament-impersonate
 ```
 
-now on your `filament-users.php` config allow shield
+now on your main panel provider add `->useImpersonate()` , `->impersonateRedirect('/app')` to the plugin
 
 ```php
-"features" => [
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
     ...
-    "impersonate" => [
-        'active'=> true,
-        'redirect' => '/app',
-    ],
-],
+    ->useImpersonate()
+    ->impersonateRedirect('/app')
+)
 ```
 
 now clear your config

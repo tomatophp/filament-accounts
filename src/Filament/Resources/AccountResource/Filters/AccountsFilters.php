@@ -34,12 +34,12 @@ class AccountsFilters extends FiltersBuilder
         }
 
         if(filament('filament-accounts')->canLogin) {
-            $filters[] = Tables\Filters\Filter::make('is_login')
+            $filters[] = Tables\Filters\TernaryFilter::make('is_login')
                 ->label(trans('filament-accounts::messages.accounts.filters.is_login'));
         }
 
         if(filament('filament-accounts')->canBlocked) {
-            $filters[] = Tables\Filters\Filter::make('is_active')
+            $filters[] = Tables\Filters\TernaryFilter::make('is_active')
                 ->label(trans('filament-accounts::messages.accounts.filters.is_active'));
         }
         return $filters;

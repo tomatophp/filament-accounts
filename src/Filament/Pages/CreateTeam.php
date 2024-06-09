@@ -35,6 +35,7 @@ class CreateTeam extends RegisterTenant
 
     protected function handleRegistration(array $data): Model
     {
-        return app(\TomatoPHP\FilamentAccounts\Actions\Jetstream\CreateTeam::class)->create(auth(filament()->getPlugin('filament-saas-accounts')->authGuard)->user(), $data);
+        $newTeam = app(\TomatoPHP\FilamentAccounts\Actions\Jetstream\CreateTeam::class)->create(auth(filament()->getPlugin('filament-saas-accounts')->authGuard)->user(), $data);
+        return $newTeam;
     }
 }

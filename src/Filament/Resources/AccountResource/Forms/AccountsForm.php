@@ -32,6 +32,12 @@ class AccountsForm extends FormBuilder
                 ->options(Type::query()->where('for', 'accounts')->where('type', 'type')->pluck('name', 'key')->toArray())
                 ->default('account');
         }
+        else if(filament('filament-accounts')->showTypeField) {
+            $formComponents[] = Forms\Components\TextInput::make('type')
+                ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
+                ->required()
+                ->default('account');
+        }
         if(filament('filament-accounts')->useLoginBy) {
             $formComponents[] = Forms\Components\Select::make('loginBy')
                 ->label(trans('filament-accounts::messages.accounts.coulmns.loginBy'))
@@ -55,13 +61,13 @@ class AccountsForm extends FormBuilder
             ->tel()
             ->maxLength(255);
 
-        if(filament('filament-accounts')->useAddressField) {
+        if(filament('filament-accounts')->showAddressField) {
             $formComponents[] = Forms\Components\Textarea::make('address')
                 ->label(trans('filament-accounts::messages.accounts.coulmns.address'))
                 ->columnSpanFull();
         }
         if(filament('filament-accounts')->canLogin) {
-            $formComponents[] = array_merge($formComponents, [
+            $formComponents = array_merge($formComponents, [
                 Forms\Components\Toggle::make('is_login')->default(false)
                     ->hidden(fn(Forms\Get $get) => $get('id') !== null)
                     ->columnSpan(2)
@@ -87,7 +93,7 @@ class AccountsForm extends FormBuilder
                 ->default(false)
                 ->required();
         }
-        
+
         return $form->schema($formComponents);
     }
 }

@@ -76,9 +76,9 @@
 
                                 <div class="flex items-center gap-4">
                                     <!-- Manage Team Member Role -->
-                                    @if (auth('accounts')->user()->id === \Filament\Facades\Filament::getTenant()->account_id && Laravel\Jetstream\Jetstream::hasRoles())
+                                    @if (auth('accounts')->user()->id === \Filament\Facades\Filament::getTenant()->account_id && Laravel\Jetstream\Jetstream::hasRoles() && $user->membership->role)
                                         {{ ($this->getManageRoleAction(Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name))(['user' => $user->id, 'role'=>$user->membership->role]) }}
-                                    @elseif (Laravel\Jetstream\Jetstream::hasRoles())
+                                    @elseif (Laravel\Jetstream\Jetstream::hasRoles() && $user->membership->role)
                                         <div class="ms-2 text-sm text-gray-400">
                                             {{ Laravel\Jetstream\Jetstream::findRole($user->membership->role)->name }}
                                         </div>
@@ -86,7 +86,7 @@
 
                                     <!-- Leave Team -->
                                     @if (auth('accounts')->user()->id === $user->id)
-                                        {{ $this->getLeavingTeamAction($user->id) }}
+                                        {{ ($this->getLeavingTeamAction)(['user'=> $user->id]) }}
 
                                     <!-- Remove Team Member -->
                                     @elseif (auth('accounts')->user()->id === \Filament\Facades\Filament::getTenant()->account_id)

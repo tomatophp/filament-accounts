@@ -2,11 +2,16 @@
 
 namespace TomatoPHP\FilamentAccounts;
 
+use Filament\Events\Auth\Registered;
+use Filament\Events\TenantSet;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Fortify\Fortify;
 use Laravel\Jetstream\Jetstream;
 use Livewire\Livewire;
 use TomatoPHP\FilamentAccounts\Events\SendOTP;
+use TomatoPHP\FilamentAccounts\Listeners\CreatePersonalTeam;
+use TomatoPHP\FilamentAccounts\Listeners\SwitchTeam;
 use TomatoPHP\FilamentAccounts\Livewire\Otp;
 use TomatoPHP\FilamentAccounts\Livewire\SanctumTokens;
 use TomatoPHP\FilamentAccounts\Models\Membership;
@@ -106,10 +111,11 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             return new \TomatoPHP\FilamentAccounts\Services\BuildAuth();
         });
 
-        if(config('filament-accounts.features.teams')) {
-            Livewire::component('sanctum-tokens', SanctumTokens::class);
-            Livewire::component('otp', Otp::class);
-        }
+        Livewire::component('sanctum-tokens', SanctumTokens::class);
+        Livewire::component('otp', Otp::class);
+        Livewire::component(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountMetaManager::class);
+        Livewire::component(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountLocationsManager::class);
+        Livewire::component(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountRequestsManager::class);
     }
 
     public function boot(): void
@@ -128,7 +134,7 @@ class FilamentAccountsServiceProvider extends ServiceProvider
         }
 
 
-        if(config('filament-accounts.features.teams')){
+        if(class_exists(Jetstream::class)){
             $this->configurePermissions();
         }
 
@@ -164,5 +170,31 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             'update',
             'delete',
         ]);
+
+        /**
+         * Disable Fortify routes
+         */
+        Fortify::$registersRoutes = false;
+
+        /**
+         * Disable Jetstream routes
+         */
+        Jetstream::$registersRoutes = false;
+
+        /**
+         * Listen and create personal team for new accounts
+         */
+        Event::listen(
+            Registered::class,
+            CreatePersonalTeam::class,
+        );
+
+        /**
+         * Listen and switch team if tenant was changed
+         */
+        Event::listen(
+            TenantSet::class,
+            SwitchTeam::class,
+        );
     }
 }

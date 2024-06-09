@@ -10,6 +10,7 @@ return [
         "coulmns" => [
             "id" => "Profile",
             "avatar" => "Avatar",
+            "teams" => "Teams",
             "name" => "Name",
             "email" => "Email",
             "phone" => "Phone",
@@ -22,9 +23,13 @@ return [
             "is_login" => "Can Login?"
         ],
         "filters" => [
-            "type" => "Type"
+            "type" => "Type",
+            "teams" => "Teams",
+            "is_active" => "Is Active?",
+            "is_login" => "Can Login?",
         ],
         "actions" => [
+            "teams" => "Manage Teams",
             "impersonate" => "Login As",
             "password" => "Change Password",
             "notifications" => "Send Notifications",
@@ -83,6 +88,7 @@ return [
             "email" => "Email",
             "phone" => "Phone",
             "subject" => "Subject",
+            "message" => "Message",
             "active" => "Active"
         ],
     ],

@@ -41,5 +41,7 @@ trait HasLeavingTeam
         }
 
         $this->sendSuccessNotification();
+
+        return redirect()->to(Filament::getCurrentPanel()->getUrl());
     }
 }

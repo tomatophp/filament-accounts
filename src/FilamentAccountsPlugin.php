@@ -22,7 +22,8 @@ class FilamentAccountsPlugin implements Plugin
     public bool $useTypes = false;
     public bool $useLoginBy = false;
     public bool $useAvatar = false;
-    public bool $useAddressField = false;
+    public bool $showAddressField = false;
+    public bool $showTypeField = false;
     public bool $canLogin = false;
     public bool $canBlocked = false;
     public bool $useImpersonate = false;
@@ -110,9 +111,9 @@ class FilamentAccountsPlugin implements Plugin
         return $this;
     }
 
-    public function useAddressField(bool $useAddressField = true): static
+    public function showAddressField(bool $showAddressField = true): static
     {
-        $this->useAddressField = $useAddressField;
+        $this->showAddressField = $showAddressField;
         return $this;
     }
 
@@ -143,6 +144,12 @@ class FilamentAccountsPlugin implements Plugin
     public function useAPIs(bool $useAPIs = true): static
     {
         $this->useAPIs = $useAPIs;
+        return $this;
+    }
+
+    public function showTypeField(bool $showTypeField = true): static
+    {
+        $this->showTypeField = $showTypeField;
         return $this;
     }
 

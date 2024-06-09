@@ -41,6 +41,13 @@ class AccountsTable extends TableBuilder
                 ->sortable()
                 ->searchable();
         }
+        else if(filament('filament-accounts')->showTypeField){
+            $colums[] = Tables\Columns\TextColumn::make('type')
+                ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
+                ->toggleable()
+                ->sortable()
+                ->searchable();
+        }
 
         if(filament('filament-accounts')->useTeams){
             $colums[] = Tables\Columns\TextColumn::make('teams.name')
