@@ -44,55 +44,89 @@ class AccountRequestResource extends Resource
     public static function form(Form $form): Form
     {
         $payload = [];
-        return $form
-            ->schema([
-                Forms\Components\Select::make('type')
-                    ->label(trans('filament-accounts::messages.requests.columns.type'))
-                    ->searchable()
-                    ->options(Type::where('for', 'contacts')->where('type', 'type')->get()->pluck('name', 'key')->toArray()),
-                Forms\Components\Select::make('status')
-                    ->label(trans('filament-accounts::messages.requests.columns.status'))
-                    ->searchable()
-                    ->options(Type::where('for', 'contacts')->where('type', 'status')->get()->pluck('name', 'key')->toArray())
-                    ->default('pending'),
+        $columns = [];
+        if(filament('filament-accounts')->useTypes){
+            $columns[] = Forms\Components\Select::make('type')
+                ->label(trans('filament-accounts::messages.requests.columns.type'))
+                ->searchable()
+                ->options(Type::where('for', 'contacts')->where('type', 'type')->get()->pluck('name', 'key')->toArray());
 
-                Forms\Components\Toggle::make('is_approved')
-                    ->label(trans('filament-accounts::messages.requests.columns.is_approved')),
-            ]);
+            $columns[] = Forms\Components\Select::make('status')
+                ->label(trans('filament-accounts::messages.requests.columns.status'))
+                ->searchable()
+                ->options(Type::where('for', 'contacts')->where('type', 'status')->get()->pluck('name', 'key')->toArray())
+                ->default('pending');
+        }
+        else {
+            $columns[] = Forms\Components\TextInput::make('type')
+                ->label(trans('filament-accounts::messages.requests.columns.type'))
+                ->default('contact');
+
+            $columns[] = Forms\Components\TextInput::make('status')
+                ->label(trans('filament-accounts::messages.requests.columns.status'))
+                ->default('pending');
+        }
+        $columns[] = Forms\Components\Toggle::make('is_approved')
+            ->label(trans('filament-accounts::messages.requests.columns.is_approved'));
+
+        return $form->schema($columns);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                AccountColumn::make('account.id')
-                    ->label(trans('filament-accounts::messages.requests.columns.account'))
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->label(trans('filament-accounts::messages.requests.columns.user'))
-                    ->sortable(),
-                TypeColumn::make('type')
-                    ->label(trans('filament-accounts::messages.requests.columns.type'))
-                    ->searchable(),
-                TypeColumn::make('status')
+        $columns = [];
+
+        if(filament('filament-accounts')->useAvatar){
+            $columns[] = AccountColumn::make('account.id')
+                ->label(trans('filament-accounts::messages.requests.columns.account'))
+                ->sortable();
+        }
+        else {
+            $columns[] = Tables\Columns\TextColumn::make('account.name');
+        }
+
+        $columns[] = Tables\Columns\TextColumn::make('user.name')
+            ->label(trans('filament-accounts::messages.requests.columns.user'))
+            ->sortable();
+
+        if(filament('filament-accounts')->useTypes){
+            $columns[] =TypeColumn::make('type')
+                ->label(trans('filament-accounts::messages.requests.columns.type'))
+                ->searchable();
+            $columns[] = TypeColumn::make('status')
                     ->label(trans('filament-accounts::messages.requests.columns.status'))
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_approved')
-                    ->label(trans('filament-accounts::messages.requests.columns.is_approved'))
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('is_approved_at')
-                    ->label(trans('filament-accounts::messages.requests.columns.is_approved_at'))
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+                    ->searchable();
+        }
+        else {
+            $columns[] =Tables\Columns\TextColumn::make('type')
+                ->label(trans('filament-accounts::messages.requests.columns.type'))
+                ->searchable();
+            $columns[] = Tables\Columns\TextColumn::make('status')
+                ->label(trans('filament-accounts::messages.requests.columns.status'))
+                ->searchable();
+        }
+
+
+        $columns = array_merge($columns, [
+            Tables\Columns\IconColumn::make('is_approved')
+                ->label(trans('filament-accounts::messages.requests.columns.is_approved'))
+                ->boolean(),
+            Tables\Columns\TextColumn::make('is_approved_at')
+                ->label(trans('filament-accounts::messages.requests.columns.is_approved_at'))
+                ->dateTime()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ]);
+
+        return $table
+            ->columns($columns)
             ->filters([
                 //
             ])

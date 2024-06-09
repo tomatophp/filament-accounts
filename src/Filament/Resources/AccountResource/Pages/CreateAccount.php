@@ -15,5 +15,8 @@ class CreateAccount extends CreateRecord
         if(isset($data['password'])){
             $data['password'] = bcrypt($data['password']);
         }
+        if(!isset($data['loginBy'])){
+            $data['loginBy'] = "email";
+        }
     }
 }

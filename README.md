@@ -178,6 +178,12 @@ install jetstream without install it.
 composer require laravel/jetstream
 ```
 
+than publish the migrations
+
+```bash
+php artisan vendor:publish --tag=filament-accounts-teams-migrations
+```
+
 on your new panel just use this plugin
 
 ```php

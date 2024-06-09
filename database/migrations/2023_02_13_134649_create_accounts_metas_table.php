@@ -13,17 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('accounts_metas', function (Blueprint $table) {
-            $table->id();
+        if(config('filament-accounts.features.meta')){
+            Schema::create('accounts_metas', function (Blueprint $table) {
+                $table->id();
 
-            $table->unsignedBigInteger('model_id')->nullable();
-            $table->string('model_type')->nullable();
+                $table->unsignedBigInteger('model_id')->nullable();
+                $table->string('model_type')->nullable();
 
-            $table->foreignId('account_id')->references('id')->on('accounts')->onDelete('cascade');
-            $table->string('key')->index();
-            $table->json('value')->nullable();
-            $table->timestamps();
-        });
+                $table->foreignId('account_id')->references('id')->on('accounts')->onDelete('cascade');
+                $table->string('key')->index();
+                $table->json('value')->nullable();
+                $table->timestamps();
+            });
+        }
+
     }
 
     /**
@@ -33,6 +36,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accounts_metas');
+        if(config('filament-accounts.features.meta')) {
+            Schema::dropIfExists('accounts_metas');
+        }
     }
 };

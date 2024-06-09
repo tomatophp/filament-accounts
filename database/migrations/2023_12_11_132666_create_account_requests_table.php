@@ -13,19 +13,22 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('account_requests', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('account_id')->references('id')->on('accounts')->onDelete('cascade');
-            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
+        if(config('filament-accounts.features.requests')){
+            Schema::create('account_requests', function (Blueprint $table) {
+                $table->id();
+                $table->foreignId('account_id')->references('id')->on('accounts')->onDelete('cascade');
+                $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('type')->nullable();
-            $table->string('status')->default('pending')->nullable();
+                $table->string('type')->nullable();
+                $table->string('status')->default('pending')->nullable();
 
-            $table->boolean('is_approved')->default(0)->nullable();
-            $table->datetime('is_approved_at')->nullable();
+                $table->boolean('is_approved')->default(0)->nullable();
+                $table->datetime('is_approved_at')->nullable();
 
-            $table->timestamps();
-        });
+                $table->timestamps();
+            });
+        }
+
     }
 
     /**
@@ -35,6 +38,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_requests');
+        if(config('filament-accounts.features.requests')) {
+            Schema::dropIfExists('account_requests');
+        }
     }
 };
