@@ -88,6 +88,7 @@ class TeamResource extends Resource
                     ->collection('avatar')
                     ->label(trans('filament-accounts::messages.team.columns.avatar')),
                 Tables\Columns\TextColumn::make('name')
+                    ->label(trans('filament-accounts::messages.team.columns.name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('personal_team')
