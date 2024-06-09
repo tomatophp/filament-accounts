@@ -106,26 +106,32 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             return new \TomatoPHP\FilamentAccounts\Services\BuildAuth();
         });
 
-        Livewire::component('sanctum-tokens', SanctumTokens::class);
-        Livewire::component('otp', Otp::class);
-
-
+        if(config('filament-accounts.features.teams')) {
+            Livewire::component('sanctum-tokens', SanctumTokens::class);
+            Livewire::component('otp', Otp::class);
+        }
     }
 
     public function boot(): void
     {
 
-        FilamentTypes::register([
-            'types',
-            'groups'
-        ], 'accounts');
+        if(config('filament-accounts.features.types')){
+            FilamentTypes::register([
+                'types',
+                'groups'
+            ], 'accounts');
 
-        FilamentTypes::register([
-            'status',
-            'type',
-        ], 'contacts');
+            FilamentTypes::register([
+                'status',
+                'type',
+            ], 'contacts');
+        }
 
-        $this->configurePermissions();
+
+        if(config('filament-accounts.features.teams')){
+            $this->configurePermissions();
+        }
+
     }
 
     /**
