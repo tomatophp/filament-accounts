@@ -210,5 +210,15 @@ return [
             "incorrect_password" => "The password you entered was incorrect.",
             "are_you_sure" => "Are you sure you want to delete your team? Once your team is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your team.",
         ],
+    ],
+    "team" => [
+        "title" => "Teams",
+        "single" => "Team",
+        "columns" => [
+            "avatar" => "Avatar",
+            "name" => "Name",
+            "owner" => "Owner",
+            "personal_team" => "Personal Team",
+        ],
     ]
 ];

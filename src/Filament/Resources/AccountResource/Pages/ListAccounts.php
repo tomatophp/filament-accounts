@@ -20,11 +20,14 @@ class ListAccounts extends ManageRecords
                     if(isset($data['password'])){
                         $data['password'] = bcrypt($data['password']);
                     }
-                    if($data['loginBy'] === 'email'){
+                    if(isset($data['loginBy']) && $data['loginBy'] === 'email'){
                         $data['username'] = $data['email'];
                     }
-                    else {
+                    else if(isset($data['loginBy']) && $data['loginBy'] === 'phone') {
                         $data['username'] = $data['phone'];
+                    }
+                    else {
+                        $data['username'] = $data['email'];
                     }
 
                     return config('filament-accounts.model')::query()->create($data);

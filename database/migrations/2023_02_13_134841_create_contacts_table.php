@@ -13,18 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('contacts', function (Blueprint $table) {
-            $table->id();
-            $table->string('type')->default('contact')->nullable();
-            $table->string('status')->default('pending')->nullable();
-            $table->string('name')->index();
-            $table->string('email')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('subject');
-            $table->text('message');
-            $table->boolean('active')->default(1)->nullable();
-            $table->timestamps();
-        });
+        if(config('filament-accounts.features.contacts')){
+            Schema::create('contacts', function (Blueprint $table) {
+                $table->id();
+                $table->string('type')->default('contact')->nullable();
+                $table->string('status')->default('pending')->nullable();
+                $table->string('name')->index();
+                $table->string('email')->nullable();
+                $table->string('phone')->nullable();
+                $table->string('subject');
+                $table->text('message');
+                $table->boolean('active')->default(1)->nullable();
+                $table->timestamps();
+            });
+        }
+
     }
 
     /**
@@ -34,6 +37,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contacts');
+        if(config('filament-accounts.features.contacts')) {
+            Schema::dropIfExists('contacts');
+        }
     }
 };

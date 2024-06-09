@@ -8,6 +8,7 @@ use Filament\Actions;
 use Filament\Forms;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
+use TomatoPHP\FilamentAccounts\Models\Team;
 use TomatoPHP\FilamentAlerts\Models\NotificationsTemplate;
 use TomatoPHP\FilamentAlerts\Services\SendNotification;
 use TomatoPHP\FilamentHelpers\Contracts\ActionsBuilder;
@@ -18,44 +19,75 @@ class AccountsActions extends ActionsBuilder
     public function actions(): array
     {
         $actions = [];
-        if(class_exists(\STS\FilamentImpersonate\Tables\Actions\Impersonate::class) && config('filament-accounts.features.impersonate.active')){
+        if(class_exists(\STS\FilamentImpersonate\Tables\Actions\Impersonate::class) && filament('filament-accounts')->canLogin && filament('filament-accounts')->useImpersonate){
             $actions[] = \STS\FilamentImpersonate\Tables\Actions\Impersonate::make('impersonate')
                 ->guard('accounts')
                 ->color('info')
                 ->tooltip(trans('filament-accounts::messages.accounts.actions.impersonate'))
                 ->redirectTo( config('filament-accounts.features.impersonate.redirect'));
         }
-        $actions[] = Tables\Actions\Action::make('password')
-            ->label(trans('filament-accounts::messages.accounts.actions.password'))
-            ->icon('heroicon-s-lock-closed')
-            ->iconButton()
-            ->tooltip(trans('filament-accounts::messages.accounts.actions.password'))
-            ->color('danger')
-            ->form([
-                Forms\Components\TextInput::make('password')
-                    ->label(trans('filament-accounts::messages.accounts.coulmns.password'))
-                    ->password()
-                    ->required()
-                    ->confirmed()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('password_confirmation')
-                    ->label(trans('filament-accounts::messages.accounts.coulmns.password_confirmation'))
-                    ->password()
-                    ->required()
-                    ->maxLength(255),
-            ])
-            ->action(function (array $data,$record) {
-                $record->password = bcrypt($data['password']);
-                $record->save();
 
-                Notification::make()
-                    ->title('Account Password Changed')
-                    ->body('Account password changed successfully')
-                    ->success()
-                    ->send();
-            });
+        if(filament('filament-accounts')->canLogin) {
+            $actions[] = Tables\Actions\Action::make('password')
+                ->label(trans('filament-accounts::messages.accounts.actions.password'))
+                ->icon('heroicon-s-lock-closed')
+                ->iconButton()
+                ->tooltip(trans('filament-accounts::messages.accounts.actions.password'))
+                ->color('danger')
+                ->form([
+                    Forms\Components\TextInput::make('password')
+                        ->label(trans('filament-accounts::messages.accounts.coulmns.password'))
+                        ->password()
+                        ->required()
+                        ->confirmed()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('password_confirmation')
+                        ->label(trans('filament-accounts::messages.accounts.coulmns.password_confirmation'))
+                        ->password()
+                        ->required()
+                        ->maxLength(255),
+                ])
+                ->action(function (array $data, $record) {
+                    $record->password = bcrypt($data['password']);
+                    $record->save();
 
-        if(config('filament-accounts.features.notifications')){
+                    Notification::make()
+                        ->title('Account Password Changed')
+                        ->body('Account password changed successfully')
+                        ->success()
+                        ->send();
+                });
+        }
+
+        if(filament('filament-accounts')->useTeams) {
+            $actions[] = Tables\Actions\Action::make('teams')
+                ->label(trans('filament-accounts::messages.accounts.actions.teams'))
+                ->icon('heroicon-s-user-group')
+                ->iconButton()
+                ->tooltip(trans('filament-accounts::messages.accounts.actions.teams'))
+                ->color('primary')
+                ->form(function ($record) {
+                    return [
+                        Forms\Components\Select::make('teams')
+                            ->default($record->teams()->pluck('team_id')->toArray())
+                            ->multiple()
+                            ->label(trans('filament-accounts::messages.accounts.actions.teams'))
+                            ->preload()
+                            ->required()
+                            ->relationship('teams', 'name')
+                            ->options(Team::query()->pluck('name', 'id')->toArray())
+                    ];
+                })
+                ->action(function (array $data, $record) {
+                    Notification::make()
+                        ->title('Account Teams Updated')
+                        ->body('Account Teams Updated successfully')
+                        ->success()
+                        ->send();
+                });
+        }
+
+        if(filament('filament-accounts')->useNotifications){
             $actions[] = Tables\Actions\Action::make('notify')
                 ->label(trans('filament-accounts::messages.accounts.actions.notifications'))
                 ->icon('heroicon-s-bell')

@@ -8,12 +8,12 @@ return [
     */
     "features" => [
         "accounts" => true,
-        "locations" => true,
-        "contacts" => true,
-        "requests" => true,
-        "notifications" => true,
-        "apis" => true,
-        "send_otp" => true,
+        "locations" => false,
+        "contacts" => false,
+        "requests" => false,
+        "notifications" => false,
+        "apis" => false,
+        "send_otp" => false,
         "impersonate" => [
             'active'=> false,
             'redirect' => '/app',

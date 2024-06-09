@@ -26,7 +26,6 @@ use function Laravel\Prompts\confirm;
 
 class AccountResource extends Resource
 {
-
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     protected static bool $softDelete = true;

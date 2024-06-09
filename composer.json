@@ -41,10 +41,6 @@
         "tomatophp/console-helpers": "^1.1",
         "filament/filament": "^3.0.0",
         "filament/notifications": "^3.0.0",
-        "tomatophp/filament-types": "^1.0",
-        "tomatophp/filament-locations": "^1.0",
-        "tomatophp/filament-alerts": "^1.0",
-        "tomatophp/filament-icons": "^1.0",
         "tomatophp/filament-helpers": "^1.0",
         "filament/spatie-laravel-media-library-plugin": "^3.2"
     }

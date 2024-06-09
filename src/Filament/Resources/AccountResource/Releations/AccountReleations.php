@@ -2,6 +2,7 @@
 
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Releations;
 
+use Filament\Facades\Filament;
 use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
 
 class AccountReleations
@@ -9,10 +10,18 @@ class AccountReleations
     public static function get(): array
     {
         $loadRelations = FilamentAccounts::loadRelations();
-        return array_merge([
-            \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountMetaManager::make(),
-            \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountLocationsManager::make(),
-            \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountRequestsManager::make(),
-        ],$loadRelations);
+
+        $relations = [];
+
+        if(config('filament-accounts.features.meta')){
+            $relations[] = \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountMetaManager::make();
+        }
+        if(config('filament-accounts.features.locations')){
+            $relations[] = \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountLocationsManager::make();
+        }
+        if(config('filament-accounts.features.requests')){
+            $relations[] = \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountRequestsManager::make();
+        }
+        return array_merge($relations,$loadRelations);
     }
 }

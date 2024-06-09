@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use Filament\Forms;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use TomatoPHP\FilamentAccounts\Components\AccountColumn;
 use TomatoPHP\FilamentTypes\Components\TypeColumn;
 use TomatoPHP\FilamentTypes\Models\Type;
 
@@ -69,36 +70,50 @@ class AccountRequestsManager extends RelationManager
 
     public function table(Table $table): Table
     {
+        $columns = [];
+
+        $columns[] = Tables\Columns\TextColumn::make('user.name')
+            ->label(trans('filament-accounts::messages.requests.columns.user'))
+            ->sortable();
+
+        if(filament('filament-accounts')->useTypes){
+            $columns[] =TypeColumn::make('type')
+                ->label(trans('filament-accounts::messages.requests.columns.type'))
+                ->searchable();
+            $columns[] = TypeColumn::make('status')
+                ->label(trans('filament-accounts::messages.requests.columns.status'))
+                ->searchable();
+        }
+        else {
+            $columns[] =Tables\Columns\TextColumn::make('type')
+                ->label(trans('filament-accounts::messages.requests.columns.type'))
+                ->searchable();
+            $columns[] = Tables\Columns\TextColumn::make('status')
+                ->label(trans('filament-accounts::messages.requests.columns.status'))
+                ->searchable();
+        }
+
+
+        $columns = array_merge($columns, [
+            Tables\Columns\IconColumn::make('is_approved')
+                ->label(trans('filament-accounts::messages.requests.columns.is_approved'))
+                ->boolean(),
+            Tables\Columns\TextColumn::make('is_approved_at')
+                ->label(trans('filament-accounts::messages.requests.columns.is_approved_at'))
+                ->dateTime()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ]);
+
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('account.name')
-                    ->label(trans('filament-accounts::messages.requests.columns.account'))
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user.name')
-                    ->label(trans('filament-accounts::messages.requests.columns.user'))
-                    ->sortable(),
-                TypeColumn::make('type')
-                    ->label(trans('filament-accounts::messages.requests.columns.type'))
-                    ->searchable(),
-                TypeColumn::make('status')
-                    ->label(trans('filament-accounts::messages.requests.columns.status'))
-                    ->searchable(),
-                Tables\Columns\IconColumn::make('is_approved')
-                    ->label(trans('filament-accounts::messages.requests.columns.is_approved'))
-                    ->boolean(),
-                Tables\Columns\TextColumn::make('is_approved_at')
-                    ->label(trans('filament-accounts::messages.requests.columns.is_approved_at'))
-                    ->dateTime()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ->columns($columns)
             ->filters([
 
             ])
