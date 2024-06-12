@@ -152,17 +152,17 @@ class FilamentAccountsServiceProvider extends ServiceProvider
 
         Jetstream::defaultApiTokenPermissions(['read']);
 
-        Jetstream::role('admin', __('Administrator'), [
+        Jetstream::role('admin', trans('filament-accounts::messages.roles.admin.name'), [
             'create',
             'read',
             'update',
             'delete',
-        ])->description(__('Administrator users can perform any action.'));
+        ])->description(trans('filament-accounts::messages.roles.admin.description'));
 
-        Jetstream::role('user', __('User'), [
+        Jetstream::role('user', trans('filament-accounts::messages.roles.user.description'), [
             'read',
             'update',
-        ])->description(__('User users can read and update data.'));
+        ])->description(trans('filament-accounts::messages.roles.user.description'));
 
         Jetstream::permissions([
             'create',

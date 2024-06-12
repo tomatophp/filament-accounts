@@ -226,5 +226,16 @@ return [
             "owner" => "Owner",
             "personal_team" => "Personal Team",
         ],
+    ],
+
+    "roles" => [
+        "admin" => [
+            "name" => "Administrator",
+            "description" => "Administrator users can perform any action."
+        ],
+        "user" =>[
+            "name" =>  "User",
+            "description" => "User users can read and update data."
+        ],
     ]
 ];
