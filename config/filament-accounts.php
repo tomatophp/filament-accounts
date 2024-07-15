@@ -15,8 +15,8 @@ return [
         "notifications" => true,
         "loginBy" => true,
         "avatar" => true,
-        "types" => true,
-        "teams" => true,
+        "types" => false,
+        "teams" => false,
         "apis" => true,
         "send_otp" => true,
         "impersonate" => [
