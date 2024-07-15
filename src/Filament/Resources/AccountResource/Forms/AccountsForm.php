@@ -69,7 +69,6 @@ class AccountsForm extends FormBuilder
         if(filament('filament-accounts')->canLogin) {
             $formComponents = array_merge($formComponents, [
                 Forms\Components\Toggle::make('is_login')->default(false)
-                    ->hidden(fn(Forms\Get $get) => $get('id') !== null)
                     ->columnSpan(2)
                     ->label(trans('filament-accounts::messages.accounts.coulmns.is_login'))
                     ->live(),
