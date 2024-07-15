@@ -49,6 +49,11 @@ if you are not using this package as a plugin please register the plugin on `/ap
 )
 ```
 
+**NOTE** To make `->useAvatar()` work you need the Media Library plugin to be installed and migrated you can use this command to publish the migration
+
+```bash
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
+```
 
 ## Publish Account Model
 
