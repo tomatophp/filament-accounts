@@ -105,6 +105,7 @@ return [
             'confirm_password' => 'تأكيد كلمة المرور',
         ],
         'browser' => [
+            "sessions_last_active"  => "اخر جلسة",
             'browser_section_title' => 'جلسات المتصفح',
             'browser_section_description' => 'إدارة وتسجيل الخروج من جلساتك النشطة على المتصفحات والأجهزة الأخرى.',
             'browser_sessions_log_out' => 'تسجيل الخروج من جلسات المتصفح الأخرى',
@@ -224,7 +225,6 @@ return [
             "personal_team" => "فريق شخصي",
         ],
     ],
-
     "roles" => [
         "admin" => [
             "name" => "مدير النظام",
@@ -234,5 +234,8 @@ return [
             "name" =>  "مستخدم",
             "description" => "مستخدم عادي يمكنه القراءة والتحديث."
         ],
+    ],
+    "login" => [
+        "active" => "عفواً برجاء تاكيد الحساب اولاً ثم اعادة تسجيل الدخول"
     ]
 ];

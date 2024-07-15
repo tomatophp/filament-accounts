@@ -279,6 +279,8 @@ now on your new panel just use this plugin
 
 you can change settings by remove just methods from plugin.
 
+**NOTE** to use `->useOTPActivation()` you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) from the next step first, and to use `->databaseNotifications()` you need to publish notification database table first
+
 ### Use Notifications
 
 to make `->useOTPActivation()` work you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) and allow `->useNotifications()` on the plugin

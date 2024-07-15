@@ -13,6 +13,7 @@ class EditProfileForm
                 ->description(trans('filament-accounts::messages.profile.edit.description'))
                 ->schema([
                     Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
+                        ->avatar()
                         ->circleCropper()
                         ->collection('avatar')
                         ->columnSpan(2)

@@ -3,7 +3,9 @@
 @endphp
 <!-- Team Owner Information -->
 <div class="col-span-6">
-    <x-label value="{{ trans('filament-accounts::messages.teams.edit.owner') }}" />
+    <label>
+        {{ trans('filament-accounts::messages.teams.edit.owner') }}
+    </label>
 
     <div class="flex justify-start gap-2 py-4">
         <div class="flex flex-col items-center justify-center">

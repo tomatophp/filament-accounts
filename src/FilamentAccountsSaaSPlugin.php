@@ -21,6 +21,7 @@ use TomatoPHP\FilamentPlugins\Facades\FilamentPlugins;
 
 class FilamentAccountsSaaSPlugin implements Plugin
 {
+
     public function getId(): string
     {
         return 'filament-saas-accounts';
@@ -29,10 +30,12 @@ class FilamentAccountsSaaSPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel
-            ->tenant($this->useJetstreamTeamModel ? Jetstream::teamModel(): Team::class)
+            ->tenant($this->useJetstreamTeamModel ? Jetstream::teamModel(): Team::class, 'id')
             ->tenantRegistration(CreateTeam::class);
 
-        $pages = [];
+        $pages = [
+            CreateTeam::class
+        ];
         $menuItems = [];
 
         if($this->databaseNotifications){
@@ -62,6 +65,9 @@ class FilamentAccountsSaaSPlugin implements Plugin
         }
 
         if($this->editTeam){
+            $panel->livewireComponents([
+                EditTeam::class
+            ]);
             $panel->tenantProfile(EditTeam::class);
         }
 

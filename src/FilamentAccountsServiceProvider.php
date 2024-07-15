@@ -111,6 +111,18 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             return new \TomatoPHP\FilamentAccounts\Services\BuildAuth();
         });
 
+        if(class_exists(Jetstream::class)){
+            Jetstream::useUserModel(config('filament-accounts.model'));
+            Jetstream::useTeamModel(Team::class);
+            Jetstream::useMembershipModel(Membership::class);
+            Jetstream::useTeamInvitationModel(TeamInvitation::class);
+            Jetstream::$registersRoutes = false;
+            Fortify::$registersRoutes = false;
+
+            Jetstream::defaultApiTokenPermissions(['read']);
+        }
+
+
         Livewire::component('sanctum-tokens', SanctumTokens::class);
         Livewire::component('otp', Otp::class);
         Livewire::component(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountMetaManager::class);
@@ -120,6 +132,10 @@ class FilamentAccountsServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+
+        if(class_exists(Jetstream::class)){
+            $this->configurePermissions();
+        }
 
         if(config('filament-accounts.features.types')){
             FilamentTypes::register([
@@ -132,12 +148,6 @@ class FilamentAccountsServiceProvider extends ServiceProvider
                 'type',
             ], 'contacts');
         }
-
-
-        if(class_exists(Jetstream::class)){
-            $this->configurePermissions();
-        }
-
     }
 
     /**
@@ -145,13 +155,6 @@ class FilamentAccountsServiceProvider extends ServiceProvider
      */
     protected function configurePermissions(): void
     {
-        Jetstream::useUserModel(config('filament-accounts.model'));
-        Jetstream::useTeamModel(Team::class);
-        Jetstream::useMembershipModel(Membership::class);
-        Jetstream::useTeamInvitationModel(TeamInvitation::class);
-
-        Jetstream::defaultApiTokenPermissions(['read']);
-
         Jetstream::role('admin', trans('filament-accounts::messages.roles.admin.name'), [
             'create',
             'read',
@@ -159,7 +162,7 @@ class FilamentAccountsServiceProvider extends ServiceProvider
             'delete',
         ])->description(trans('filament-accounts::messages.roles.admin.description'));
 
-        Jetstream::role('user', trans('filament-accounts::messages.roles.user.description'), [
+        Jetstream::role('user', trans('filament-accounts::messages.roles.user.name'), [
             'read',
             'update',
         ])->description(trans('filament-accounts::messages.roles.user.description'));

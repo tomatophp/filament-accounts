@@ -108,6 +108,7 @@ return [
             "confirm_password" => "Confirm Password",
         ],
         "browser" => [
+            "sessions_last_active"  => "Last Active",
             "browser_section_title" => "Browser Sessions",
             "browser_section_description" => "Manage and log out your active sessions on other browsers and devices.",
             "browser_sessions_log_out" => "Log Out Other Browser Sessions",
@@ -237,5 +238,8 @@ return [
             "name" =>  "User",
             "description" => "User users can read and update data."
         ],
+    ],
+    "login" => [
+        "active" => "Please Verify Your Account First, than try to login again",
     ]
 ];

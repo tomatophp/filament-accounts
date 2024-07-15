@@ -7,8 +7,8 @@ Route::get('otp', \TomatoPHP\FilamentAccounts\Livewire\Otp::class)
 
 Route::get('/accounts/team-invitations/{invitation}/accept', [\TomatoPHP\FilamentAccounts\Http\Controllers\TeamsController::class, 'accept'])
     ->middleware(['web', 'auth:accounts'])
-    ->name('accounts.team-invitations.accept');
+    ->name('team-invitations.accept');
 
 Route::get('/accounts/team-invitations/{invitation}/cancel', [\TomatoPHP\FilamentAccounts\Http\Controllers\TeamsController::class, 'cancel'])
     ->middleware(['web', 'auth:accounts'])
-    ->name('accounts.team-invitations.cancel');
+    ->name('team-invitations.cancel');

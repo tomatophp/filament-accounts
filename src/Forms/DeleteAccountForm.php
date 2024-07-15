@@ -39,7 +39,7 @@ class DeleteAccountForm
                             ])
                             ->action(function (array $data) {
 
-                                if (! Hash::check($data['password'], auth('accounts')->password)) {
+                                if (! Hash::check($data['password'], auth('accounts')->user()->password)) {
                                     self::sendErrorDeleteAccount(trans('filament-accounts::messages.profile.delete.incorrect_password'));
 
                                     return;

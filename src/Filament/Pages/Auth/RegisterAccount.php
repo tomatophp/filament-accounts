@@ -14,6 +14,7 @@ use Filament\Http\Responses\Auth\Contracts\RegistrationResponse;
 use Filament\Notifications\Notification;
 use Filament\Pages\Auth\Register;
 use Filament\Pages\Tenancy\EditTenantProfile;
+use Illuminate\Support\Facades\DB;
 use TomatoPHP\FilamentAccounts\Events\SendOTP;
 use TomatoPHP\FilamentAccounts\Responses\RegisterResponse;
 
@@ -79,24 +80,10 @@ class RegisterAccount extends Register
             return null;
         }
 
-        $user = $this->wrapInDatabaseTransaction(function () {
-            $this->callHook('beforeValidate');
-
+        $user = DB::transaction(function () {
             $data = $this->form->getState();
 
-            $this->callHook('afterValidate');
-
-            $data = $this->mutateFormDataBeforeRegister($data);
-
-            $this->callHook('beforeRegister');
-
-            $user = $this->handleRegistration($data);
-
-            $this->form->model($user)->saveRelationships();
-
-            $this->callHook('afterRegister');
-
-            return $user;
+            return $this->getUserModel()::create($data);
         });
 
         event(new Registered($user));

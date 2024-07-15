@@ -1,16 +1,17 @@
 
 <x-filament-panels::page>
-    <x-filament-panels::form wire:submit="saveEditTeam">
-        {{ $this->editTeamForm }}
+    @if(auth('accounts')->user()->id === $team->account_id)
+        <x-filament-panels::form wire:submit="saveEditTeam">
+            {{ $this->editTeamForm }}
 
-        <x-filament-panels::form.actions
-            alignment="right"
-            :actions="$this->getEditTeamActions()"
-        />
+            <x-filament-panels::form.actions
+                alignment="right"
+                :actions="$this->getEditTeamActions()"
+            />
 
-    </x-filament-panels::form>
-
-    @if(filament()->getPlugin('filament-saas-accounts')->teamInvitation)
+        </x-filament-panels::form>
+    @endif
+    @if(filament()->getPlugin('filament-saas-accounts')->teamInvitation && auth('accounts')->user()->id === $team->account_id)
         <x-filament-panels::form wire:submit="sendInvitation">
             {{ $this->manageTeamMembersForm }}
 
@@ -101,7 +102,7 @@
         @endif
     @endif
 
-    @if(filament()->getPlugin('filament-saas-accounts')->deleteTeam)
+    @if(filament()->getPlugin('filament-saas-accounts')->deleteTeam && auth('accounts')->user()->id === $team->account_id)
         <x-filament-panels::form wire:submit="deleteTeam">
             {{ $this->deleteTeamFrom }}
         </x-filament-panels::form>

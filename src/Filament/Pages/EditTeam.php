@@ -52,8 +52,6 @@ class EditTeam extends EditTenantProfile
     use HasLeavingTeam;
     use HasNotifications;
 
-    protected static ?int $navigationSort = 2;
-
     protected static string $view = 'filament-accounts::teams.edit-team';
 
     /**

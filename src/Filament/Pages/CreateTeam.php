@@ -10,12 +10,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class CreateTeam extends RegisterTenant
 {
-    /**
-     * @return bool
-     */
-    public static function isShouldRegisterNavigation(): bool
+    public static function registerNavigationItems()
     {
-        return false;
+        return [];
     }
 
     public static function getLabel(): string
@@ -28,8 +25,10 @@ class CreateTeam extends RegisterTenant
         return $form
             ->schema([
                 SpatieMediaLibraryFileUpload::make('avatar')
+                    ->avatar()
                     ->collection('avatar'),
-                TextInput::make('name'),
+                TextInput::make('name')
+                    ->default(auth('accounts')->user()->teams()->count() > 0 ? null :auth('accounts')->user()->name . "'s Team"),
             ]);
     }
 

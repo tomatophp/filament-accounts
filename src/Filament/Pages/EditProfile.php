@@ -102,4 +102,12 @@ class EditProfile extends Page implements HasForms
     {
         return auth(filament()->getPlugin('filament-saas-accounts')->authGuard)->user();
     }
+
+    public function sendSuccessNotification()
+    {
+        Notification::make()
+            ->title("Success")
+            ->success()
+            ->send();
+    }
 }
