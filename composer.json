@@ -43,6 +43,7 @@
         "filament/notifications": "^3.0.0",
         "tomatophp/filament-helpers": "^1.0",
         "filament/spatie-laravel-media-library-plugin": "^3.2",
-        "genealabs/laravel-model-caching": "^11.0"
+        "genealabs/laravel-model-caching": "^11.0",
+        "laravel/sanctum": "^4.0"
     }
 }
