@@ -47,13 +47,11 @@ class ManageTeamMembersForm
                 ->preload()
                 ->options(function (){
                     $roles = collect(Jetstream::$roles)->transform(function ($role) {
-                        return with($role->jsonSerialize(), function ($data) {
-                            return (new Role(
-                                $data['key'],
-                                $data['name'],
-                                $data['permissions']
-                            ))->description($data['description']);
-                        });
+                        return (new Role(
+                            $role->key,
+                            $role->name,
+                            $role->permissions
+                        ))->description($role->description);
                     })->values();
                     return $roles->pluck('name', 'key');
                 })
