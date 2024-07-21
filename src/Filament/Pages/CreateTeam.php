@@ -15,6 +15,11 @@ class CreateTeam extends RegisterTenant
         return [];
     }
 
+    public static function getCluster()
+    {
+
+    }
+
     public static function getLabel(): string
     {
         return 'Create Team';
