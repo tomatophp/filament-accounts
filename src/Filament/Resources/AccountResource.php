@@ -62,22 +62,22 @@ class AccountResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return config('filament-accounts.accounts.form')? config('filament-accounts.accounts.form')::make($form) : AccountsForm::make($form);
+        return AccountsForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return config('filament-accounts.accounts.table')? config('filament-accounts.accounts.table')::make($table) : AccountsTable::make($table);
+        return AccountsTable::make($table);
     }
 
     public static function getRelations(): array
     {
-        return config('filament-accounts.relations')::get()??AccountReleations::get();
+        return AccountReleations::get();
     }
 
     public static function getPages(): array
     {
-        return config('filament-accounts.accounts.pages')? config('filament-accounts.accounts.pages')::routes() :[
+        return [
             'index' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\ListAccounts::route('/'),
             'edit' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\EditAccount::route('/{record}/edit')
         ];

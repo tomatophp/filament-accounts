@@ -8,7 +8,7 @@ return [
         "label" => "Accounts",
         "single" => "Account",
         "coulmns" => [
-            "id" => "Profile",
+            "id" => "ID",
             "avatar" => "Avatar",
             "teams" => "Teams",
             "name" => "Name",
@@ -20,7 +20,9 @@ return [
             "password_confirmation" => "Password Confirmation",
             "loginBy" => "Login By",
             "is_active" => "Is Active?",
-            "is_login" => "Can Login?"
+            "is_login" => "Can Login?",
+            "created_at" => "Created At",
+            "updated_at" => "Updated At",
         ],
         "filters" => [
             "type" => "Type",

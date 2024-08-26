@@ -20,7 +20,7 @@ return [
         "apis" => true,
         "send_otp" => true,
         "impersonate" => [
-            'active'=> true,
+            'active'=> false,
             'redirect' => '/app',
         ],
     ],
@@ -60,28 +60,6 @@ return [
      */
     "guard" => "accounts",
 
-
-    /**
-     * Accounts Relations Managers
-     *
-     * you can set selected relations to show in account resource
-     */
-    "relations" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Releations\AccountReleations::class,
-
-    /**
-     * Accounts Resource Builder
-     *
-     * you can change the form, table, actions and filters of account resource by using filament-helpers class commands
-     *
-     * link: https://github.com/tomatophp/filament-helpers
-     */
-    "accounts" => [
-        "form" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Forms\AccountsForm::class,
-        "table" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Tables\AccountsTable::class,
-        "actions" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions::class,
-        "filters" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters::class,
-        "pages" =>  \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\AccountPagesList::class,
-    ],
 
     "teams" => [
         "allowed" => false,

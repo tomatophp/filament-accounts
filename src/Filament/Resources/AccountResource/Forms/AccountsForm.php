@@ -66,6 +66,14 @@ class AccountsForm extends FormBuilder
                 ->label(trans('filament-accounts::messages.accounts.coulmns.address'))
                 ->columnSpanFull();
         }
+        if(filament('filament-accounts')->canBlocked) {
+            $formComponents[] = Forms\Components\Toggle::make('is_active')
+                ->columnSpan(2)
+                ->label(trans('filament-accounts::messages.accounts.coulmns.is_active'))
+                ->default(false)
+                ->required();
+        }
+
         if(filament('filament-accounts')->canLogin) {
             $formComponents = array_merge($formComponents, [
                 Forms\Components\Toggle::make('is_login')->default(false)
@@ -84,13 +92,6 @@ class AccountsForm extends FormBuilder
                     ->password()
                     ->maxLength(255),
             ]);
-        }
-        if(filament('filament-accounts')->canBlocked) {
-            $formComponents[] = Forms\Components\Toggle::make('is_active')
-                ->columnSpan(2)
-                ->label(trans('filament-accounts::messages.accounts.coulmns.is_active'))
-                ->default(false)
-                ->required();
         }
 
         return $form->schema($formComponents);
