@@ -64,7 +64,7 @@ class AuthController extends Controller
         ]);
 
         $check = auth($this->guard)->attempt([
-            "username" => $request->get($this->loginBy),
+            config('filament-accounts.login_by') => $request->get($this->loginBy),
             "password" => $request->get('password')
         ]);
 
