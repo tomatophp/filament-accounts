@@ -41,8 +41,9 @@ full accounts manager with API/Notifications/Contacts to manage your contacts an
 - [x] Account Table Column
 - [x] Account Panel Events
 - [x] Attach New Field To Accounts
-- [ ] Export
-- [ ] Import
+- [x] Export
+- [x] Import
+- [ ] Google Contacts Integrations
 
 ## Installation
 
