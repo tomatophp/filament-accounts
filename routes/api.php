@@ -36,7 +36,7 @@ if(config('filament-accounts.features.apis')){
 
 
     if(config('filament-accounts.features.contacts')){
-        Route::middleware(['auth:sanctum'])->name('api.')->prefix('api/profile')->group(function (){
+        Route::name('api.')->prefix('api/profile')->group(function (){
             Route::post('contact',[\TomatoPHP\FilamentAccounts\Http\Controllers\APIs\ContactsController::class,'send'])->name('contact.send');
         });
     }
