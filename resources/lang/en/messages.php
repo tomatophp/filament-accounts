@@ -51,6 +51,19 @@ return [
             "icon" => "Icon",
             "type" => "Type",
             "providers" => "Send By"
+        ],
+        "export" => [
+            "title" => "Export",
+            "columns" => "Columns"
+        ],
+        "import" => [
+            "title" => "Import",
+            "excel" => "Excel",
+            "hint" => "You can upload the same style of exported file",
+            "success" => 'Success',
+            "body" => 'Accounts imported successfully',
+            "error" => "Error",
+            "error-body" => "Error while importing accounts",
         ]
     ],
     "meta" => [

@@ -20,7 +20,29 @@ full accounts manager with API/Notifications/Contacts to manage your contacts an
 ![Edit Request](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/edit-request.png)
 ![Contacts](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/contacts.png)
 
+## Features
 
+- [x] Accounts Manager
+- [x] Cached Meta
+- [x] Account Locations
+- [x] Account Teams
+- [x] Account Types
+- [x] Account Requests
+- [x] Account SaaS Panel With Edit Profile [Jetstream]
+- [x] Account Login By
+- [x] Account Active/Block
+- [x] Account Avatar
+- [x] Account OTP Activation
+- [x] Account Filament Alerts Integration
+- [x] Account Impersonate Integration
+- [x] Account APIs
+- [x] Auth Builder Service
+- [x] Support Multi Tenants
+- [x] Account Table Column
+- [x] Account Panel Events
+- [x] Attach New Field To Accounts
+- [ ] Export
+- [ ] Import
 
 ## Installation
 
@@ -137,38 +159,6 @@ return [
      * guard: Auth Guard
      */
     "guard" => "accounts",
-
-
-    /**
-     * Accounts Relations Managers
-     *
-     * you can set selected relations to show in account resource
-     */
-    "relations" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Releations\AccountReleations::class,
-
-    /**
-     * Accounts Resource Builder
-     *
-     * you can change the form, table, actions and filters of account resource by using filament-helpers class commands
-     *
-     * link: https://github.com/tomatophp/filament-helpers
-     */
-    "accounts" => [
-        "form" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Forms\AccountsForm::class,
-        "table" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Tables\AccountsTable::class,
-        "actions" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions::class,
-        "filters" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters::class,
-        "pages" =>  \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\AccountPagesList::class,
-    ],
-
-    "teams" => [
-        "allowed" => false,
-        "model" => \TomatoPHP\FilamentAccounts\Models\Team::class,
-        "invitation" => \TomatoPHP\FilamentAccounts\Models\TeamInvitation::class,
-        "membership" => \TomatoPHP\FilamentAccounts\Models\Membership::class,
-        "resource" => \TomatoPHP\FilamentAccounts\Filament\Resources\TeamResource::class,
-    ]
-
 ];
 
 ```

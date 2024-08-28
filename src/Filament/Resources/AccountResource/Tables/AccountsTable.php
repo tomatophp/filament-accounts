@@ -9,6 +9,8 @@ use Maatwebsite\Excel\Facades\Excel;
 use TomatoPHP\FilamentAccounts\Components\AccountColumn;
 use TomatoPHP\FilamentAccounts\Export\ExportAccounts;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\ExportAccountsAction;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\ImportAccountsAction;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters;
 use TomatoPHP\FilamentHelpers\Contracts\TableBuilder;
 use TomatoPHP\FilamentTypes\Components\TypeColumn;
@@ -117,38 +119,10 @@ class AccountsTable extends TableBuilder
                 ->toggleable(isToggledHiddenByDefault: true),
         ]);
         return $table
-//            ->headerActions([
-//                Tables\Actions\Action::make('export')
-//                    ->requiresConfirmation()
-//                    ->color('info')
-//                    ->icon('heroicon-o-arrow-down-on-square')
-//                    ->fillForm([
-//                        'columns' => [
-//                            'id' => trans('filament-accounts::messages.accounts.coulmns.id'),
-//                            'name' => trans('filament-accounts::messages.accounts.coulmns.name'),
-//                            'email' => trans('filament-accounts::messages.accounts.coulmns.email'),
-//                            'phone' => trans('filament-accounts::messages.accounts.coulmns.phone'),
-//                            'address' => trans('filament-accounts::messages.accounts.coulmns.address'),
-//                            'type' => trans('filament-accounts::messages.accounts.coulmns.type'),
-//                            'is_login' => trans('filament-accounts::messages.accounts.coulmns.is_login'),
-//                            'is_active' => trans('filament-accounts::messages.accounts.coulmns.is_active'),
-//                            'created_at' => trans('filament-accounts::messages.accounts.coulmns.created_at'),
-//                            'updated_at' => trans('filament-accounts::messages.accounts.coulmns.updated_at'),
-//                        ]
-//                    ])
-//                    ->form([
-//                        Forms\Components\KeyValue::make('columns')
-//                            ->required()
-//                            ->editableKeys(false)
-//                            ->addable(false)
-//                    ])
-//                    ->action(function (array $data){
-//                        return Excel::download(new ExportAccounts($data), 'accounts.csv');
-//                    }),
-//                Tables\Actions\Action::make('import')
-//                    ->color('warning')
-//                    ->icon('heroicon-o-arrow-up-on-square'),
-//            ])
+            ->headerActions([
+                ExportAccountsAction::make(),
+                ImportAccountsAction::make()
+            ])
             ->columns($colums)
             ->filters(AccountsFilters::make())
             ->actions(AccountsActions::make())
