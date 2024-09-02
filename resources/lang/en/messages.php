@@ -277,6 +277,8 @@ return [
     ],
 
     "contact-us" => [
+        "status" => "Edit Contact Us Status",
+        "status-button" => "Manage Status",
         "footer" => "Do you have any problems or questions? Please",
         "modal" => 'Please Fill This Form To Contact Us',
         "label" => "Contact Us",

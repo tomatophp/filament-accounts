@@ -3,9 +3,16 @@
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\ContactResource\Pages;
 
 use TomatoPHP\FilamentTypes\Pages\BaseTypePage;
+use TomatoPHP\FilamentTypes\Services\Contracts\Type;
 
 class ContactStatusTypes extends BaseTypePage
 {
+    public function getTitle(): string
+    {
+        return trans('filament-accounts::messages.contact-us.status');
+    }
+
+
     public function getType(): string
     {
         return "status";
@@ -19,50 +26,28 @@ class ContactStatusTypes extends BaseTypePage
     public function getTypes(): array
     {
         return [
-            [
-                "name" => [
+            Type::make("pending")
+                ->name([
                     "ar" => "تحت المراجعة",
                     "en" => "Pending"
-                ],
-                "key" => "pending",
-                "for" => "contacts",
-                "type" => "status",
-                "icon" => "heroicon-c-pause-circle",
-                "color" => "#ffcf00"
-            ],
-            [
-                "name" => [
+                ])
+                ->icon("heroicon-c-pause-circle")
+                ->color("#ffcf00"),
+            Type::make("active")
+                ->name([
                     "ar" => "جاري المتابعة",
                     "en" => "Active"
-                ],
-                "key" => "active",
-                "for" => "contacts",
-                "type" => "status",
-                "icon" => "heroicon-c-play-circle",
-                "color" => "#1897ff"
-            ],
-            [
-                "name" => [
+                ])
+                ->icon("heroicon-c-play-circle")
+                ->color("#1897ff"),
+            Type::make("closed")
+                ->name([
                     "ar" => "تم اغلاقها",
                     "en" => "Closed"
-                ],
-                "key" => "closed",
-                "for" => "contacts",
-                "type" => "status",
-                "icon" => "heroicon-c-check-circle",
-                "color" => "#38fc34"
-            ],
-            [
-                "name" => [
-                    "ar" => "الموافقة علي الحساب",
-                    "en" => "Account Approve"
-                ],
-                "key" => "account_approve",
-                "for" => "contacts",
-                "type" => "type",
-                "icon" => "heroicon-c-check-circle",
-                "color" => "#38fc34"
-            ]
+                ])
+                ->icon("heroicon-c-check-circle")
+                ->color("#38fc34")
+
         ];
     }
 }

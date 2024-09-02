@@ -14,6 +14,10 @@ class ListContacts extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
+            Actions\Action::make('status')
+                ->label('Manage Status')
+                ->icon('heroicon-s-tag')
+                ->url(ContactStatusTypes::getUrl()),
         ];
     }
 }
