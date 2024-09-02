@@ -49,12 +49,12 @@ class AccountRequestResource extends Resource
             $columns[] = Forms\Components\Select::make('type')
                 ->label(trans('filament-accounts::messages.requests.columns.type'))
                 ->searchable()
-                ->options(Type::where('for', 'contacts')->where('type', 'type')->get()->pluck('name', 'key')->toArray());
+                ->options(Type::where('for', 'account-requests')->where('type', 'types')->get()->pluck('name', 'key')->toArray());
 
             $columns[] = Forms\Components\Select::make('status')
                 ->label(trans('filament-accounts::messages.requests.columns.status'))
                 ->searchable()
-                ->options(Type::where('for', 'contacts')->where('type', 'status')->get()->pluck('name', 'key')->toArray())
+                ->options(Type::where('for', 'account-requests')->where('type', 'status')->get()->pluck('name', 'key')->toArray())
                 ->default('pending');
         }
         else {
@@ -133,6 +133,7 @@ class AccountRequestResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

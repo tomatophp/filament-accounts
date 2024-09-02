@@ -22,6 +22,8 @@ class FilamentAccountsPlugin implements Plugin
     public bool $useTypes = false;
     public bool $useLoginBy = false;
     public bool $useAvatar = false;
+    public bool $useExport = false;
+    public bool $useImport = false;
     public bool $showAddressField = false;
     public bool $showTypeField = false;
     public bool $canLogin = false;
@@ -54,7 +56,28 @@ class FilamentAccountsPlugin implements Plugin
             $resources[] = TeamResource::class;
         }
 
+        if($this->useTypes){
+            $panel->pages([
+               AccountResource\Pages\AccountTypes::class,
+               ContactResource\Pages\ContactStatusTypes::class,
+               AccountRequestResource\Pages\RequestsStatus::class,
+               AccountRequestResource\Pages\RequestsTypes::class
+            ]);
+        }
+
         $panel->resources($resources);
+    }
+
+    public function useExport(bool $useExport = true): static
+    {
+        $this->useExport = $useExport;
+        return $this;
+    }
+
+    public function useImport(bool $useImport = true): static
+    {
+        $this->useImport = $useImport;
+        return $this;
     }
 
     public function useTeams(bool $useTeams = true): static

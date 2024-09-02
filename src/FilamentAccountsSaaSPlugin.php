@@ -5,12 +5,17 @@ namespace TomatoPHP\FilamentAccounts;
 use Filament\Contracts\Plugin;
 use Filament\Navigation\MenuItem;
 use Filament\Panel;
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
+use Illuminate\Support\Facades\Blade;
 use Laravel\Jetstream\Jetstream;
+use TomatoPHP\FilamentAccounts\Filament\Pages\AccountRequest;
 use TomatoPHP\FilamentAccounts\Filament\Pages\ApiTokens;
 use TomatoPHP\FilamentAccounts\Filament\Pages\Auth\LoginAccount;
 use TomatoPHP\FilamentAccounts\Filament\Pages\Auth\RegisterAccount;
 use TomatoPHP\FilamentAccounts\Filament\Pages\Auth\RegisterAccountWithoutOTP;
 use TomatoPHP\FilamentAccounts\Filament\Pages\CreateTeam;
+use TomatoPHP\FilamentAccounts\Filament\Pages\EditAddress;
 use TomatoPHP\FilamentAccounts\Filament\Pages\EditProfile;
 use TomatoPHP\FilamentAccounts\Filament\Pages\EditTeam;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountRequestResource;
@@ -36,6 +41,7 @@ class FilamentAccountsSaaSPlugin implements Plugin
         $pages = [
             CreateTeam::class
         ];
+
         $menuItems = [];
 
         if($this->databaseNotifications){
@@ -51,6 +57,22 @@ class FilamentAccountsSaaSPlugin implements Plugin
                     ->icon('heroicon-s-user')
                     ->url(fn (): string => EditProfile::getUrl());
             }
+        }
+
+        if($this->canManageAddress){
+            $pages[] = EditAddress::class;
+            $menuItems[] = MenuItem::make()
+                ->label(fn(): string => EditAddress::getNavigationLabel())
+                ->icon('heroicon-s-map-pin')
+                ->url(fn (): string => EditAddress::getUrl());
+        }
+
+        if($this->canManageRequests){
+            $pages[] = AccountRequest::class;
+            $menuItems[] = MenuItem::make()
+                ->label(fn(): string => AccountRequest::getNavigationLabel())
+                ->icon('heroicon-s-rectangle-stack')
+                ->url(fn (): string => AccountRequest::getUrl());
         }
 
         if($this->APITokenManager){
@@ -84,6 +106,13 @@ class FilamentAccountsSaaSPlugin implements Plugin
             $panel->registration(RegisterAccount::class);
         }
 
+        if($this->showContactUsButton){
+            FilamentView::registerRenderHook(
+                PanelsRenderHook::FOOTER,
+                fn (): string => Blade::render('@livewire(\'tomato-contact-us-form\')')
+            );
+        }
+
         $panel->tenantMenuItems($menuItems)
             ->authGuard($this->authGuard)
             ->pages($pages);
@@ -106,6 +135,36 @@ class FilamentAccountsSaaSPlugin implements Plugin
     public bool $showTeamMembers = false;
     public bool $checkAccountStatusInLogin = false;
     public bool $useOTPActivation = false;
+    public bool $canManageAddress = false;
+    public bool $canManageRequests = false;
+    public array $requestsForm = [];
+    public bool $showContactUsButton = false;
+    public bool $useTypes = false;
+
+    public function useTypes(bool $useTypes = true): static
+    {
+        $this->useTypes = $useTypes;
+        return $this;
+    }
+
+    public function showContactUsButton(bool $showContactUsButton = true): static
+    {
+        $this->showContactUsButton = $showContactUsButton;
+        return $this;
+    }
+
+    public function canManageRequests(bool $canManageRequests = true, array $form = []): static
+    {
+        $this->canManageRequests = $canManageRequests;
+        $this->requestsForm = $form;
+        return $this;
+    }
+
+    public function canManageAddress(bool $canManageAddress = true): static
+    {
+        $this->canManageAddress = $canManageAddress;
+        return $this;
+    }
 
     public function authGuard(string $authGuard): static
     {

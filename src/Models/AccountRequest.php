@@ -58,7 +58,7 @@ class AccountRequest extends Model
      * @param string|null $value
      * @return Model|string
      */
-    public function meta(string $key, string|null $value=null): Model|string|null
+    public function meta(string $key, mixed $value=null): mixed
     {
         if($value!==null){
             return $this->accountRequestMetas()->updateOrCreate(['key' => $key], ['value' => $value]);

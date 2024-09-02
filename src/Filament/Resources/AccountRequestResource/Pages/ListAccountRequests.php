@@ -14,6 +14,17 @@ class ListAccountRequests extends ManageRecords
     protected function getHeaderActions(): array
     {
         return [
+            Actions\ActionGroup::make([
+                Actions\Action::make('status')
+                    ->label(RequestsStatus::getNavigationLabel())
+                    ->url(RequestsStatus::getUrl()),
+                Actions\Action::make('type')
+                    ->label(RequestsTypes::getNavigationLabel())
+                    ->url(RequestsTypes::getUrl()),
+            ])
+            ->button()
+            ->label(trans('filament-accounts::messages.account-requests.button'))
+            ->icon('heroicon-s-cog')
         ];
     }
 }

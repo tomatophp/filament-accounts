@@ -49,22 +49,23 @@ class TeamResource extends Resource
             ->schema([
                 Forms\Components\SpatieMediaLibraryFileUpload::make('avatar')
                     ->label(trans('filament-accounts::messages.team.columns.avatar'))
+                    ->hiddenLabel()
+                    ->alignCenter()
+                    ->avatar()
                     ->collection('avatar')
-                    ->image()
-                    ->columnSpan(2),
-                Forms\Components\Select::make('account_id')
-                    ->label(trans('filament-accounts::messages.team.columns.owner'))
-                    ->relationship('owner', 'name')
-                    ->searchable()
-                    ->required(),
+                    ->image(),
                 Forms\Components\TextInput::make('name')
                     ->label(trans('filament-accounts::messages.team.columns.name'))
                     ->required()
                     ->maxLength(255),
+                Forms\Components\Select::make('account_id')
+                    ->label(trans('filament-accounts::messages.team.columns.owner'))
+                    ->relationship('owner', 'name')
+                    ->preload()
+                    ->searchable(),
                 Forms\Components\Toggle::make('personal_team')
-                    ->label(trans('filament-accounts::messages.team.columns.personal_team'))
-                    ->required(),
-            ]);
+                    ->label(trans('filament-accounts::messages.team.columns.personal_team')),
+            ])->columns(1);
     }
 
     public static function table(Table $table): Table
@@ -86,14 +87,15 @@ class TeamResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
                     ->circular()
                     ->collection('avatar')
-                    ->label(trans('filament-accounts::messages.team.columns.avatar')),
+                    ->label(trans('filament-accounts::messages.team.columns.avatar'))
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('name')
                     ->label(trans('filament-accounts::messages.team.columns.name'))
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('personal_team')
                     ->label(trans('filament-accounts::messages.team.columns.personal_team'))
-                    ->searchable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

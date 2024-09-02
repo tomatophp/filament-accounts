@@ -3,7 +3,6 @@
 # Filament Accounts Builder
 
 [![Latest Stable Version](https://poser.pugx.org/tomatophp/filament-accounts/version.svg)](https://packagist.org/packages/tomatophp/filament-accounts)
-[![PHP Version Require](http://poser.pugx.org/tomatophp/filament-accounts/require/php)](https://packagist.org/packages/tomatophp/filament-accounts)
 [![License](https://poser.pugx.org/tomatophp/filament-accounts/license.svg)](https://packagist.org/packages/tomatophp/filament-accounts)
 [![Downloads](https://poser.pugx.org/tomatophp/filament-accounts/d/total.svg)](https://packagist.org/packages/tomatophp/filament-accounts)
 
@@ -60,22 +59,7 @@ php artisan filament-accounts:install
 if you are not using this package as a plugin please register the plugin on `/app/Providers/Filament/AdminPanelProvider.php`
 
 ```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-    ->useAccountMeta()
-    ->showAddressField()
-    ->showTypeField()
-    ->useRequests()
-    ->useContactUs()
-    ->useLoginBy()
-    ->useAvatar()
-    ->useAPIs()
-)
-```
-
-**NOTE** To make `->useAvatar()` work you need the Media Library plugin to be installed and migrated you can use this command to publish the migration
-
-```bash
-php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make())
 ```
 
 ## Publish Account Model
@@ -170,6 +154,128 @@ this plugin makes it easy to make a starting point for your app if this app has 
 
 but here is the problem, every app has a different way of managing customers, so we built a Facade service to control the way you want to manage your customers
 
+### Use Avatar
+
+you need the Media Library plugin to be installed and migrated you can use this command to publish the migration
+
+```bash
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
+```
+
+now you need to migrate your database
+
+```bash
+php artisan migrate
+```
+
+now add this method to your plugin in `AdminPanelProvider.php`
+
+```php
+->plugin(
+    \TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+        ->useAvatar()
+)
+```
+
+## Use Filament Types
+
+you can use the types to manage your accounts types by install [Filament Types](https://github.com/tomatophp/filament-types) 
+
+```bash
+composer require tomatophp/filament-types
+```
+
+after that install types
+
+```bash
+php artisan filament-types:install
+```
+
+and allow `->useTypes()` on the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useTypes()
+)
+```
+
+### Use Notifications
+
+you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) 
+
+```bash
+composer require tomatophp/filament-alerts
+```
+
+after that install alerts
+
+```bash
+php artisan filament-alerts:install
+```
+
+and allow `->useNotifications()` on the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useNotifications()
+)
+```
+
+### Use Account Locations
+
+you can use account locations by install [Filament Locations](https://github.com/tomatophp/filament-locations) 
+
+```bash
+composer require tomatophp/filament-locations
+```
+
+after that install locations
+
+```bash
+php artisan filament-locations:install
+```
+
+
+and allow `->useLocations()` on the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useLocations()
+)
+```
+
+## Show Address Field
+
+you can show or hide addresss field on the create or edit form by using this code
+
+```php
+
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->showAddressField()
+)
+```
+
+## Show Type Field
+
+you can show or hide type field on the create or edit form by using this code
+
+```php
+
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->showTypeField()
+)
+```
+
+## Use Account Meta Relation Manager
+
+you can allow Other Feature and pages like this
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useAccountMeta()
+)
+```
+
 ## Auto Account Meta Caching
 
 on your `.env` add this
@@ -188,7 +294,170 @@ supported cache stores are
 + Array
 ```
 
-### Use Accounts as SaaS Panel
+## Use Account Requests Resource
+
+you can allow the requests manager by using this code
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useRequests()
+)
+```
+
+## Use Account Contact Us Resource
+
+you can allow the contact us manager by using this code
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useContactUs()
+)
+```
+
+## Allow Teams Manager
+
+install jetstream without run install command.
+
+```bash
+composer require laravel/jetstream
+```
+
+than publish the migrations
+
+```bash
+php artisan vendor:publish --tag=filament-accounts-teams-migrations
+```
+
+now you need to migrate your database
+
+```bash
+php artisan migrate
+```
+
+now publish your Accounts model
+
+```bash
+php artisan vendor:publish --tag="filament-accounts-model"
+```
+
+inside your published model use this implementation
+
+```php
+class Account extends Authenticatable implements HasMedia, FilamentUser, HasAvatar, HasTenants, HasDefaultTenant
+{
+    ...
+    use InteractsWithTenant;
+}
+```
+
+on your main panel you must use teams
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+        ->useTeams()
+)
+```
+
+## Attach New Field To Accounts
+
+you can attach a new field to the accounts table by just passing the field name and the field type to the facade service method
+
+```php
+
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
+
+public function boot()
+{
+    FilamentAccounts::attach(
+        key: 'birthday',
+        label: __('Birthday'),
+        type: 'date',
+        show_on_create: false,
+        show_on_edit: false
+    );
+}
+```
+
+## Attach Relation To Accounts
+
+you can attach a new relation to the accounts relations manager by just passing the relation class to the facade service method
+
+```php
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
+
+public function boot()
+{
+    FilamentAccounts::registerAccountRelation([
+        AccountOrdersRelationManager::make()
+    ]);
+}
+```
+
+## Attach Table Button
+
+you can attach a new button to the accounts table by just passing the button class to the facade service method
+
+```php
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
+
+public function boot()
+{
+    FilamentAccounts::registerAccountActions([
+        \Filament\Tables\Actions\Action::make('orders')
+    ]);
+}
+```
+
+## Use Export & Import Actions
+
+before use Export & Import actions you need to install laravel excel package
+
+```bash
+composer require maatwebsite/excel
+```
+
+now on your main panel provider add `->useExport()` , `->useImport()` to the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ...
+    ->useExport()
+    ->useImport()
+)
+```
+
+## Use Account Column
+
+![Account Column](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/account-column.png)
+
+you can use the account column in any table by using this code
+
+```php
+public static function table(Table $table): Table
+{
+    return $table
+        ->columns([
+            AccountColumn::make('account.id'),
+        ]);
+}
+```
+
+just pass the account id to the column
+
+## How to use builder
+
+just install the package and you will get everything working, it supports some features ready to use:
+
+* Accounts
+* Locations
+* Contact Us
+* Send Notifications
+* Auth APIs
+* Send OTP Events
+
+you can activate or deactivate any feature you want from the package config file.
+
+## Use Accounts as SaaS Panel
 
 ![Register](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/register.png)
 ![OTP](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/otp.png)
@@ -218,7 +487,7 @@ now you need to migrate your database
 php artisan migrate
 ```
 
-now publish your Accounts model 
+now publish your Accounts model
 
 ```bash
 php artisan vendor:publish --tag="filament-accounts-model"
@@ -272,58 +541,70 @@ you can change settings by remove just methods from plugin.
 
 **NOTE** to use `->useOTPActivation()` you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) from the next step first, and to use `->databaseNotifications()` you need to publish notification database table first
 
-### Use Notifications
+### Use Account Locations on SaaS Panel
 
-to make `->useOTPActivation()` work you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) and allow `->useNotifications()` on the plugin
+you can make your account manage the locations by using this code
 
 ```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-    ...
-    ->useNotifications()
+->plugin(
+    FilamentAccountsSaaSPlugin::make()
+        ->canManageAddress()
 )
 ```
 
-### Use Account Locations
+it will add Edit Locations menu to the tenant menu and the accounts can manage there locations
 
-you can use account locations by install [Filament Locations](https://github.com/tomatophp/filament-locations) and allow `->useLocations()` on the plugin
+### Use Account Requests on SaaS Panel
+
+
+you can manage account requests by using this code
 
 ```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-    ...
-    ->useLocations()
+use TomatoPHP\FilamentAccounts\Services\Contracts\AccountRequestForm;
+
+->plugin(
+    FilamentAccountsSaaSPlugin::make()
+        ->canManageRequests(form: [
+            AccountRequestForm::make('account_approve')
+                ->schema([
+                    TextInput::make('name')
+                        ->label('Name')
+                        ->required(),
+                ]),
+            AccountRequestForm::make('account_verify')
+                ->schema([
+                    TextInput::make('id')
+                        ->label('ID')
+                        ->numeric()
+                        ->minLength(14)
+                        ->maxLength(14)
+                        ->required(),
+                ])
+        ])
+        ->useTypes()
 )
 ```
 
-## Use Filament Types
+as you see you can select a form the every request type.
 
-you can use the types to manage your accounts types by install [Filament Types](https://github.com/tomatophp/filament-types) and allow `->useTypes()` on the plugin
+### Use Account Contact Us on SaaS Panel
+
+you can manage account contact us by using this code
 
 ```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-    ...
-    ->useTypes()
+->plugin(
+    FilamentAccountsSaaSPlugin::make()
+        ->showContactUsButton()
 )
 ```
 
-### Use Account Column
-
-![Account Column](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/account-column.png)
-
-you can use the account column in any table by using this code
+or you can use it anywhere on your app by using the livewire component
 
 ```php
-public static function table(Table $table): Table
-{
-    return $table
-        ->columns([
-            AccountColumn::make('account.id'),
-        ]);
-}
+@livewire('tomato-contact-us-form')
 ```
 
-just pass the account id to the column
-
-## Use Filament Impersonate
+### Use Filament Impersonate With SaaS Panel
 
 you can use the impersonate to impersonate the user by install it first
 
@@ -348,103 +629,6 @@ php artisan config:cache
 ```
 
 for more information check the [Filament Impersonate](https://github.com/stechstudio/filament-impersonate)
-
-### How to use builder
-
-just install the package and you will get everything working, it supports some features ready to use:
-
-* Accounts
-* Locations
-* Contact Us
-* Send Notifications
-* Auth APIs
-* Send OTP Events
-
-you can activate or deactivate any feature you want from the package config file.
-
-## Custom create / edit validation
-
-you can custom the validation rules for creating / editing accounts by just passing the rules you want to the facade service method
-
-```php
-
-use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
-
-public function boot()
-{
-    FilamentAccounts::validation(
-        create: [
-            'email' => 'unique:accounts,email',
-            'type_id' => 'required|integer|exists:types,id',
-        ],
-        edit: [
-            'email' => 'sometimes|unique:accounts,email',
-            'type_id' => 'sometimes|integer|exists:types,id',
-        ],
-        api_create: [
-            'email' => 'unique:accounts,email',
-            'type_id' => 'required|integer|exists:types,id',
-        ],
-        api_edit: [
-            'email' => 'sometimes|unique:accounts,email',
-            'type_id' => 'sometimes|integer|exists:types,id',
-        ]
-    );
-
-}
-```
-
-by using this method you can custom the validation rules for creating / editing accounts on the web and APIs
-
-## Attach New Field To Accounts
-
-you can attach a new field to the accounts table by just passing the field name and the field type to the facade service method
-
-```php
-
-use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
-
-public function boot()
-{
-    FilamentAccounts::attach(
-        key: 'birthday',
-        label: __('Birthday'),
-        type: 'date',
-        show_on_create: false,
-        show_on_edit: false
-    );
-}
-```
-
-### Attach Relation To Accounts
-
-you can attach a new relation to the accounts relations manager by just passing the relation class to the facade service method
-
-```php
-use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
-
-public function boot()
-{
-    FilamentAccounts::registerAccountRelation([
-        AccountOrdersRelationManager::make()
-    ]);
-}
-```
-
-### Attach Table Button
-
-you can attach a new button to the accounts table by just passing the button class to the facade service method
-
-```php
-use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
-
-public function boot()
-{
-    FilamentAccounts::registerAccountActions([
-        \Filament\Tables\Actions\Action::make('orders')
-    ]);
-}
-```
 
 ## Auth Events
 
@@ -597,6 +781,40 @@ class ProfileController extends Controller
 ## APIs
 
 we have added a lot of APIs to the package, so you can use them to manage your accounts. please check this file [API Collection](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/api_collection.json)
+
+## Custom create / edit validation
+
+you can custom the validation rules for creating / editing accounts by just passing the rules you want to the facade service method
+
+```php
+
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
+
+public function boot()
+{
+    FilamentAccounts::validation(
+        create: [
+            'email' => 'unique:accounts,email',
+            'type_id' => 'required|integer|exists:types,id',
+        ],
+        edit: [
+            'email' => 'sometimes|unique:accounts,email',
+            'type_id' => 'sometimes|integer|exists:types,id',
+        ],
+        api_create: [
+            'email' => 'unique:accounts,email',
+            'type_id' => 'required|integer|exists:types,id',
+        ],
+        api_edit: [
+            'email' => 'sometimes|unique:accounts,email',
+            'type_id' => 'sometimes|integer|exists:types,id',
+        ]
+    );
+
+}
+```
+
+by using this method you can custom the validation rules for creating / editing accounts on the web and APIs
 
 ## Other Filament Packages
 

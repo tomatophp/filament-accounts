@@ -14,7 +14,7 @@ class ListAccounts extends ManageRecords
 
     protected function getHeaderActions(): array
     {
-        return [
+        $actions = [
             Actions\CreateAction::make()
                 ->using(function (array $data) {
                     if(isset($data['password'])){
@@ -33,5 +33,16 @@ class ListAccounts extends ManageRecords
                     return config('filament-accounts.model')::query()->create($data);
                 }),
         ];
+
+        if(filament('filament-accounts')->useTypes) {
+            $actions[] = Actions\Action::make('types')
+                ->icon('heroicon-s-cog')
+                ->tooltip('Accounts Types')
+                ->label('Accounts Types')
+                ->hiddenLabel()
+                ->url(AccountTypes::getUrl());
+        }
+
+        return $actions;
     }
 }

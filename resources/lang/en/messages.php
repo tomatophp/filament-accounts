@@ -256,5 +256,23 @@ return [
     ],
     "login" => [
         "active" => "Please Verify Your Account First, than try to login again",
+    ],
+
+
+    "settings" => [
+        "types" => [
+            "title" => "Accounts Types"
+        ]
+    ],
+
+    "address" => [
+        "title" => "Edit Locations"
+    ],
+
+    "account-requests" => [
+        "title" => "Requests",
+        "status" => "Request Status",
+        "types" => "Request Types",
+        "button" => "Manage Types & Status"
     ]
 ];

@@ -8,7 +8,7 @@ use Filament\Forms;
 use Maatwebsite\Excel\Facades\Excel;
 use TomatoPHP\FilamentAccounts\Components\AccountColumn;
 use TomatoPHP\FilamentAccounts\Export\ExportAccounts;
-use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsTableActions;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\ExportAccountsAction;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\ImportAccountsAction;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters;
@@ -19,51 +19,64 @@ class AccountsTable extends TableBuilder
 {
     public function table(Table $table): Table
     {
-        $colums = [];
-        if(filament('filament-accounts')->useAvatar) {
-            $colums[] = AccountColumn::make('id')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.id'));
+        $colums = collect([]);
 
-            $colums[] = Tables\Columns\TextColumn::make('name')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.name'))
-                ->toggleable(isToggledHiddenByDefault: true)
-                ->sortable()
-                ->searchable();
+        //Use Avatar
+        if(filament('filament-accounts')->useAvatar) {
+            $colums->push(
+                AccountColumn::make('id')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.id')),
+                Tables\Columns\TextColumn::make('name')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.name'))
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable()
+                    ->searchable()
+            );
         }
         else {
-            $colums[] = Tables\Columns\TextColumn::make('name')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.name'))
-                ->toggleable()
-                ->sortable()
-                ->searchable();
+            $colums->push(
+                Tables\Columns\TextColumn::make('name')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.name'))
+                    ->toggleable()
+                    ->sortable()
+                    ->searchable()
+            );
         }
 
+        //Use Type Column
         if(filament('filament-accounts')->useTypes){
-            $colums[] = TypeColumn::make('type')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
-                ->toggleable()
-                ->sortable()
-                ->searchable();
+            $colums->push(
+                TypeColumn::make('type')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
+                    ->toggleable()
+                    ->sortable()
+                    ->searchable()
+            );
         }
         else if(filament('filament-accounts')->showTypeField){
-            $colums[] = Tables\Columns\TextColumn::make('type')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
-                ->toggleable()
-                ->sortable()
-                ->searchable();
+            $colums->push(
+                Tables\Columns\TextColumn::make('type')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.type'))
+                    ->toggleable()
+                    ->sortable()
+                    ->searchable()
+            );
         }
 
+        //Use Teams
         if(filament('filament-accounts')->useTeams){
-            $colums[] = Tables\Columns\TextColumn::make('teams.name')
-                ->badge()
-                ->icon('heroicon-o-user-group')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.teams'))
-                ->toggleable()
-                ->searchable();
+            $colums->push(
+                Tables\Columns\TextColumn::make('teams.name')
+                    ->badge()
+                    ->icon('heroicon-o-user-group')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.teams'))
+                    ->toggleable()
+                    ->searchable()
+            );
         }
 
-
-        $colums = array_merge($colums, [
+        //Default Columns
+        $colums = $colums->merge([
             Tables\Columns\TextColumn::make('email')
                 ->label(trans('filament-accounts::messages.accounts.coulmns.email'))
                 ->toggleable(isToggledHiddenByDefault: true)
@@ -76,32 +89,30 @@ class AccountsTable extends TableBuilder
                 ->searchable()
         ]);
 
+        //Can Login
         if(filament('filament-accounts')->canLogin){
-            $colums[] = Tables\Columns\IconColumn::make('is_login')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.is_login'))
-                ->toggleable(isToggledHiddenByDefault: true)
-                ->sortable()
-                ->boolean();
+            $colums->push(
+                Tables\Columns\IconColumn::make('is_login')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.is_login'))
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable()
+                    ->boolean()
+            );
         }
 
+        //Can Blocked
         if(filament('filament-accounts')->canBlocked) {
-            $colums[] = Tables\Columns\IconColumn::make('is_active')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.is_active'))
-                ->toggleable(isToggledHiddenByDefault: true)
-                ->sortable()
-                ->boolean();
+            $colums->push(
+                Tables\Columns\IconColumn::make('is_active')
+                    ->label(trans('filament-accounts::messages.accounts.coulmns.is_active'))
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->sortable()
+                    ->boolean()
+            );
         }
 
-        if(filament('filament-accounts')->useTeams){
-            $colums[] = Tables\Columns\TextColumn::make('teams.name')
-                ->badge()
-                ->icon('heroicon-o-user-group')
-                ->label(trans('filament-accounts::messages.accounts.coulmns.teams'))
-                ->toggleable()
-                ->searchable();
-        }
-
-        $colums = array_merge($colums, [
+        //Can Verified
+        $colums = $colums->merge([
             Tables\Columns\TextColumn::make('deleted_at')
                 ->sortable()
                 ->dateTime()
@@ -118,18 +129,25 @@ class AccountsTable extends TableBuilder
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true),
         ]);
+
+        $actions = collect([]);
+        if(filament('filament-accounts')->useExport){
+            $actions->push(ExportAccountsAction::make());
+        }
+        if(filament('filament-accounts')->useImport){
+            $actions->push(ImportAccountsAction::make());
+        }
         return $table
-            ->headerActions([
-                ExportAccountsAction::make(),
-                ImportAccountsAction::make()
-            ])
-            ->columns($colums)
+            ->headerActions($actions->toArray())
+            ->columns($colums->toArray())
             ->filters(AccountsFilters::make())
-            ->actions(AccountsActions::make())
+            ->actions(AccountsTableActions::make())
             ->defaultSort('id', 'desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\ForceDeleteBulkAction::make(),
+                    Tables\Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }

@@ -12,6 +12,7 @@ use Livewire\Livewire;
 use TomatoPHP\FilamentAccounts\Events\SendOTP;
 use TomatoPHP\FilamentAccounts\Listeners\CreatePersonalTeam;
 use TomatoPHP\FilamentAccounts\Listeners\SwitchTeam;
+use TomatoPHP\FilamentAccounts\Livewire\ContactUs;
 use TomatoPHP\FilamentAccounts\Livewire\Otp;
 use TomatoPHP\FilamentAccounts\Livewire\SanctumTokens;
 use TomatoPHP\FilamentAccounts\Models\Membership;
@@ -128,6 +129,7 @@ class FilamentAccountsServiceProvider extends ServiceProvider
         Livewire::component(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountMetaManager::class);
         Livewire::component(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountLocationsManager::class);
         Livewire::component(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers\AccountRequestsManager::class);
+        Livewire::component('tomato-contact-us-form', ContactUs::class);
     }
 
     public function boot(): void
