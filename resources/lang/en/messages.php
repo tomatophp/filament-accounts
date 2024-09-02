@@ -274,5 +274,22 @@ return [
         "status" => "Request Status",
         "types" => "Request Types",
         "button" => "Manage Types & Status"
+    ],
+
+    "contact-us" => [
+        "footer" => "Do you have any problems or questions? Please",
+        "modal" => 'Please Fill This Form To Contact Us',
+        "label" => "Contact Us",
+        "form" => [
+            "name" => "Name",
+            "email" => "Email",
+            "phone" => "Phone",
+            "subject" => "Subject",
+            "message" => "Message",
+        ],
+        "notification" => [
+            "title" => "Contact Us",
+            "body" => "Your message has been sent successfully",
+        ]
     ]
 ];

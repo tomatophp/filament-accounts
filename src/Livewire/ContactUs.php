@@ -29,39 +29,44 @@ class ContactUs extends Component implements HasForms,HasActions
     {
         return Action::make('getContactUsAction')
             ->link()
-            ->modalHeading('Please Fill This Form To Contact Us')
+            ->modalHeading(trans('filament-accounts::messages.contact-us.modal'))
             ->form([
                 Grid::make([
                     "md" => 2,
                     "sm" => 1
                 ])->schema([
                     TextInput::make('name')
+                        ->label(trans('filament-accounts::messages.contact-us.form.name'))
                         ->autofocus()
                         ->required()
                         ->columnSpan(2),
                     TextInput::make('email')
+                        ->label(trans('filament-accounts::messages.contact-us.form.email'))
                         ->email()
                         ->required(),
                     TextInput::make('phone')
+                        ->label(trans('filament-accounts::messages.contact-us.form.phone'))
                         ->tel()
                         ->required(),
                     TextInput::make('subject')
+                        ->label(trans('filament-accounts::messages.contact-us.form.subject'))
                         ->required()
                         ->columnSpan(2),
                     Textarea::make('message')
+                        ->label(trans('filament-accounts::messages.contact-us.form.message'))
                         ->autosize()
                         ->required()
                         ->columnSpan(2),
                 ])
             ])
-            ->label('Contact Us')
+            ->label(trans('filament-accounts::messages.contact-us.label'))
             ->action(function(array $data){
                 // Send email to admin
                 Contact::query()->create($data);
 
                 Notification::make()
-                    ->title('Contact Us')
-                    ->body('Your message has been sent successfully')
+                    ->title(trans('filament-accounts::messages.contact-us.notification.title'))
+                    ->body(trans('filament-accounts::messages.contact-us.notification.body'))
                     ->success()
                     ->send();
             });
