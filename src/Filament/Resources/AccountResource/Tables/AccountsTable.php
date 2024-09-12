@@ -140,8 +140,8 @@ class AccountsTable extends TableBuilder
         return $table
             ->headerActions($actions->toArray())
             ->columns($colums->toArray())
-            ->filters(AccountsFilters::make())
-            ->actions(AccountsTableActions::make())
+            ->filters(config('filament-accounts.accounts.filters') ? config('filament-accounts.accounts.filters')::make() : AccountsFilters::make())
+            ->actions(config('filament-accounts.accounts.actions') ? config('filament-accounts.accounts.actions')::make() : AccountsTableActions::make())
             ->defaultSort('id', 'desc')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

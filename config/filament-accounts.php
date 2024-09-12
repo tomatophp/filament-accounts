@@ -67,5 +67,28 @@ return [
         "invitation" => \TomatoPHP\FilamentAccounts\Models\TeamInvitation::class,
         "membership" => \TomatoPHP\FilamentAccounts\Models\Membership::class,
         "resource" => \TomatoPHP\FilamentAccounts\Filament\Resources\TeamResource::class,
+    ],
+
+    /**
+     * Accounts Relations Managers
+     *
+     * you can set selected relations to show in account resource
+     */
+    "relations" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\AccountRelations::class,
+    
+
+    /**
+     * Accounts Resource Builder
+     *
+     * you can change the form, table, actions and filters of account resource by using filament-helpers class commands
+     *
+     * link: https://github.com/tomatophp/filament-helpers
+     */
+    "accounts" => [
+        "form" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Forms\AccountsForm::class,
+        "table" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Tables\AccountsTable::class,
+        "actions" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\AccountsActions::class,
+        "filters" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Filters\AccountsFilters::class,
+        "pages" => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\AccountPages::class,
     ]
 ];
