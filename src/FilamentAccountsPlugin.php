@@ -5,6 +5,7 @@ namespace TomatoPHP\FilamentAccounts;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Illuminate\Support\Facades\Config;
+use Nwidart\Modules\Module;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountRequestResource;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource;
 use TomatoPHP\FilamentAccounts\Filament\Resources\ContactResource;
@@ -32,6 +33,7 @@ class FilamentAccountsPlugin implements Plugin
     public bool $useAPIs = false;
     public ?string $impersonateRedirect = '/app';
 
+    private bool $isActive = false;
 
     public function getId(): string
     {
@@ -40,32 +42,43 @@ class FilamentAccountsPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $resources = [
-            AccountResource::class
-        ];
-
-        if($this->useRequests){
-            $resources[] = AccountRequestResource::class;
+        if(class_exists(Module::class)){
+            if(\Nwidart\Modules\Facades\Module::find('FilamentAccounts')->isEnabled()){
+                $this->isActive = true;
+            }
+        }
+        else {
+            $this->isActive = true;
         }
 
-        if($this->useContactUs){
-            $resources[] = ContactResource::class;
-        }
+        if($this->isActive){
+            $resources = [
+                AccountResource::class
+            ];
 
-        if($this->useTeams){
-            $resources[] = TeamResource::class;
-        }
+            if($this->useRequests){
+                $resources[] = AccountRequestResource::class;
+            }
 
-        if($this->useTypes){
-            $panel->pages([
-               AccountResource\Pages\AccountTypes::class,
-               ContactResource\Pages\ContactStatusTypes::class,
-               AccountRequestResource\Pages\RequestsStatus::class,
-               AccountRequestResource\Pages\RequestsTypes::class
-            ]);
-        }
+            if($this->useContactUs){
+                $resources[] = ContactResource::class;
+            }
 
-        $panel->resources($resources);
+            if($this->useTeams){
+                $resources[] = TeamResource::class;
+            }
+
+            if($this->useTypes){
+                $panel->pages([
+                    AccountResource\Pages\AccountTypes::class,
+                    ContactResource\Pages\ContactStatusTypes::class,
+                    AccountRequestResource\Pages\RequestsStatus::class,
+                    AccountRequestResource\Pages\RequestsTypes::class
+                ]);
+            }
+
+            $panel->resources($resources);
+        }
     }
 
     public function useExport(bool $useExport = true): static
@@ -180,17 +193,20 @@ class FilamentAccountsPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        Config::set('filament-accounts.features.locations', $this->useLocations);
-        Config::set('filament-accounts.features.meta', $this->useAccountMeta);
-        Config::set('filament-accounts.features.requests', $this->useRequests);
-        Config::set('filament-accounts.features.contacts', $this->useContactUs);
-        Config::set('filament-accounts.features.notifications', $this->useNotifications);
-        Config::set('filament-accounts.features.loginBy', $this->useLoginBy);
-        Config::set('filament-accounts.features.types', $this->useTypes);
-        Config::set('filament-accounts.features.avatar', $this->useAvatar);
-        Config::set('filament-accounts.features.apis', $this->useAPIs);
-        Config::set('filament-accounts.features.impersonate.active', $this->useImpersonate);
-        Config::set('filament-accounts.features.impersonate.redirect', $this->impersonateRedirect);
+        if($this->isActive){
+            Config::set('filament-accounts.features.locations', $this->useLocations);
+            Config::set('filament-accounts.features.meta', $this->useAccountMeta);
+            Config::set('filament-accounts.features.requests', $this->useRequests);
+            Config::set('filament-accounts.features.contacts', $this->useContactUs);
+            Config::set('filament-accounts.features.notifications', $this->useNotifications);
+            Config::set('filament-accounts.features.loginBy', $this->useLoginBy);
+            Config::set('filament-accounts.features.types', $this->useTypes);
+            Config::set('filament-accounts.features.avatar', $this->useAvatar);
+            Config::set('filament-accounts.features.apis', $this->useAPIs);
+            Config::set('filament-accounts.features.impersonate.active', $this->useImpersonate);
+            Config::set('filament-accounts.features.impersonate.redirect', $this->impersonateRedirect);
+        }
+
     }
 
     public static function make(): static

@@ -26,7 +26,7 @@
     "resources": [],
     "widgets": [],
     "placeholder": "placeholder.webp",
-    "type": "lib",
+    "type": "plugin",
     "version": "v1.0",
     "github" : "https://github.com/tomatophp/filament-accounts",
     "docs" : "https://github.com/tomatophp/filament-accounts"
