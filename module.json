@@ -15,16 +15,12 @@
     "files": [],
     "title": {
         "ar": "الحسابات",
-        "en": "Filament Accounts",
-        "gr": "Filament Accounts",
-        "sp": "Filament Accounts"
+        "en": "Accounts Builder",
+        "gr": "Accounts Builder",
+        "sp": "Accounts Builder"
     },
     "color": "#007dff",
     "icon": "heroicon-c-user-circle",
-    "pages": [
-    ],
-    "resources": [],
-    "widgets": [],
     "placeholder": "placeholder.webp",
     "type": "plugin",
     "version": "v2.1.3",
