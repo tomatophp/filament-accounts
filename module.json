@@ -21,7 +21,7 @@
     },
     "color": "#007dff",
     "icon": "heroicon-c-user-circle",
-    "placeholder": "placeholder.webp",
+    "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/3x1io-tomato-accounts.jpg",
     "type": "plugin",
     "version": "v2.1.3",
     "github" : "https://github.com/tomatophp/filament-accounts",
