@@ -133,10 +133,10 @@ class Account extends Authenticatable implements HasMedia, HasAvatar
 
     /**
      * @param string $key
-     * @param string|array|object|null $value
-     * @return Model|string|array|null
+     * @param mixed $value
+     * @return mixed
      */
-    public function meta(string $key, string|array|object|null $value=null): Model|string|null|array
+    public function meta(string $key, mixed $value=null): mixed
     {
         if($value!==null){
             if($value === 'null'){

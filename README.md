@@ -314,49 +314,6 @@ you can allow the contact us manager by using this code
 )
 ```
 
-## Allow Teams Manager
-
-install jetstream without run install command.
-
-```bash
-composer require laravel/jetstream
-```
-
-than publish the migrations
-
-```bash
-php artisan vendor:publish --tag=filament-accounts-teams-migrations
-```
-
-now you need to migrate your database
-
-```bash
-php artisan migrate
-```
-
-now publish your Accounts model
-
-```bash
-php artisan vendor:publish --tag="filament-accounts-model"
-```
-
-inside your published model use this implementation
-
-```php
-class Account extends Authenticatable implements HasMedia, FilamentUser, HasAvatar, HasTenants, HasDefaultTenant
-{
-    ...
-    use InteractsWithTenant;
-}
-```
-
-on your main panel you must use teams
-
-```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-        ->useTeams()
-)
-```
 
 ## Attach New Field To Accounts
 
@@ -469,7 +426,48 @@ you can activate or deactivate any feature you want from the package config file
 ![Invite Team](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/invite-team.png)
 ![API Tokens](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/api-tokens.png)
 
-install jetstream without install it.
+now publish your Accounts model
+
+```bash
+php artisan vendor:publish --tag="filament-accounts-model"
+```
+
+on your main panel you must use login functions
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+        ...
+        ->canLogin()
+        ->canBlocked()
+)
+```
+
+
+now on your new panel just use this plugin
+
+```php
+->plugin(
+    FilamentAccountsSaaSPlugin::make()
+        ->databaseNotifications()
+        ->checkAccountStatusInLogin()
+        ->APITokenManager()
+        ->editProfile()
+        ->editPassword()
+        ->browserSesstionManager()
+        ->deleteAccount()
+        ->editProfileMenu()
+        ->registration()
+        ->useOTPActivation(),
+)
+```
+
+you can change settings by remove just methods from plugin.
+
+**NOTE** to use `->useOTPActivation()` you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) from the next step first, and to use `->databaseNotifications()` you need to publish notification database table first
+
+## Allow Teams Manager
+
+install jetstream without run install command.
 
 ```bash
 composer require laravel/jetstream
@@ -507,39 +505,21 @@ on your main panel you must use teams
 
 ```php
 ->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-        ...
-        ->canLogin()
-        ->canBlocked()
         ->useTeams()
 )
 ```
 
-
-now on your new panel just use this plugin
+and on your app panel you must use this plugin
 
 ```php
-->plugin(
-    FilamentAccountsSaaSPlugin::make()
-        ->databaseNotifications()
-        ->checkAccountStatusInLogin()
-        ->APITokenManager()
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsSaaSPlugin::make()
         ->editTeam()
         ->deleteTeam()
         ->teamInvitation()
         ->showTeamMembers()
-        ->editProfile()
-        ->editPassword()
-        ->browserSesstionManager()
-        ->deleteAccount()
-        ->editProfileMenu()
-        ->registration()
-        ->useOTPActivation(),
+        ->allowTenants()
 )
 ```
-
-you can change settings by remove just methods from plugin.
-
-**NOTE** to use `->useOTPActivation()` you need to install [Filament Alets](https://github.com/tomatophp/filament-alets) from the next step first, and to use `->databaseNotifications()` you need to publish notification database table first
 
 ### Use Account Locations on SaaS Panel
 

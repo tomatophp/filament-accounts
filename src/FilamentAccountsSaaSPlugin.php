@@ -34,9 +34,11 @@ class FilamentAccountsSaaSPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel
-            ->tenant($this->useJetstreamTeamModel ? Jetstream::teamModel(): Team::class, 'id')
-            ->tenantRegistration(CreateTeam::class);
+        if($this->allowTenants){
+            $panel
+                ->tenant($this->useJetstreamTeamModel ? Jetstream::teamModel(): Team::class, 'id')
+                ->tenantRegistration(CreateTeam::class);
+        }
 
         $pages = [
             CreateTeam::class
@@ -52,10 +54,12 @@ class FilamentAccountsSaaSPlugin implements Plugin
             $pages[] = EditProfile::class;
 
             if($this->editProfileMenu){
-                $menuItems[] = MenuItem::make()
-                    ->label(fn(): string => EditProfile::getNavigationLabel())
-                    ->icon('heroicon-s-user')
-                    ->url(fn (): string => EditProfile::getUrl());
+                $panel->userMenuItems([
+                    "profile" => MenuItem::make()
+                        ->label(fn(): string => auth('accounts')->user()?->name)
+                        ->icon('heroicon-s-user')
+                        ->url(fn (): string => EditProfile::getUrl())
+                ]);
             }
         }
 
@@ -132,6 +136,7 @@ class FilamentAccountsSaaSPlugin implements Plugin
     public bool $useJetstreamTeamModel = false;
     public bool $teamInvitation = false;
     public bool $deleteTeam = false;
+    public bool $allowTenants = false;
     public bool $showTeamMembers = false;
     public bool $checkAccountStatusInLogin = false;
     public bool $useOTPActivation = false;
@@ -140,6 +145,12 @@ class FilamentAccountsSaaSPlugin implements Plugin
     public array $requestsForm = [];
     public bool $showContactUsButton = false;
     public bool $useTypes = false;
+
+    public function allowTenants(bool $allowTenants = true): static
+    {
+        $this->allowTenants = $allowTenants;
+        return $this;
+    }
 
     public function useTypes(bool $useTypes = true): static
     {

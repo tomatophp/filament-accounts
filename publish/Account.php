@@ -42,12 +42,11 @@ use TomatoPHP\FilamentLocations\Models\Location;
  * @property Model meta($key, $value)
  * @property Location[] $locations
  */
-class Account extends Authenticatable implements HasMedia, HasAvatar, HasTenants
+class Account extends Authenticatable implements HasMedia, HasAvatar
 {
     use InteractsWithMedia;
     use HasApiTokens, HasFactory, Notifiable;
     use SoftDeletes;
-    use InteractsWithTenant;
 
     /**
      * @var array
@@ -136,10 +135,10 @@ class Account extends Authenticatable implements HasMedia, HasAvatar, HasTenants
 
     /**
      * @param string $key
-     * @param string|array|object|null $value
-     * @return Model|string|array|null
+     * @param mixed $value
+     * @return mixed
      */
-    public function meta(string $key, string|array|object|null $value=null): Model|string|null|array
+    public function meta(string $key, mixed $value=null): mixed
     {
         if($value!==null){
             if($value === 'null'){
