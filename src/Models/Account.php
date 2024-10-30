@@ -4,19 +4,14 @@ namespace TomatoPHP\FilamentAccounts\Models;
 
 use Filament\Models\Contracts\HasAvatar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use TomatoPHP\FilamentLocations\Models\Location;
 
 /**
- * @property integer $id
+ * @property int $id
  * @property string $name
  * @property string $username
  * @property string $loginBy
@@ -28,21 +23,19 @@ use TomatoPHP\FilamentLocations\Models\Location;
  * @property string $last_login
  * @property string $agent
  * @property string $host
- * @property integer $attempts
- * @property boolean $login
- * @property boolean $activated
- * @property boolean $blocked
+ * @property int $attempts
+ * @property bool $login
+ * @property bool $activated
+ * @property bool $blocked
  * @property string $deleted_at
  * @property string $created_at
  * @property string $updated_at
- * @property AccountsMeta[] $accountsMetas
- * @property Model meta($key, $value)
- * @property Location[] $locations
  */
-class Account extends Authenticatable implements HasMedia, HasAvatar
+class Account extends Authenticatable implements HasAvatar, HasMedia
 {
+    use HasFactory;
     use InteractsWithMedia;
-    use HasApiTokens, HasFactory, Notifiable;
+    use Notifiable;
     use SoftDeletes;
 
     /**
@@ -67,12 +60,12 @@ class Account extends Authenticatable implements HasMedia, HasAvatar
         'is_active',
         'deleted_at',
         'created_at',
-        'updated_at'
+        'updated_at',
     ];
 
     protected $casts = [
         'is_login' => 'boolean',
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
     ];
 
     protected $dates = [
@@ -92,85 +85,8 @@ class Account extends Authenticatable implements HasMedia, HasAvatar
         'agent',
     ];
 
-    protected $appends = [
-        'birthday',
-        'gender'
-    ];
-
-    /**
-     * @return string|null
-     */
     public function getFilamentAvatarUrl(): ?string
     {
-        return  $this->getFirstMediaUrl('avatar')?? null;
-    }
-
-    /**
-     * @return Model|string|null
-     */
-    public function getBirthdayAttribute(): Model|string|null
-    {
-        return $this->meta('birthday') ?: null;
-    }
-
-    /**
-     * @return Model|string|null
-     */
-    public function getGenderAttribute(): Model|string|null
-    {
-        return $this->meta('gender') ?: null;
-    }
-
-
-    /**
-     * @return HasMany
-     */
-    public function accountsMetas(): \Illuminate\Database\Eloquent\Relations\HasMany
-    {
-        return $this->hasMany('TomatoPHP\FilamentAccounts\Models\AccountsMeta');
-    }
-
-
-    /**
-     * @param string $key
-     * @param mixed $value
-     * @return mixed
-     */
-    public function meta(string $key, mixed $value=null): mixed
-    {
-        if($value!==null){
-            if($value === 'null'){
-                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => null]);
-            }
-            else {
-                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => $value]);
-            }
-        }
-        else {
-            $meta = $this->accountsMetas()->where('key', $key)->first();
-            if($meta){
-                return $meta->value;
-            }
-            else {
-                return $this->accountsMetas()->updateOrCreate(['key' => $key], ['value' => null]);
-            }
-        }
-    }
-
-
-    /**
-     * @return MorphMany
-     */
-    public function locations(): \Illuminate\Database\Eloquent\Relations\MorphMany
-    {
-        return $this->morphMany(Location::class, 'modelbale', 'model_type', 'model_id');
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function requests(): HasMany
-    {
-        return $this->hasMany(AccountRequest::class, 'account_id', 'id');
+        return $this->getFirstMediaUrl('avatar') ?? null;
     }
 }

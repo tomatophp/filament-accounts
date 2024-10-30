@@ -13,6 +13,7 @@ class AccountColumn extends TextColumn
     public function avatar(bool $avatar): static
     {
         $this->avatar = $avatar;
+
         return $this;
     }
 }

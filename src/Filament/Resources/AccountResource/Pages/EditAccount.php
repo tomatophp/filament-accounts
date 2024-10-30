@@ -2,9 +2,8 @@
 
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages;
 
-use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource;
-use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource;
 
 class EditAccount extends EditRecord
 {
@@ -12,14 +11,12 @@ class EditAccount extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        return [
-            Actions\DeleteAction::make(),
-        ];
+        return config('filament-accounts.resource.pages.edit') ? config('filament-accounts.resource.pages.edit')::make($this) : AccountResource\Actions\EditPageActions::make($this);
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
-        if(!empty($data['password'])){
+        if (! empty($data['password'])) {
             $data['password'] = bcrypt($data['password']);
         }
 
