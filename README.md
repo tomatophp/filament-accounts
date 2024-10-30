@@ -143,28 +143,6 @@ just allow `->useTypes()` on the plugin
 )
 ```
 
-### Use Notifications
-
-you need to install [Filament Alerts](https://github.com/tomatophp/filament-alets) 
-
-```bash
-composer require tomatophp/filament-alerts
-```
-
-after that install alerts
-
-```bash
-php artisan filament-alerts:install
-```
-
-and allow `->useNotifications()` on the plugin
-
-```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-    ->useNotifications()
-)
-```
-
 ## Show Address Field
 
 you can show or hide address field on the create or edit form by using this code
@@ -196,7 +174,7 @@ use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
 
 public function boot()
 {
-    FilamentAccounts::registerAccountRelation([
+    FilamentAccounts::register([
         AccountOrdersRelationManager::make()
     ]);
 }
@@ -232,50 +210,6 @@ public static function table(Table $table): Table
 
 just pass the account id to the column
 
-
-## Allow Teams Manager
-
-install jetstream without run install command.
-
-```bash
-composer require laravel/jetstream
-```
-
-than publish the migrations
-
-```bash
-php artisan vendor:publish --tag=filament-accounts-teams-migrations
-```
-
-now you need to migrate your database
-
-```bash
-php artisan migrate
-```
-
-now publish your Accounts model
-
-```bash
-php artisan vendor:publish --tag="filament-accounts-model"
-```
-
-inside your published model use this implementation
-
-```php
-class Account extends Authenticatable implements HasMedia, FilamentUser, HasAvatar, HasTenants, HasDefaultTenant
-{
-    ...
-    use InteractsWithTenant;
-}
-```
-
-on your main panel you must use teams
-
-```php
-->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-        ->useTeams()
-)
-```
 
 ### Use Filament Impersonate
 
