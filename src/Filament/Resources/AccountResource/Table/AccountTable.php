@@ -24,7 +24,7 @@ class AccountTable
     public static function getDefaultColumns(): array
     {
         return [
-            Columns\ID::make(),
+            Columns\Id::make(),
             Columns\Name::make(),
             Columns\Email::make(),
             Columns\Phone::make(),
