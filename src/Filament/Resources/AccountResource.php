@@ -2,27 +2,17 @@
 
 namespace TomatoPHP\FilamentAccounts\Filament\Resources;
 
-use Filament\Notifications\Notification;
-use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
-use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Forms\AccountsForm;
-use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages;
-use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\RelationManagers;
-use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Releations\AccountReleations;
-use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Tables\AccountsTable;
-use TomatoPHP\FilamentAccounts\Models\Account;
-use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use TomatoPHP\FilamentAlerts\Models\NotificationsTemplate;
-use TomatoPHP\FilamentAlerts\Services\SendNotification;
-use TomatoPHP\FilamentIcons\Components\IconPicker;
-use TomatoPHP\FilamentTypes\Components\TypeColumn;
-use TomatoPHP\FilamentTypes\Models\Type;
-use function Laravel\Prompts\confirm;
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Form\AccountForm;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\InfoList\AccountInfoList;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountTable;
 
 class AccountResource extends Resource
 {
@@ -32,9 +22,6 @@ class AccountResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
-    /**
-     * @return string|null
-     */
     public static function getModel(): string
     {
         return config('filament-accounts.model');
@@ -60,26 +47,35 @@ class AccountResource extends Resource
         return trans('filament-accounts::messages.accounts.single');
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return config('filament-accounts.resource.infolist.class') ? config('filament-accounts.resource.infolist.class')::make($infolist) : AccountInfoList::make($infolist);
+    }
+
     public static function form(Form $form): Form
     {
-        return config('filament-accounts.accounts.form') ? config('filament-accounts.accounts.form')::make($form) : AccountsForm::make($form);
+        return config('filament-accounts.resource.form.class') ? config('filament-accounts.resource.form.class')::make($form) : AccountForm::make($form);
     }
 
     public static function table(Table $table): Table
     {
-        return config('filament-accounts.accounts.table') ? config('filament-accounts.accounts.table')::make($table) : AccountsTable::make($table);
+        return config('filament-accounts.resource.table.class') ? config('filament-accounts.resource.table.class')::make($table) : AccountTable::make($table);
     }
 
     public static function getRelations(): array
     {
-        return config('filament-accounts.relations') ? config('filament-accounts.relations')::get() :  AccountReleations::get();
+        return FilamentAccounts::getRelations() ?? [];
     }
 
     public static function getPages(): array
     {
-        return config('filament-accounts.accounts.pages') ? config('filament-accounts.accounts.pages')::routes() : [
-            'index' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\ListAccounts::route('/'),
-            'edit' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\EditAccount::route('/{record}/edit')
+        return config('filament-accounts.simple') ? [
+            'index' => Pages\ManageAccounts::route('/'),
+        ] : [
+            'index' => Pages\ListAccounts::route('/'),
+            'create' => Pages\CreateAccount::route('/create'),
+            'edit' => Pages\EditAccount::route('/{record}/edit'),
+            'view' => Pages\ViewAccount::route('/{record}'),
         ];
     }
 

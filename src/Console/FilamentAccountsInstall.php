@@ -29,7 +29,6 @@ class FilamentAccountsInstall extends Command
         parent::__construct();
     }
 
-
     /**
      * Execute the console command.
      *
@@ -39,80 +38,80 @@ class FilamentAccountsInstall extends Command
     {
         $this->info('Publish Vendor Assets');
         $this->callSilent('optimize:clear');
-        $this->artisanCommand(["migrate"]);
-        $this->artisanCommand(["optimize:clear"]);
-        if(config('filament-accounts.features.types') && class_exists(\TomatoPHP\FilamentTypes\Models\Type::class)){
+        $this->artisanCommand(['migrate']);
+        $this->artisanCommand(['optimize:clear']);
+        if (config('filament-accounts.features.types') && class_exists(\TomatoPHP\FilamentTypes\Models\Type::class)) {
             $typesArray = [
                 [
-                    "name" => [
-                        "ar" => "عميل",
-                        "en" => "Customer"
+                    'name' => [
+                        'ar' => 'عميل',
+                        'en' => 'Customer',
                     ],
-                    "key" => "customer",
-                    "for" => "accounts",
-                    "type" => "type",
-                    "icon" => "heroicon-c-user-group",
-                    "color" => "#d91919"
+                    'key' => 'customer',
+                    'for' => 'accounts',
+                    'type' => 'type',
+                    'icon' => 'heroicon-c-user-group',
+                    'color' => '#d91919',
                 ],
                 [
-                    "name" => [
-                        "ar" => "حساب",
-                        "en" => "Account"
+                    'name' => [
+                        'ar' => 'حساب',
+                        'en' => 'Account',
                     ],
-                    "key" => "account",
-                    "for" => "accounts",
-                    "type" => "type",
-                    "icon" => "heroicon-c-user-circle",
-                    "color" => "#0a56d9"
+                    'key' => 'account',
+                    'for' => 'accounts',
+                    'type' => 'type',
+                    'icon' => 'heroicon-c-user-circle',
+                    'color' => '#0a56d9',
                 ],
                 [
-                    "name" => [
-                        "ar" => "تحت المراجعة",
-                        "en" => "Pending"
+                    'name' => [
+                        'ar' => 'تحت المراجعة',
+                        'en' => 'Pending',
                     ],
-                    "key" => "pending",
-                    "for" => "contacts",
-                    "type" => "status",
-                    "icon" => "heroicon-c-pause-circle",
-                    "color" => "#ffcf00"
+                    'key' => 'pending',
+                    'for' => 'contacts',
+                    'type' => 'status',
+                    'icon' => 'heroicon-c-pause-circle',
+                    'color' => '#ffcf00',
                 ],
                 [
-                    "name" => [
-                        "ar" => "جاري المتابعة",
-                        "en" => "Active"
+                    'name' => [
+                        'ar' => 'جاري المتابعة',
+                        'en' => 'Active',
                     ],
-                    "key" => "active",
-                    "for" => "contacts",
-                    "type" => "status",
-                    "icon" => "heroicon-c-play-circle",
-                    "color" => "#1897ff"
+                    'key' => 'active',
+                    'for' => 'contacts',
+                    'type' => 'status',
+                    'icon' => 'heroicon-c-play-circle',
+                    'color' => '#1897ff',
                 ],
                 [
-                    "name" => [
-                        "ar" => "تم اغلاقها",
-                        "en" => "Closed"
+                    'name' => [
+                        'ar' => 'تم اغلاقها',
+                        'en' => 'Closed',
                     ],
-                    "key" => "closed",
-                    "for" => "contacts",
-                    "type" => "status",
-                    "icon" => "heroicon-c-check-circle",
-                    "color" => "#38fc34"
+                    'key' => 'closed',
+                    'for' => 'contacts',
+                    'type' => 'status',
+                    'icon' => 'heroicon-c-check-circle',
+                    'color' => '#38fc34',
                 ],
                 [
-                    "name" => [
-                        "ar" => "الموافقة علي الحساب",
-                        "en" => "Account Approve"
+                    'name' => [
+                        'ar' => 'الموافقة علي الحساب',
+                        'en' => 'Account Approve',
                     ],
-                    "key" => "account_approve",
-                    "for" => "contacts",
-                    "type" => "type",
-                    "icon" => "heroicon-c-check-circle",
-                    "color" => "#38fc34"
-                ]
+                    'key' => 'account_approve',
+                    'for' => 'contacts',
+                    'type' => 'type',
+                    'icon' => 'heroicon-c-check-circle',
+                    'color' => '#38fc34',
+                ],
             ];
-            foreach ($typesArray as $item){
-                $checkFirst = Type::query()->where('key',$item['key'])->first();
-                if(!$checkFirst){
+            foreach ($typesArray as $item) {
+                $checkFirst = Type::query()->where('key', $item['key'])->first();
+                if (! $checkFirst) {
                     Type::query()->create($item);
                 }
             }

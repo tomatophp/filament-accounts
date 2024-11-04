@@ -3,9 +3,9 @@
     "alias": "filament-accounts",
     "description": {
         "ar": "قم بادارة جميع العملاء والحسابات الخاصة بالنظام من مكان واحد",
-        "en": "full accounts manager with API\/Notifications\/Contacts to manage your contacts and accounts",
-        "gr": "full accounts manager with API\/Notifications\/Contacts to manage your contacts and accounts",
-        "sp": "full accounts manager with API\/Notifications\/Contacts to manage your contacts and accounts"
+        "en": "Manage your multi accounts inside your app using 1 table with multi auth and a lot of integrations",
+        "gr": "Manage your multi accounts inside your app using 1 table with multi auth and a lot of integrations",
+        "sp": "Manage your multi accounts inside your app using 1 table with multi auth and a lot of integrations"
     },
     "keywords": [],
     "priority": 0,
@@ -23,7 +23,7 @@
     "icon": "heroicon-c-user-circle",
     "placeholder": "https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/3x1io-tomato-accounts.jpg",
     "type": "plugin",
-    "version": "v2.1.4",
+    "version": "v2.3.0",
     "github" : "https://github.com/tomatophp/filament-accounts",
     "docs" : "https://github.com/tomatophp/filament-accounts"
 }
