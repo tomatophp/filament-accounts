@@ -2,6 +2,9 @@
 
 # Filament Accounts Builder
 
+[![Dependabot Updates](https://github.com/tomatophp/filament-accounts/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/tomatophp/filament-accounts/actions/workflows/dependabot/dependabot-updates)
+[![PHP Code Styling](https://github.com/tomatophp/filament-accounts/actions/workflows/fix-php-code-styling.yml/badge.svg)](https://github.com/tomatophp/filament-accounts/actions/workflows/fix-php-code-styling.yml)
+[![Tests](https://github.com/tomatophp/filament-accounts/actions/workflows/tests.yml/badge.svg)](https://github.com/tomatophp/filament-accounts/actions/workflows/tests.yml)
 [![Latest Stable Version](https://poser.pugx.org/tomatophp/filament-accounts/version.svg)](https://packagist.org/packages/tomatophp/filament-accounts)
 [![License](https://poser.pugx.org/tomatophp/filament-accounts/license.svg)](https://packagist.org/packages/tomatophp/filament-accounts)
 [![Downloads](https://poser.pugx.org/tomatophp/filament-accounts/d/total.svg)](https://packagist.org/packages/tomatophp/filament-accounts)
