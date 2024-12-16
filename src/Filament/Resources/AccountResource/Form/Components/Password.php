@@ -13,7 +13,7 @@ class Password extends Component
             ->confirmed()
             ->visible(fn (Forms\Get $get) => $get('is_login'))
             ->password()
-            ->dehydrateStateUsing(fn($state) => bcrypt($state))
+            ->dehydrateStateUsing(fn ($state) => bcrypt($state))
             ->maxLength(255);
     }
 }
