@@ -18,8 +18,8 @@ beforeEach(function () {
 });
 
 it('can render account resource', function () {
-    get(AccountResource::getUrl())->assertSuccessful();
-});
+get(AccountResource::getUrl())->assertSuccessful();
+    });
 
 it('can list posts', function () {
     Account::query()->delete();
@@ -55,10 +55,10 @@ it('can render view account action', function () {
 });
 
 it('can render view account page', function () {
-    get(AccountResource::getUrl('view', [
-        'record' => Account::factory()->create(),
-    ]))->assertSuccessful();
-});
+get(AccountResource::getUrl('view', [
+    'record' => Account::factory()->create(),
+]))->assertSuccessful();
+    });
 
 it('can render account create action', function () {
     livewire(Pages\ManageAccounts::class)
@@ -67,8 +67,8 @@ it('can render account create action', function () {
 });
 
 it('can render account create page', function () {
-    get(AccountResource::getUrl('create'))->assertSuccessful();
-});
+get(AccountResource::getUrl('create'))->assertSuccessful();
+    });
 
 it('can create new account', function () {
     $newData = Account::factory()->make();
@@ -111,10 +111,10 @@ it('can render account edit action', function () {
 });
 
 it('can render account edit page', function () {
-    get(AccountResource::getUrl('edit', [
-        'record' => Account::factory()->create(),
-    ]))->assertSuccessful();
-});
+get(AccountResource::getUrl('edit', [
+    'record' => Account::factory()->create(),
+]))->assertSuccessful();
+    });
 
 it('can retrieve account data', function () {
     $account = Account::factory()->create();

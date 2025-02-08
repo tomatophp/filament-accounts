@@ -15,12 +15,12 @@ it('registers plugin', function () {
         ->toThrow(Exception::class);
 });
 
-//it('can modify avatar', function ($condition) {
+// it('can modify avatar', function ($condition) {
 //    $plugin = FilamentAccountsPlugin::make()
 //        ->useAvatar($condition);
 //
 //    expect($plugin::hasAvatar())->toBe($condition);
-//})->with([
+// })->with([
 //    false,
 //    fn () => true,
-//]);
+// ]);
