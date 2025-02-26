@@ -26,7 +26,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->string('lang', 10)->nullable();
 
-            //Login
+            // Login
             $table->string('password')->nullable();
             $table->string('otp_code')->nullable();
             $table->dateTime('otp_activated_at')->nullable();
@@ -34,7 +34,7 @@ return new class extends Migration
             $table->longText('agent')->nullable();
             $table->string('host')->nullable();
 
-            //Options
+            // Options
             $table->boolean('is_login')->default(0)->nullable();
             $table->boolean('is_active')->default(false);
             $table->boolean('is_notification_active')->default(true);
