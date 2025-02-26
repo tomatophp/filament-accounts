@@ -52,25 +52,25 @@
         }
     },
     "require": {
-        "php": "^8.1|^8.2",
+        "php": "8.2|^8.3|^8.4",
         "tomatophp/console-helpers": "^1.1",
-        "filament/filament": "^3.2",
+        "filament/filament": "^3.3",
         "filament/notifications": "^3.2",
         "tomatophp/filament-types": "^2.0",
         "maatwebsite/excel": "^3.1",
         "filament/spatie-laravel-media-library-plugin": "^3.2"
     },
     "require-dev": {
-        "laravel/pint": "^1.18",
+        "laravel/pint": "^1.21",
         "livewire/livewire": "^2.10|^3.0",
-        "nunomaduro/larastan": "^2.9",
-        "orchestra/testbench": "^9.5",
-        "pestphp/pest": "^2.36",
-        "pestphp/pest-plugin-laravel": "^2.4",
-        "pestphp/pest-plugin-livewire": "^2.1",
+        "nunomaduro/larastan": "^3.1",
+        "orchestra/testbench": "^10.0",
+        "pestphp/pest": "^3.7",
+        "pestphp/pest-plugin-laravel": "^3.1",
+        "pestphp/pest-plugin-livewire": "^3.0",
         "phpstan/extension-installer": "^1.4",
-        "phpstan/phpstan-deprecation-rules": "^1.2",
-        "phpstan/phpstan-phpunit": "^1.4"
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0"
     },
-    "version": "2.3.0"
+    "version": "2.3.3"
 }
