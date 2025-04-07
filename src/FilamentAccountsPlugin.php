@@ -58,7 +58,7 @@ class FilamentAccountsPlugin implements Plugin
             ]);
         }
 
-        if ($this->useResource) {
+        if($this->useResource){
             $panel->resources($resources);
         }
 
@@ -67,6 +67,13 @@ class FilamentAccountsPlugin implements Plugin
     public function useExport(bool $useExport = true): static
     {
         $this->useExport = $useExport;
+
+        return $this;
+    }
+
+    public function useResource(bool $useResource = true): static
+    {
+        $this->useResource = $useResource;
 
         return $this;
     }
