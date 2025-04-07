@@ -136,13 +136,23 @@ add this method to your plugin in `AdminPanelProvider.php`
 )
 ```
 
-## Use Filament Types
+## Hide Resource
 
-just allow `->useTypes()` on the plugin
+just allow `->()` on the plugin
 
 ```php
 ->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
     ->useTypes()
+)
+```
+
+## Use Filament Types
+
+just allow `->useResource()` on the plugin
+
+```php
+->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
+    ->useResource()
 )
 ```
 
