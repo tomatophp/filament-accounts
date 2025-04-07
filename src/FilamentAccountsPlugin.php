@@ -37,6 +37,8 @@ class FilamentAccountsPlugin implements Plugin
 
     public bool $useImpersonate = false;
 
+    public bool $userResource = true;
+
     public ?string $impersonateRedirect = '/app';
 
     public function getId(): string
@@ -56,7 +58,10 @@ class FilamentAccountsPlugin implements Plugin
             ]);
         }
 
-        $panel->resources($resources);
+        if($this->userResource){
+            $panel->resources($resources);
+        }
+
     }
 
     public function useExport(bool $useExport = true): static
