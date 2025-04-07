@@ -37,7 +37,7 @@ class FilamentAccountsPlugin implements Plugin
 
     public bool $useImpersonate = false;
 
-    public bool $userResource = true;
+    public bool $useResource = true;
 
     public ?string $impersonateRedirect = '/app';
 
@@ -58,7 +58,7 @@ class FilamentAccountsPlugin implements Plugin
             ]);
         }
 
-        if($this->userResource){
+        if($this->useResource){
             $panel->resources($resources);
         }
 
