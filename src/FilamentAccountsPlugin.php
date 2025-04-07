@@ -58,7 +58,7 @@ class FilamentAccountsPlugin implements Plugin
             ]);
         }
 
-        if($this->useResource){
+        if ($this->useResource) {
             $panel->resources($resources);
         }
 
