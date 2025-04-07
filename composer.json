@@ -72,5 +72,5 @@
         "phpstan/phpstan-deprecation-rules": "^1.2",
         "phpstan/phpstan-phpunit": "^1.4"
     },
-    "version": "2.3.0"
+    "version": "2.3.1"
 }
