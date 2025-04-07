@@ -138,11 +138,11 @@ add this method to your plugin in `AdminPanelProvider.php`
 
 ## Hide Resource
 
-just allow `->()` on the plugin
+just allow `useResource->()` on the plugin
 
 ```php
 ->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-    ->useTypes()
+    ->useResource(false)
 )
 ```
 
