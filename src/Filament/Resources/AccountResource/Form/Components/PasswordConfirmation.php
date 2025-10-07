@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Form\Components;
 
 use Filament\Forms;
+use Filament\Schemas\Components\Utilities\Get;
 
 class PasswordConfirmation extends Component
 {
@@ -10,7 +11,7 @@ class PasswordConfirmation extends Component
     {
         return Forms\Components\TextInput::make('password_confirmation')
             ->label(trans('filament-accounts::messages.accounts.columns.password_confirmation'))
-            ->visible(fn (Forms\Get $get) => $get('is_login'))
+            ->visible(fn (Get $get) => $get('is_login'))
             ->password()
             ->maxLength(255);
     }

@@ -9,9 +9,9 @@ use TomatoPHP\FilamentAccounts\Import\ImportAccounts;
 
 class ImportAction extends Action
 {
-    public static function make(): \Filament\Tables\Actions\Action
+    public static function make(): \Filament\Actions\Action
     {
-        return \Filament\Tables\Actions\Action::make('import')
+        return \Filament\Actions\Action::make('import')
             ->label(trans('filament-accounts::messages.accounts.import.title'))
             ->form([
                 Forms\Components\FileUpload::make('excel')

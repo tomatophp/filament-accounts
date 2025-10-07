@@ -4,5 +4,5 @@ namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\He
 
 abstract class Action
 {
-    abstract public static function make(): \Filament\Tables\Actions\Action;
+    abstract public static function make(): \Filament\Actions\Action;
 }

@@ -3,13 +3,13 @@
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Form;
 
 use Filament\Forms\Components\Field;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 
 class AccountForm
 {
     protected static array $schema = [];
 
-    public static function make(Form $form): Form
+    public static function make(Schema $form): Schema
     {
         return $form->schema(self::getSchema())->columns(2);
     }

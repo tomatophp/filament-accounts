@@ -2,8 +2,7 @@
 
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table;
 
-use Filament\Tables;
-use Filament\Tables\Actions\BulkAction;
+use Filament\Actions;
 
 class AccountBulkActions
 {
@@ -21,8 +20,8 @@ class AccountBulkActions
     {
         return [
             BulkActions\DeleteAction::make(),
-            Tables\Actions\ForceDeleteBulkAction::make(),
-            Tables\Actions\RestoreBulkAction::make(),
+            Actions\ForceDeleteBulkAction::make(),
+            Actions\RestoreBulkAction::make(),
         ];
     }
 
@@ -31,11 +30,11 @@ class AccountBulkActions
         return array_merge(self::getDefaultActions(), self::$actions);
     }
 
-    public static function register(BulkAction | array $action): void
+    public static function register(Actions\BulkAction | array $action): void
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if ($item instanceof BulkAction) {
+                if ($item instanceof Actions\BulkAction) {
                     self::$actions[] = $item;
                 }
             }

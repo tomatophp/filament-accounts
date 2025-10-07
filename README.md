@@ -1,4 +1,4 @@
-![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/3x1io-tomato-accounts.jpg)
+![Screenshot](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/fadymondy-tomato-accounts.jpg)
 
 # Filament Accounts Builder
 

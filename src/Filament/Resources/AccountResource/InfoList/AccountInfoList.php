@@ -3,13 +3,13 @@
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\InfoList;
 
 use Filament\Infolists\Components\Entry;
-use Filament\Infolists\Infolist;
+use Filament\Schemas\Schema;
 
 class AccountInfoList
 {
     protected static array $schema = [];
 
-    public static function make(Infolist $infolist): Infolist
+    public static function make(Schema $infolist): Schema
     {
         return $infolist->schema(self::getSchema())->columns(2);
     }

@@ -4,7 +4,7 @@ use Filament\Facades\Filament;
 use TomatoPHP\FilamentAccounts\FilamentAccountsPlugin;
 
 it('registers plugin', function () {
-    $panel = Filament::getCurrentPanel();
+    $panel = Filament::getCurrentOrDefaultPanel();
 
     $panel->plugins([
         FilamentAccountsPlugin::make(),
@@ -14,13 +14,3 @@ it('registers plugin', function () {
         ->not()
         ->toThrow(Exception::class);
 });
-
-// it('can modify avatar', function ($condition) {
-//    $plugin = FilamentAccountsPlugin::make()
-//        ->useAvatar($condition);
-//
-//    expect($plugin::hasAvatar())->toBe($condition);
-// })->with([
-//    false,
-//    fn () => true,
-// ]);

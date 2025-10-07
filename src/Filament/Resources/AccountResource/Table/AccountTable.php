@@ -13,8 +13,8 @@ class AccountTable
     {
         return $table
             ->deferLoading()
-            ->bulkActions(config('filament-accounts.resource.table.bulkActions') ? config('filament-accounts.resource.table.bulkActions')::make() : AccountBulkActions::make())
-            ->actions(config('filament-accounts.resource.table.actions') ? config('filament-accounts.resource.table.actions')::make() : AccountActions::make())
+            ->toolbarActions(config('filament-accounts.resource.table.bulkActions') ? config('filament-accounts.resource.table.bulkActions')::make() : AccountBulkActions::make())
+            ->recordActions(config('filament-accounts.resource.table.actions') ? config('filament-accounts.resource.table.actions')::make() : AccountActions::make())
             ->filters(config('filament-accounts.resource.table.filters') ? config('filament-accounts.resource.table.filters')::make() : AccountFilters::make())
             ->headerActions(config('filament-accounts.resource.table.headerActions') ? config('filament-accounts.resource.table.headerActions')::make() : AccountHeaderActions::make())
             ->defaultSort('id', 'desc')

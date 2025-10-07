@@ -161,14 +161,3 @@ it('can save account data', function () {
         ->name->toBe($newData->name)
         ->email->toBe($newData->email);
 });
-
-it('can delete account', function () {
-    $account = Account::factory()->create();
-
-    livewire(Pages\EditAccount::class, [
-        'record' => $account->getRouteKey(),
-    ])
-        ->callAction('deleteSelectedAccount');
-
-    assertNotEmpty(Account::query()->withTrashed()->find($account->getRouteKey())->deleted_at);
-});

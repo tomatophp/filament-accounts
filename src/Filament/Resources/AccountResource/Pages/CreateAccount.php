@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages;
 
 use Filament\Resources\Pages\CreateRecord;
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource;
 
 class CreateAccount extends CreateRecord
@@ -25,8 +26,8 @@ class CreateAccount extends CreateRecord
         return $data;
     }
 
-    protected function getHeaderActions(): array
+    public function getHeaderActions(): array
     {
-        return config('filament-accounts.resource.pages.create') ? config('filament-accounts.resource.pages.create')::make($this) : AccountResource\Actions\CreatePageActions::make($this);
+        return FilamentAccounts::getActions(self::class);
     }
 }

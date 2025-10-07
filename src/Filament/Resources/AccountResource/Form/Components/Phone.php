@@ -3,6 +3,7 @@
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Form\Components;
 
 use Filament\Forms;
+use Filament\Schemas\Components\Utilities\Get;
 
 class Phone extends Component
 {
@@ -10,7 +11,7 @@ class Phone extends Component
     {
         return Forms\Components\TextInput::make('phone')
             ->label(trans('filament-accounts::messages.accounts.columns.phone'))
-            ->required(fn (Forms\Get $get) => $get('loginBy') === 'phone')
+            ->required(fn (Get $get) => $get('loginBy') === 'phone')
             ->tel()
             ->maxLength(255);
     }

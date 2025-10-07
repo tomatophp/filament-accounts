@@ -57,11 +57,5 @@ return [
         'infolist' => [
             'class' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\InfoList\AccountInfoList::class,
         ],
-        'pages' => [
-            'list' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\ManagePageActions::class,
-            'create' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\CreatePageActions::class,
-            'edit' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\EditPageActions::class,
-            'view' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Actions\ViewPageActions::class,
-        ],
     ],
 ];

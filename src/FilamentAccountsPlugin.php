@@ -5,6 +5,7 @@ namespace TomatoPHP\FilamentAccounts;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Illuminate\Support\Facades\Config;
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource;
 use TomatoPHP\FilamentTypes\Facades\FilamentTypes;
 use TomatoPHP\FilamentTypes\Services\Contracts\Type;
@@ -171,6 +172,11 @@ class FilamentAccountsPlugin implements Plugin
         Config::set('filament-accounts.features.impersonate.active', $this->useImpersonate);
         Config::set('filament-accounts.features.impersonate.redirect', $this->impersonateRedirect);
 
+        FilamentAccounts::registerAction(AccountResource\Actions\Components\CreateAction::make(), AccountResource\Pages\ManageAccounts::class);
+        FilamentAccounts::registerAction(AccountResource\Actions\Components\CreateAction::make(), AccountResource\Pages\ListAccounts::class);
+        FilamentAccounts::registerAction(AccountResource\Actions\Components\DeleteAction::make(), AccountResource\Pages\EditAccount::class);
+        FilamentAccounts::registerAction(AccountResource\Actions\Components\ViewAction::make(), AccountResource\Pages\EditAccount::class);
+
         if ($this->showAddressField) {
             AccountResource\Form\AccountForm::register(AccountResource\Form\Components\Address::make());
             AccountResource\InfoList\AccountInfoList::register(AccountResource\InfoList\Entries\Address::make());
@@ -211,7 +217,8 @@ class FilamentAccountsPlugin implements Plugin
             AccountResource\Form\AccountForm::register(AccountResource\Form\Components\Type::make());
             AccountResource\Table\AccountTable::register(AccountResource\Table\Columns\Type::make());
             AccountResource\InfoList\AccountInfoList::register(AccountResource\InfoList\Entries\Type::make());
-            AccountResource\Actions\ManagePageActions::register(AccountResource\Actions\Components\TypesAction::make());
+            FilamentAccounts::registerAction(AccountResource\Actions\Components\TypesAction::make(), AccountResource\Pages\ManageAccounts::class);
+            FilamentAccounts::registerAction(AccountResource\Actions\Components\TypesAction::make(), AccountResource\Pages\ListAccounts::class);
         }
 
         if ($this->canLogin) {

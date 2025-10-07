@@ -2,9 +2,8 @@
 
 namespace TomatoPHP\FilamentAccounts\Filament\Resources;
 
-use Filament\Forms\Form;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -16,7 +15,7 @@ use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountT
 
 class AccountResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
+    protected static string | null | \BackedEnum $navigationIcon = 'heroicon-o-user-circle';
 
     protected static bool $softDelete = true;
 
@@ -47,12 +46,12 @@ class AccountResource extends Resource
         return trans('filament-accounts::messages.accounts.single');
     }
 
-    public static function infolist(Infolist $infolist): Infolist
+    public static function infolist(Schema $infolist): Schema
     {
         return config('filament-accounts.resource.infolist.class') ? config('filament-accounts.resource.infolist.class')::make($infolist) : AccountInfoList::make($infolist);
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $form): Schema
     {
         return config('filament-accounts.resource.form.class') ? config('filament-accounts.resource.form.class')::make($form) : AccountForm::make($form);
     }

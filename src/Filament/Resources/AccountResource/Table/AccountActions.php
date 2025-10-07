@@ -28,11 +28,11 @@ class AccountActions
         return array_merge(self::getDefaultActions(), self::$actions);
     }
 
-    public static function register(\Filament\Tables\Actions\Action | array $action): void
+    public static function register(\Filament\Actions\Action | array $action): void
     {
         if (is_array($action)) {
             foreach ($action as $item) {
-                if ($item instanceof \Filament\Tables\Actions\Action) {
+                if ($item instanceof \Filament\Actions\Action) {
                     self::$actions[] = $item;
                 }
             }

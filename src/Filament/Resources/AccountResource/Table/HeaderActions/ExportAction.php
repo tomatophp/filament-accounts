@@ -8,9 +8,9 @@ use TomatoPHP\FilamentAccounts\Export\ExportAccounts;
 
 class ExportAction extends Action
 {
-    public static function make(): \Filament\Tables\Actions\Action
+    public static function make(): \Filament\Actions\Action
     {
-        return \Filament\Tables\Actions\Action::make('export')
+        return \Filament\Actions\Action::make('export')
             ->label(trans('filament-accounts::messages.accounts.export.title'))
             ->requiresConfirmation()
             ->color('info')

@@ -7,15 +7,15 @@ use Filament\Notifications\Notification;
 
 class ChangePasswordAction extends Action
 {
-    public static function make(): \Filament\Tables\Actions\Action
+    public static function make(): \Filament\Actions\Action
     {
-        return \Filament\Tables\Actions\Action::make('password')
+        return \Filament\Actions\Action::make('password')
             ->label(trans('filament-accounts::messages.accounts.actions.password'))
             ->icon('heroicon-s-lock-closed')
             ->iconButton()
             ->tooltip(trans('filament-accounts::messages.accounts.actions.password'))
             ->color('danger')
-            ->form([
+            ->schema([
                 Forms\Components\TextInput::make('password')
                     ->label(trans('filament-accounts::messages.accounts.columns.password'))
                     ->password()

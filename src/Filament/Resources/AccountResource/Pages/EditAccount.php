@@ -3,15 +3,16 @@
 namespace TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages;
 
 use Filament\Resources\Pages\EditRecord;
+use TomatoPHP\FilamentAccounts\Facades\FilamentAccounts;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource;
 
 class EditAccount extends EditRecord
 {
     protected static string $resource = AccountResource::class;
 
-    protected function getHeaderActions(): array
+    public function getHeaderActions(): array
     {
-        return config('filament-accounts.resource.pages.edit') ? config('filament-accounts.resource.pages.edit')::make($this) : AccountResource\Actions\EditPageActions::make($this);
+        return FilamentAccounts::getActions(self::class);
     }
 
     protected function mutateFormDataBeforeSave(array $data): array
