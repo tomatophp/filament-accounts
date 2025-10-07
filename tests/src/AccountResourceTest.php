@@ -11,7 +11,6 @@ use function Pest\Laravel\actingAs;
 use function Pest\Laravel\assertDatabaseHas;
 use function Pest\Laravel\get;
 use function Pest\Livewire\livewire;
-use function PHPUnit\Framework\assertNotEmpty;
 
 beforeEach(function () {
     actingAs(User::factory()->create());
