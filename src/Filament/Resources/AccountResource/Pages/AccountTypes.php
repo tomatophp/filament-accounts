@@ -11,7 +11,7 @@ class AccountTypes extends BaseTypePage
     /**
      * @param  array<mixed>  $parameters
      */
-    public static function getUrl(array $parameters = [], bool $isAbsolute = true, ?string $panel = null, ?Model $tenant = null): string
+    public static function getUrl(array $parameters = [], bool $isAbsolute = true, ?string $panel = null, ?Model $tenant = null, bool $shouldGuessMissingParameters = false, ?string $configuration = null): string
     {
         if (blank($panel) || Filament::getPanel($panel)->hasTenancy()) {
             $parameters['tenant'] ??= ($tenant ?? Filament::getTenant());
