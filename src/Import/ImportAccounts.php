@@ -8,7 +8,7 @@ use TomatoPHP\FilamentAccounts\Models\Account;
 
 class ImportAccounts implements ToCollection
 {
-    public function collection(Collection $collection)
+    public function collection(Collection $collection): void
     {
         foreach ($collection as $row) {
             if (str($row[0])->contains(trans('filament-accounts::messages.accounts.columns.id'))) {

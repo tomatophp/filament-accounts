@@ -18,7 +18,7 @@ class AccountFactory extends Factory
             'name' => $this->faker->name(),
             'type' => 'account',
             'address' => $this->faker->address(),
-            'phone' => $this->faker->unique()->phoneNumber(),
+            'phone' => $this->faker->unique()->e164PhoneNumber(),
             'email' => $email,
             'username' => $email,
             'loginBy' => 'email',

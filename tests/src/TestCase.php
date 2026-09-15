@@ -25,6 +25,8 @@ use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
 use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use TomatoPHP\FilamentAccounts\FilamentAccountsServiceProvider;
 use TomatoPHP\FilamentAccounts\Tests\Models\User;
+use TomatoPHP\FilamentIcons\FilamentIconsServiceProvider;
+use TomatoPHP\FilamentTranslationComponent\FilamentTranslationComponentServiceProvider;
 use TomatoPHP\FilamentTypes\FilamentTypesServiceProvider;
 
 #[WithEnv('DB_CONNECTION', 'testing')]
@@ -52,6 +54,8 @@ abstract class TestCase extends BaseTestCase
             SchemasServiceProvider::class,
             MediaLibraryServiceProvider::class,
             ExcelServiceProvider::class,
+            FilamentIconsServiceProvider::class,
+            FilamentTranslationComponentServiceProvider::class,
             FilamentTypesServiceProvider::class,
             FilamentAccountsServiceProvider::class,
             AdminPanelProvider::class,

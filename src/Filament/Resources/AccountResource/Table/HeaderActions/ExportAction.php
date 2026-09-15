@@ -29,7 +29,7 @@ class ExportAction extends Action
                     'updated_at' => trans('filament-accounts::messages.accounts.columns.updated_at'),
                 ],
             ])
-            ->form([
+            ->schema([
                 Forms\Components\KeyValue::make('columns')
                     ->label(trans('filament-accounts::messages.accounts.export.columns'))
                     ->required()

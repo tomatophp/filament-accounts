@@ -3,11 +3,13 @@
 namespace TomatoPHP\FilamentAccounts\Services;
 
 use Filament\Actions\Action;
+use Filament\Support\Concerns\EvaluatesClosures;
 use TomatoPHP\FilamentAccounts\Concerns\Impersonates;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\ListAccounts;
 
 class FilamentAccountsServices
 {
+    use EvaluatesClosures;
     use Impersonates;
 
     private array $relations = [];

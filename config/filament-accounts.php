@@ -1,5 +1,14 @@
 <?php
 
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Form\AccountForm;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\InfoList\AccountInfoList;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountActions;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountBulkActions;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountFilters;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountHeaderActions;
+use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountTable;
+use TomatoPHP\FilamentAccounts\Models\Account;
+
 return [
     /*
     * Features of Filament Accounts
@@ -29,7 +38,7 @@ return [
      *
      * model: User Model Class
      */
-    'model' => \TomatoPHP\FilamentAccounts\Models\Account::class,
+    'model' => Account::class,
 
     /*
      * Use Simple Resource
@@ -45,17 +54,17 @@ return [
      */
     'resource' => [
         'table' => [
-            'class' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountTable::class,
-            'filters' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountFilters::class,
-            'actions' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountActions::class,
-            'bulkActions' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountBulkActions::class,
-            'headerActions' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Table\AccountHeaderActions::class,
+            'class' => AccountTable::class,
+            'filters' => AccountFilters::class,
+            'actions' => AccountActions::class,
+            'bulkActions' => AccountBulkActions::class,
+            'headerActions' => AccountHeaderActions::class,
         ],
         'form' => [
-            'class' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Form\AccountForm::class,
+            'class' => AccountForm::class,
         ],
         'infolist' => [
-            'class' => \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\InfoList\AccountInfoList::class,
+            'class' => AccountInfoList::class,
         ],
     ],
 ];

@@ -17,7 +17,7 @@ class ExportAccounts implements FromCollection, WithHeadings
         return array_values($this->data['columns']);
     }
 
-    public function collection()
+    public function collection(): Collection
     {
         $select = array_keys(collect($this->data['columns'])->filter(fn ($item, $key) => ! str($key)->contains('.'))->toArray());
 

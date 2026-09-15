@@ -4,9 +4,10 @@ namespace TomatoPHP\FilamentAccounts\Facades;
 
 use Illuminate\Support\Facades\Facade;
 use TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource\Pages\ListAccounts;
+use TomatoPHP\FilamentAccounts\Services\FilamentAccountsServices;
 
 /**
- * @see \TomatoPHP\FilamentAccounts\Services\FilamentAccountsServices
+ * @see FilamentAccountsServices
  *
  * @method static void register(array|string $relation)
  * @method static array getRelations()

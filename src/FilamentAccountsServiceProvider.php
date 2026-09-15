@@ -3,6 +3,8 @@
 namespace TomatoPHP\FilamentAccounts;
 
 use Illuminate\Support\ServiceProvider;
+use TomatoPHP\FilamentAccounts\Console\FilamentAccountsInstall;
+use TomatoPHP\FilamentAccounts\Services\FilamentAccountsServices;
 
 class FilamentAccountsServiceProvider extends ServiceProvider
 {
@@ -10,7 +12,7 @@ class FilamentAccountsServiceProvider extends ServiceProvider
     {
         // Register generate command
         $this->commands([
-            \TomatoPHP\FilamentAccounts\Console\FilamentAccountsInstall::class,
+            FilamentAccountsInstall::class,
         ]);
 
         // Register Config file
@@ -49,7 +51,7 @@ class FilamentAccountsServiceProvider extends ServiceProvider
         ], 'filament-accounts-model');
 
         $this->app->bind('filament-accounts', function () {
-            return new \TomatoPHP\FilamentAccounts\Services\FilamentAccountsServices;
+            return new FilamentAccountsServices;
         });
     }
 

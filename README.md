@@ -16,22 +16,24 @@ Manage your multi accounts inside your app using 1 table with multi auth and a l
 
 ## Screenshots
 
-![Accounts List](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/accounts-list.png)
-![Change Password](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/change-password.png)
-![Send Notifications](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/send-notifications.png)
-![Edit Account](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/edit-account.png)
+![Accounts List](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/accounts-list-light.png)
+![Accounts List Dark](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/accounts-list-dark.png)
+![Create Account](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/accounts-create-light.png)
+![Create Account Dark](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/accounts-create-dark.png)
+![Account Types](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/account-types-light.png)
+![Account Types Dark](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/account-types-dark.png)
 
 ## Features
 
 - [x] Accounts Manager
-- [x] Account Types `not tested`
-- [x] Account Login By `not tested`
-- [x] Account Active/Block `not tested`
-- [x] Account Avatar `not tested`
-- [x] Account Impersonate Integration `not tested`
-- [x] Account Table Column `not tested`
-- [x] Export `not tested`
-- [x] Import `not tested`
+- [x] Account Types
+- [x] Account Login By
+- [x] Account Active/Block
+- [x] Account Avatar
+- [x] Account Impersonate Integration
+- [x] Account Table Column
+- [x] Export
+- [x] Import
 - [ ] Account Filament Alerts Integration
 - [ ] Account Teams
 - [ ] Google Contacts Integrations
@@ -40,10 +42,17 @@ Manage your multi accounts inside your app using 1 table with multi auth and a l
 
 you can use this package if you like to build a CRM or a multi-accounts app
 
+## Compatibility
+
+| Package version | Filament | Laravel    | PHP  |
+|-----------------|----------|------------|------|
+| 5.x             | 5.x      | 12.x, 13.x | 8.2+ |
+| 4.x             | 4.x      | 11.x, 12.x | 8.2+ |
+
 ## Installation
 
 ```bash
-composer require tomatophp/filament-accounts
+composer require tomatophp/filament-accounts:^5.0
 ```
 
 after install your package please run this command
@@ -76,47 +85,24 @@ php artisan vendor:publish --tag="filament-accounts-config"
 
 ## Add Accounts Guard
 
-now you need to add a new guard to your auth.php config like this
+now you need to add a new guard to your `config/auth.php` like this (the impersonate action signs in with the `accounts` guard)
 
 ```php
-<?php
-
-return [
- /*
-    * Features of Tomato CRM
-    *
-    * accounts: Enable/Disable Accounts Feature
-    */
-    "features" => [
-        "notifications" => false,
-        "loginBy" => false,
-        "avatar" => false,
-        "types" => false,
-        "teams" => false,
-        "impersonate" => [
-            'active'=> false,
-            'redirect' => '/app',
-        ],
+'guards' => [
+    // ...
+    'accounts' => [
+        'driver' => 'session',
+        'provider' => 'accounts',
     ],
+],
 
-    /*
-     * Accounts Configurations
-     *
-     * login_by: Login By Phone or Email
-     */
-    "login_by" => "email",
-
-    /*
-     * Accounts Configurations
-     *
-     * model: User Model Class
-     */
-    "model" => \TomatoPHP\FilamentAccounts\Models\Account::class,
-    
-    
-    
-];
-
+'providers' => [
+    // ...
+    'accounts' => [
+        'driver' => 'eloquent',
+        'model' => \TomatoPHP\FilamentAccounts\Models\Account::class,
+    ],
+],
 ```
 
 ## Usage
@@ -148,11 +134,11 @@ just allow `useResource->()` on the plugin
 
 ## Use Filament Types
 
-just allow `->useResource()` on the plugin
+just allow `->useTypes()` on the plugin, it adds a type field, column and filter to the resource and an "Accounts Types" page to manage them (powered by [tomatophp/filament-types](https://github.com/tomatophp/filament-types))
 
 ```php
 ->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()
-    ->useResource()
+    ->useTypes()
 )
 ```
 
@@ -226,13 +212,9 @@ just pass the account id to the column
 
 ### Use Filament Impersonate
 
-you can use the impersonate to impersonate the user by install it first
+impersonation is powered by [lab404/laravel-impersonate](https://github.com/404labfr/laravel-impersonate) (installed with this package) and signs in with the `accounts` guard from the [Add Accounts Guard](#add-accounts-guard) section.
 
-```bash
-composer require stechstudio/filament-impersonate
-```
-
-now on your main panel provider add `->useImpersonate()` , `->impersonateRedirect('/app')` to the plugin
+on your main panel provider add `->useImpersonate()` , `->impersonateRedirect('/app')` to the plugin
 
 ```php
 ->plugin(\TomatoPHP\FilamentAccounts\FilamentAccountsPlugin::make()

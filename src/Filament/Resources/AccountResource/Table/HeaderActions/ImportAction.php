@@ -13,7 +13,7 @@ class ImportAction extends Action
     {
         return \Filament\Actions\Action::make('import')
             ->label(trans('filament-accounts::messages.accounts.import.title'))
-            ->form([
+            ->schema([
                 Forms\Components\FileUpload::make('excel')
                     ->hint(trans('filament-accounts::messages.accounts.import.hint'))
                     ->label(trans('filament-accounts::messages.accounts.import.excel'))

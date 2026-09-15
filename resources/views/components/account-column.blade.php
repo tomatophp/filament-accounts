@@ -1,7 +1,7 @@
 @php
     $account = config('filament-accounts.model')::withTrashed()->find($getState());
     $tenent = \Filament\Facades\Filament::getTenant()?->id;
-    $panel = \Filament\Facades\Filament::getCurrentPanel()->getId() ?? null;
+    $panel = \Filament\Facades\Filament::getCurrentOrDefaultPanel()?->getId();
     if(isset(\TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource::getPages()['edit'])){
         $url = \TomatoPHP\FilamentAccounts\Filament\Resources\AccountResource::getUrl('edit', ['record' => $account, 'tenant' => $tenent]);
     }
