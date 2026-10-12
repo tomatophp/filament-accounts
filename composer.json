@@ -2,6 +2,12 @@
     "name": "tomatophp/filament-accounts",
     "type": "library",
     "description": "Manage your multi accounts inside your app using 1 table with multi auth and a lot of integrations",
+    "homepage": "https://tomatophp.com/en/plugins/filament-accounts",
+    "support": {
+        "issues": "https://github.com/tomatophp/filament-accounts/issues",
+        "source": "https://github.com/tomatophp/filament-accounts",
+        "docs": "https://tomatophp.com/en/plugins/filament-accounts"
+    },
     "keywords": [
         "php",
         "laravel",
