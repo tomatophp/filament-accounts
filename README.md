@@ -14,6 +14,8 @@ Manage your multi accounts inside your app using 1 table with multi auth and a l
 > [!CAUTION]
 > Don't update to v2.3 if you are using v2.2 or less because you will lose some features but you can update and use this features from integrated packages.
 
+⭐ **If this package saves you time, star it** and browse 60+ more Filament plugins at [tomatophp.com/en/plugins](https://tomatophp.com/en/plugins).
+
 ## Screenshots
 
 ![Accounts List](https://raw.githubusercontent.com/tomatophp/filament-accounts/master/arts/accounts-list-light.png)
@@ -259,3 +261,12 @@ composer analyse
 ## Other Filament Packages
 
 Checkout our [Awesome TomatoPHP](https://github.com/tomatophp/awesome)
+
+## More open source from the same author
+
+- [TomatoPHP](https://tomatophp.com): 60+ open-source FilamentPHP plugins for Laravel
+- [Laravilt](https://laravilt.com): Laravel admin panels rendered with Inertia on Vue 3 or React 19
+- [ToGO](https://to-go.dev): the Laravel-style workflow for Go + React apps, with a plugin marketplace
+- [Zekra](https://zekra.dev): long-term memory for AI agents over MCP
+
+Built by [Fady Mondy](https://fadymondy.com).
